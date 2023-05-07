@@ -1,26 +1,26 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import "./globals.css";
+import { Fira_Code, Inter } from "next/font/google";
 
 export const metadata = {
-  title: 'Vercel Postgres Demo with Prisma',
+  title: "Vercel Postgres Demo with Prisma",
   description:
-    'A simple Next.js app with Vercel Postgres as the database and Prisma as the ORM',
-}
+    "A simple Next.js app with Vercel Postgres as the database and Prisma as the ORM",
+};
 
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
+const FiraCode = Fira_Code({
+  subsets: ["latin"],
+  display: "swap",
+  style: "normal",
+});
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body className={FiraCode.className}>{children}</body>
     </html>
-  )
+  );
 }
