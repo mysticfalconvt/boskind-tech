@@ -1,11 +1,7 @@
+"use client";
 import "./globals.css";
-import { Fira_Code, Inter } from "next/font/google";
-
-export const metadata = {
-  title: "Vercel Postgres Demo with Prisma",
-  description:
-    "A simple Next.js app with Vercel Postgres as the database and Prisma as the ORM",
-};
+import { Fira_Code } from "next/font/google";
+import { useToggle } from "@mantine/hooks";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -18,9 +14,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [themeValue, toggle] = useToggle(["cupcake", "dark"]);
+
   return (
-    <html lang="en">
-      <body className={FiraCode.className}>{children}</body>
+    <html lang="en" data-theme={themeValue}>
+      <body className={FiraCode.className}>
+        <button
+          onClick={() => {
+            toggle();
+          }}
+        >
+          Toggle Theme
+        </button>
+        {children}
+      </body>
     </html>
   );
 }
