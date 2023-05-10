@@ -1,7 +1,17 @@
 "use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
-import { useToggle } from "@mantine/hooks";
+import { useLocalStorage, useToggle } from "@mantine/hooks";
+import { use } from "react";
+import { HeaderNav } from "@/components/HeaderNav";
+import React from "react";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -9,25 +19,34 @@ const FiraCode = Fira_Code({
   style: "normal",
 });
 
+// export const metadata = {
+//   title: "Boskind Digital",
+//   description: "Boskind Digital LLC",
+// };
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [themeValue, toggle] = useToggle(["cupcake", "dark"]);
+  const queryClient = new QueryClient();
+  const [themeStorage, setTheme] = useLocalStorage({
+    key: "theme",
+    defaultValue: "winter",
+  });
+  const handleThemeChange = () => {
+    setTheme(themeStorage === "winter" ? "dark" : "winter");
+  };
 
   return (
-    <html lang="en" data-theme={themeValue}>
-      <body className={FiraCode.className}>
-        <button
-          onClick={() => {
-            toggle();
-          }}
-        >
-          Toggle Theme
-        </button>
-        {children}
-      </body>
-    </html>
+    <QueryClientProvider client={queryClient}>
+      <html lang="en" data-theme={themeStorage}>
+        <body className={FiraCode.className}>
+          <HeaderNav theme={themeStorage} toggleTheme={handleThemeChange} />
+
+          {children}
+        </body>
+      </html>
+    </QueryClientProvider>
   );
 }
