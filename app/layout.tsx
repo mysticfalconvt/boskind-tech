@@ -1,10 +1,12 @@
 "use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
-import { useLocalStorage } from "@mantine/hooks";
+import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { headerLinks } from "@/lib/links";
+import Link from "next/link";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -30,14 +32,59 @@ export default function RootLayout({
   const handleThemeChange = () => {
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
+  const [isMenuOpen, toggleMenu] = useDisclosure(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useEffect(() => {
+    if (width > 650) {
+      toggleMenu.close();
+    }
+  }, [width, toggleMenu]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <html lang="en" data-theme={themeStorage}>
         <body className={FiraCode.className}>
-          <HeaderNav theme={themeStorage} toggleTheme={handleThemeChange} />
+          <HeaderNav
+            theme={themeStorage}
+            toggleTheme={handleThemeChange}
+            menuStatus={isMenuOpen}
+            toggleMenu={toggleMenu.toggle}
+          />
+          <div className="drawer">
+            <input
+              id="my-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+              checked={isMenuOpen}
+              onChange={toggleMenu.toggle}
+            />
 
-          {children}
+            <div className="drawer-content">{children}</div>
+            <div className="drawer-side">
+              <label htmlFor="my-drawer" className="drawer-overlay"></label>
+              <ul className="menu p-4 w-100 bg-base-100 text-base-content">
+                {
+                  <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                    {headerLinks.map((link) => {
+                      return (
+                        <li key={link.label}>
+                          <Link href={link.href}>
+                            {link.icon ? <link.icon /> : null}
+                            {link.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                }
+              </ul>
+            </div>
+          </div>
         </body>
       </html>
     </QueryClientProvider>

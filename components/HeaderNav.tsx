@@ -8,6 +8,8 @@ import { IconType } from "react-icons/lib";
 type headerNavProps = {
   theme: string;
   toggleTheme: () => void;
+  menuStatus: boolean;
+  toggleMenu: () => void;
 };
 
 type linkItem = {
@@ -66,15 +68,18 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
   );
 };
 
-export const HeaderNav: React.FC<headerNavProps> = ({ theme, toggleTheme }) => {
+export const HeaderNav: React.FC<headerNavProps> = ({
+  theme,
+  toggleTheme,
+  menuStatus,
+  toggleMenu,
+}) => {
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const [isMenuOpen, toggleMenu] = useDisclosure(false);
 
   const isDarkMode = theme === "dark";
 
@@ -113,6 +118,37 @@ export const HeaderNav: React.FC<headerNavProps> = ({ theme, toggleTheme }) => {
               </svg>
             </label>
           </li>
+          {width < 650 ? (
+            <li>
+              <label className="btn btn-ghost  swap swap-rotate ">
+                <input
+                  type="checkbox"
+                  checked={menuStatus}
+                  onChange={toggleMenu}
+                />
+
+                <svg
+                  className="swap-off fill-current w-5 h-5 sm:w-8 sm:h-8"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 512 512"
+                >
+                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                </svg>
+
+                <svg
+                  className="swap-on fill-current w-5 h-5 sm:w-8 sm:h-8"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 512 512"
+                >
+                  <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                </svg>
+              </label>
+            </li>
+          ) : null}
         </ul>
       </div>
     </div>
