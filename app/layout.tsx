@@ -1,17 +1,10 @@
 "use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
-import { useLocalStorage, useToggle } from "@mantine/hooks";
-import { use } from "react";
+import { useLocalStorage } from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
 import React from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
