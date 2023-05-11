@@ -1,5 +1,5 @@
 import { copy } from "@/lib/copy";
-import { headerLinks } from "@/lib/links";
+import { headerLinks } from "@/lib/copy";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { useEffect, useState } from "react";

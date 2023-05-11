@@ -5,7 +5,7 @@ import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
 import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { headerLinks } from "@/lib/links";
+import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
 
 const FiraCode = Fira_Code({
@@ -69,14 +69,16 @@ export default function RootLayout({
               <label htmlFor="my-drawer" className="drawer-overlay"></label>
               <ul className="menu p-4 w-100 bg-base-100 text-base-content">
                 {
-                  <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                  <ul className=" p-4 w-80 bg-base-100 ">
                     {headerLinks.map((link) => {
                       if (link.subItems) {
                         return (
                           <li key={`sidenav${link.label}${link.href}`}>
-                            {link.icon ? <link.icon /> : null}
-                            {link.label}
-                            <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                            <div className="group relative flex items-center ">
+                              {link.icon ? <link.icon /> : null}
+                              {link.label}
+                            </div>
+                            <ul className=" p-4 pt-0 w-70 bg-base-100 ">
                               {link.subItems.map((subItem) => (
                                 <li
                                   key={`sidenav${subItem.label}${subItem.href}`}
