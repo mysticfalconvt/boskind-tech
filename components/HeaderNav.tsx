@@ -31,8 +31,13 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
       {links.map((link) => {
         if (link.subItems) {
           return (
-            <ul className="p-2 bg-base-200" key={link.label}>
+            <li
+              tabIndex={0}
+              key={`header${link.label}${link.href}`}
+              className="z-30"
+            >
               <a>
+                {link.icon ? <link.icon /> : null}
                 {link.label}
                 <svg
                   className="fill-current"
@@ -44,14 +49,19 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </a>
-              {link.subItems.map((subItem) => {
-                return (
-                  <li key={link.label}>
-                    <Link href={subItem.href}>{subItem.label}</Link>
-                  </li>
-                );
-              })}
-            </ul>
+              <ul className="p-2 bg-base-200">
+                {link.subItems.map((subItem) => {
+                  return (
+                    <li key={`header${subItem.label}${subItem.href}`}>
+                      <Link href={subItem.href}>
+                        {subItem.icon ? <subItem.icon /> : null}
+                        {subItem.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
           );
         } else {
           return (

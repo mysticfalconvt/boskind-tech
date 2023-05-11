@@ -71,14 +71,35 @@ export default function RootLayout({
                 {
                   <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                     {headerLinks.map((link) => {
-                      return (
-                        <li key={link.label}>
-                          <Link href={link.href}>
+                      if (link.subItems) {
+                        return (
+                          <li key={`sidenav${link.label}${link.href}`}>
                             {link.icon ? <link.icon /> : null}
                             {link.label}
-                          </Link>
-                        </li>
-                      );
+                            <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                              {link.subItems.map((subItem) => (
+                                <li
+                                  key={`sidenav${subItem.label}${subItem.href}`}
+                                >
+                                  <Link href={subItem.href}>
+                                    {subItem.label}
+                                    {subItem.icon ? <subItem.icon /> : null}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        );
+                      } else {
+                        return (
+                          <li key={`sidenav${link.label}`}>
+                            <Link href={link.href}>
+                              {link.icon ? <link.icon /> : null}
+                              {link.label}
+                            </Link>
+                          </li>
+                        );
+                      }
                     })}
                   </ul>
                 }
