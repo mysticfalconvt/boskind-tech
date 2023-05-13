@@ -1,7 +1,5 @@
-import { windowSizeBreakpoint } from "@/lib/constants";
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
-import { useViewportSize } from "@mantine/hooks";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
 
@@ -34,7 +32,7 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
             <li
               tabIndex={0}
               key={`header${link.label}${link.href}`}
-              className="z-30"
+              className="z-30 hidden md:block"
             >
               <a>
                 {link.icon ? <link.icon /> : null}
@@ -84,8 +82,6 @@ export const HeaderNav: React.FC<headerNavProps> = ({
   menuStatus,
   toggleMenu,
 }) => {
-  const { width } = useViewportSize();
-  console.log(width);
   const isDarkMode = theme === "dark";
 
   return (
@@ -97,9 +93,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          {width > windowSizeBreakpoint ? (
-            <HeaderLinksRenderer links={headerLinks} />
-          ) : null}
+          <HeaderLinksRenderer links={headerLinks} />
           <li>
             <label className="swap swap-rotate">
               <input
@@ -125,37 +119,35 @@ export const HeaderNav: React.FC<headerNavProps> = ({
               </svg>
             </label>
           </li>
-          {width < windowSizeBreakpoint ? (
-            <li>
-              <label className="btn btn-ghost  swap swap-rotate ">
-                <input
-                  type="checkbox"
-                  checked={menuStatus}
-                  onChange={toggleMenu}
-                />
+          <li className="md:hidden">
+            <label className="btn btn-ghost  swap swap-rotate ">
+              <input
+                type="checkbox"
+                checked={menuStatus}
+                onChange={toggleMenu}
+              />
 
-                <svg
-                  className="swap-off fill-current w-5 h-5 sm:w-8 sm:h-8"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 512 512"
-                >
-                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-                </svg>
+              <svg
+                className="swap-off fill-current w-5 h-5 sm:w-8 sm:h-8"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 512 512"
+              >
+                <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+              </svg>
 
-                <svg
-                  className="swap-on fill-current w-5 h-5 sm:w-8 sm:h-8"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 512 512"
-                >
-                  <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-                </svg>
-              </label>
-            </li>
-          ) : null}
+              <svg
+                className="swap-on fill-current w-5 h-5 sm:w-8 sm:h-8"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 512 512"
+              >
+                <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+              </svg>
+            </label>
+          </li>
         </ul>
       </div>
     </div>

@@ -1,11 +1,7 @@
 "use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
-import {
-  useDisclosure,
-  useLocalStorage,
-  useViewportSize,
-} from "@mantine/hooks";
+import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
 import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -38,12 +34,6 @@ export default function RootLayout({
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
   const [isMenuOpen, toggleMenu] = useDisclosure(false);
-  const { width } = useViewportSize();
-  useEffect(() => {
-    if (width > windowSizeBreakpoint) {
-      toggleMenu.close();
-    }
-  }, [width, toggleMenu]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -65,9 +55,12 @@ export default function RootLayout({
             />
 
             <div className="drawer-content">{children}</div>
-            <div className="drawer-side">
-              <label htmlFor="my-drawer" className="drawer-overlay"></label>
-              <ul className="menu p-4 w-100 bg-base-100 text-base-content">
+            <div className="drawer-side md:hidden">
+              <label
+                htmlFor="my-drawer"
+                className="drawer-overlay md:hidden"
+              ></label>
+              <ul className="menu p-4 w-100 bg-base-100 text-base-content md:hidden">
                 {
                   <ul className=" p-4 w-80 bg-base-100 ">
                     {headerLinks.map((link) => {
