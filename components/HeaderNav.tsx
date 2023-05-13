@@ -86,7 +86,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
 }) => {
   const [width, setWidth] = useState(0);
   useEffect(() => {
-    window.innerWidth && setWidth(window.innerWidth);
+    setWidth(window.innerWidth);
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
