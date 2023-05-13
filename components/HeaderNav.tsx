@@ -1,6 +1,5 @@
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
-import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons/lib";
@@ -92,6 +91,9 @@ export const HeaderNav: React.FC<headerNavProps> = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  if (window) {
+    setWidth(window.innerWidth);
+  }
 
   const isDarkMode = theme === "dark";
 
