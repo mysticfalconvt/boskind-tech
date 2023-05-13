@@ -86,14 +86,11 @@ export const HeaderNav: React.FC<headerNavProps> = ({
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setWidth(window.innerWidth);
-
+    console.log("width", width);
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  if (window) {
-    setWidth(window.innerWidth);
-  }
 
   const isDarkMode = theme === "dark";
 
