@@ -1,12 +1,17 @@
 "use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
-import { useDisclosure, useLocalStorage } from "@mantine/hooks";
+import {
+  useDisclosure,
+  useLocalStorage,
+  useViewportSize,
+} from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
 import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
+import { windowSizeBreakpoint } from "@/lib/constants";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -33,15 +38,9 @@ export default function RootLayout({
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
   const [isMenuOpen, toggleMenu] = useDisclosure(false);
-  const [width, setWidth] = useState(0);
+  const { width } = useViewportSize();
   useEffect(() => {
-    setWidth(window.innerWidth);
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  useEffect(() => {
-    if (width > 650) {
+    if (width > windowSizeBreakpoint) {
       toggleMenu.close();
     }
   }, [width, toggleMenu]);

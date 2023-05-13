@@ -1,7 +1,8 @@
+import { windowSizeBreakpoint } from "@/lib/constants";
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
+import { useViewportSize } from "@mantine/hooks";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { IconType } from "react-icons/lib";
 
 type headerNavProps = {
@@ -83,14 +84,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
   menuStatus,
   toggleMenu,
 }) => {
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    setWidth(window.innerWidth);
-    console.log("width", width);
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [width]);
+  const { width } = useViewportSize();
 
   const isDarkMode = theme === "dark";
 
@@ -103,7 +97,9 @@ export const HeaderNav: React.FC<headerNavProps> = ({
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          {width > 650 ? <HeaderLinksRenderer links={headerLinks} /> : null}
+          {width > windowSizeBreakpoint ? (
+            <HeaderLinksRenderer links={headerLinks} />
+          ) : null}
           <li>
             <label className="swap swap-rotate">
               <input
@@ -129,7 +125,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
               </svg>
             </label>
           </li>
-          {width < 650 ? (
+          {width < windowSizeBreakpoint ? (
             <li>
               <label className="btn btn-ghost  swap swap-rotate ">
                 <input
