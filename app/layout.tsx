@@ -33,8 +33,9 @@ export default function RootLayout({
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
   const [isMenuOpen, toggleMenu] = useDisclosure(false);
-  const [width, setWidth] = useState(window?.innerWidth);
+  const [width, setWidth] = useState(0);
   useEffect(() => {
+    window.innerWidth && setWidth(window.innerWidth);
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
