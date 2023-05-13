@@ -85,7 +85,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
   toggleMenu,
 }) => {
   const { width } = useViewportSize();
-
+  console.log(width);
   const isDarkMode = theme === "dark";
 
   return (
