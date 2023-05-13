@@ -1,6 +1,8 @@
 import { linkItemsList } from "@/components/HeaderNav";
 import { CgWebsite } from "react-icons/cg";
 import { BsFillCameraFill } from "react-icons/bs";
+import { FaSchool } from "react-icons/fa";
+import { MdOutlineEngineering } from "react-icons/md";
 
 export const copy = {
   components: {
@@ -30,14 +32,14 @@ export const headerLinks: linkItemsList = [
     icon: CgWebsite,
     subItems: [
       {
-        label: "Development",
+        label: "Custom Websites",
         href: "/web-development",
-        icon: CgWebsite,
+        icon: MdOutlineEngineering,
       },
       {
-        label: "Web Design",
-        href: "/web-design",
-        icon: CgWebsite,
+        label: "School Dashboards",
+        href: "/school",
+        icon: FaSchool,
       },
     ],
   },
