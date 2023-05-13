@@ -6,7 +6,9 @@ export default function NotFound() {
 
   // redirect to home page
   React.useEffect(() => {
-    window.location.href = "/";
+    if (window) {
+      window.location.href = "/";
+    }
   }, []);
   return <div>not-found</div>;
 }
