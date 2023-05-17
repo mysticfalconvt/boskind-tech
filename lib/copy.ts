@@ -13,10 +13,7 @@ export const copy = {
       photography: "Photography",
       welcome: "Welcome to Boskind Digital",
       // large block of copy about web development and photography services
-      copy: `Boskind Digital is a web development and design company based in
-      Derby, Vermont. We specialize in building websites for small businesses
-      and individuals. We also offer photography services for events, portraits,
-      and real estate.`,
+      copy: `Boskind Digital is a web development and design company based in Derby, Vermont. We specialize in building websites for small businesses and individuals. We also offer photography services for events, portraits, and real estate.`,
     },
 
     footer: {

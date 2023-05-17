@@ -63,7 +63,7 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
           );
         } else {
           return (
-            <li key={link.label}>
+            <li key={link.label} className="hidden md:block">
               <Link href={link.href}>
                 {link.icon ? <link.icon /> : null}
                 {link.label}

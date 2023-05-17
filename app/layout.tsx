@@ -3,22 +3,16 @@ import "./globals.css";
 import { Fira_Code } from "next/font/google";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { HeaderNav } from "@/components/HeaderNav";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
-import { windowSizeBreakpoint } from "@/lib/constants";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
   display: "swap",
   style: "normal",
 });
-
-// export const metadata = {
-//   title: "Boskind Digital",
-//   description: "Boskind Digital LLC",
-// };
 
 export default function RootLayout({
   children,
@@ -38,7 +32,7 @@ export default function RootLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <html lang="en" data-theme={themeStorage}>
-        <body className={FiraCode.className}>
+        <body className={`min-h-screen ${FiraCode.className} bg-base-100`}>
           <HeaderNav
             theme={themeStorage}
             toggleTheme={handleThemeChange}
