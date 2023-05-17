@@ -23,12 +23,10 @@ export const metadata = {
 export default function Home() {
   return (
     <main className="flex  flex-col items-center justify-start ">
-      <div>
-        <h1 className="text-4xl font-bold text-center text-primary m-5">
-          {copy.components.BoskindDigital.welcome}
-        </h1>
-        <TextTyper text={copy.components.BoskindDigital.copy} />
-      </div>
+      <h1 className="text-4xl font-bold text-center text-primary m-5">
+        {copy.components.BoskindDigital.welcome}
+      </h1>
+      <TextTyper text={copy.components.BoskindDigital.copy} />
     </main>
   );
 }

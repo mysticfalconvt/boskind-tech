@@ -32,7 +32,9 @@ export default function RootLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <html lang="en" data-theme={themeStorage}>
-        <body className={`min-h-screen ${FiraCode.className} bg-base-100`}>
+        <body
+          className={`min-h-screen ${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral`}
+        >
           <HeaderNav
             theme={themeStorage}
             toggleTheme={handleThemeChange}
