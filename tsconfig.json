@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "prisma/seed.ts",
-    "app/not-found.js"
+    "app/not-found.js",
+    "jest.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

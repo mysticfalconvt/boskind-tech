@@ -37,7 +37,6 @@ export default function TextTyper({ text }: { text: string }) {
     }
   });
 
-  console.log(linesOfTextArray);
   return (
     <div className="h-fit w-screen px-3">
       <div className="mockup-code h-full w-full m-auto md:w-10/12">
