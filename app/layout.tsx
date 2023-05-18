@@ -30,10 +30,10 @@ export default function RootLayout({
   const [isMenuOpen, toggleMenu] = useDisclosure(false);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <html lang="en" data-theme={themeStorage}>
+    <html lang="en" data-theme={themeStorage} className="overflow-x-hidden">
+      <QueryClientProvider client={queryClient}>
         <body
-          className={`min-h-screen ${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral`}
+          className={` ${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral `}
         >
           <HeaderNav
             theme={themeStorage}
@@ -98,7 +98,7 @@ export default function RootLayout({
             </div>
           </div>
         </body>
-      </html>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </html>
   );
 }

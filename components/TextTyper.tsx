@@ -10,7 +10,7 @@ export default function TextTyper({ text }: { text: string }) {
   const characterCount = text.length;
   useEffect(() => {
     if (index < characterCount) {
-      const timeout = Math.random() * 100;
+      const timeout = Math.random() * 90;
       setTimeout(() => {
         setTextToDisplay(textToDisplay + text[index]);
         setIndex(index + 1);
@@ -18,7 +18,7 @@ export default function TextTyper({ text }: { text: string }) {
     }
   }, [characterCount, index, text, textToDisplay]);
   const { width } = useViewportSize();
-  const charactersPerLine = width / 14;
+  const charactersPerLine = width / (width < 1024 ? 14 : 15);
 
   // split every linesOfText into a separate line
   const wordArray = textToDisplay.split(" ");
@@ -38,7 +38,7 @@ export default function TextTyper({ text }: { text: string }) {
   });
 
   return (
-    <div className="h-fit w-screen px-3">
+    <div className="h-fit w-screen px-3 lg:text-lg">
       <div className="mockup-code h-full w-full m-auto md:w-10/12">
         <pre data-prefix=">">
           <code>{linesOfTextArray[0]}</code>

@@ -85,7 +85,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
   const isDarkMode = theme === "dark";
 
   return (
-    <div className="navbar bg-base-300 text-base-content font-mono">
+    <div className="navbar bg-gradient-to-tr from-primary to-secondary text-primary-content font-mono">
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost normal-case text-xl ">
           {copy.components.BoskindDigital.title}
@@ -100,6 +100,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
                 type="checkbox"
                 checked={!isDarkMode ? true : false}
                 onChange={toggleTheme}
+                data-testid="theme-toggle"
               />
 
               <svg
