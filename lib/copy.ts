@@ -16,6 +16,23 @@ export const copy = {
       copy: `Boskind Digital is a web development and design company based in Derby, Vermont. We specialize in building websites for small businesses and individuals. We also offer photography services for events, portraits, and real estate.`,
     },
 
+    photography: {
+      title: "Photography",
+      existingWork: "You can find some of my existing work here: ",
+      NekPics: "NekPics.com",
+    },
+
+    webdev: {
+      title: "Web Development",
+      subTitle: "Custom Websites and School Dashboards",
+      copy: `I build custom websites for small businesses and individuals. I also build school dashboards for schools that use the PowerSchool SIS. I am a certified PowerSchool developer and have built many dashboards for schools in Vermont and New Hampshire.`,
+    },
+
+    school: {
+      title: "School Dashboards",
+      subTitle: "PowerSchool Customizations",
+      copy: `I build custom dashboards for schools that use the PowerSchool SIS. I am a certified PowerSchool developer and have built many dashboards for schools in Vermont and New Hampshire.`,
+    },
     footer: {
       contactMe: "Contact Me",
     },
@@ -25,12 +42,12 @@ export const copy = {
 export const headerLinks: linkItemsList = [
   {
     label: "Web Development",
-    href: "/web-development",
+    href: "/webdev",
     icon: CgWebsite,
     subItems: [
       {
         label: "Custom Websites",
-        href: "/web-development",
+        href: "/webdev",
         icon: MdOutlineEngineering,
       },
       {

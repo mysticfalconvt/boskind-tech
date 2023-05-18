@@ -32,7 +32,7 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
             <li
               tabIndex={0}
               key={`header${link.label}${link.href}`}
-              className="z-30 hidden md:block"
+              className="z-30 hidden md:block btn-ghost"
             >
               <a>
                 {link.icon ? <link.icon /> : null}
@@ -47,10 +47,13 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </a>
-              <ul className="p-2 bg-base-200">
+              <ul className="p-2 bg-gradient-to-bl drop-shadow text:base-content from-base-200 to-base-300">
                 {link.subItems.map((subItem) => {
                   return (
-                    <li key={`header${subItem.label}${subItem.href}`}>
+                    <li
+                      key={`header${subItem.label}${subItem.href}`}
+                      className="btn-ghost hover:drop-shadow-md text-base-content"
+                    >
                       <Link href={subItem.href}>
                         {subItem.icon ? <subItem.icon /> : null}
                         {subItem.label}
@@ -63,7 +66,7 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
           );
         } else {
           return (
-            <li key={link.label} className="hidden md:block">
+            <li key={link.label} className="hidden md:block btn-ghost">
               <Link href={link.href}>
                 {link.icon ? <link.icon /> : null}
                 {link.label}
@@ -95,7 +98,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
         <ul className="menu menu-horizontal px-1">
           <HeaderLinksRenderer links={headerLinks} />
           <li>
-            <label className="swap swap-rotate">
+            <label className="swap btn-ghost hover:drop-shadow swap-rotate">
               <input
                 type="checkbox"
                 checked={!isDarkMode ? true : false}
@@ -121,7 +124,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
             </label>
           </li>
           <li className="md:hidden">
-            <label className="btn btn-ghost  swap swap-rotate ">
+            <label className="btn btn-ghost hover:drop-shadow-md swap swap-rotate">
               <input
                 type="checkbox"
                 checked={menuStatus}
