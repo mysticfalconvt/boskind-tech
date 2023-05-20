@@ -89,13 +89,13 @@ export const HeaderNav: React.FC<headerNavProps> = ({
 
   return (
     <div className="navbar bg-gradient-to-tr from-primary to-secondary text-primary-content font-mono">
-      <div className="flex-1">
+      <div className="flex-1 align-center">
         <Link href="/" className="btn btn-ghost normal-case text-xl ">
           {copy.components.BoskindDigital.title}
         </Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal items-end justify-center px-1">
           <HeaderLinksRenderer links={headerLinks} />
           <li>
             <label className="swap btn-ghost hover:drop-shadow swap-rotate">
