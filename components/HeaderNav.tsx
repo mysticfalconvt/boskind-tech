@@ -1,11 +1,11 @@
+"use client";
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
+import { useLocalStorage } from "@mantine/hooks";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
 
 type headerNavProps = {
-  theme: string;
-  toggleTheme: () => void;
   menuStatus: boolean;
   toggleMenu: () => void;
 };
@@ -79,13 +79,23 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
   );
 };
 
-export const HeaderNav: React.FC<headerNavProps> = ({
-  theme,
-  toggleTheme,
-  menuStatus,
-  toggleMenu,
-}) => {
-  const isDarkMode = theme === "dark";
+export const HeaderNav: React.FC = () => {
+  const [themeStorage, setTheme] = useLocalStorage({
+    key: "theme",
+    defaultValue: "winter",
+  });
+  const handleThemeChange = () => {
+    setTheme(themeStorage === "winter" ? "dark" : "winter");
+  };
+  const [sidebarMenu, setSidebarMenu] = useLocalStorage({
+    key: "sidebarMenu",
+    defaultValue: "false",
+  });
+  const handleSidebarMenuChange = () => {
+    setSidebarMenu(sidebarMenu === "false" ? "true" : "false");
+  };
+
+  const isDarkMode = themeStorage === "dark";
 
   return (
     <div className="navbar bg-gradient-to-tr from-primary to-secondary text-primary-content font-mono">
@@ -102,7 +112,7 @@ export const HeaderNav: React.FC<headerNavProps> = ({
               <input
                 type="checkbox"
                 checked={!isDarkMode ? true : false}
-                onChange={toggleTheme}
+                onChange={handleThemeChange}
                 data-testid="theme-toggle"
               />
 
@@ -127,8 +137,8 @@ export const HeaderNav: React.FC<headerNavProps> = ({
             <label className="btn btn-ghost hover:drop-shadow-md swap swap-rotate">
               <input
                 type="checkbox"
-                checked={menuStatus}
-                onChange={toggleMenu}
+                checked={sidebarMenu === "true" ? true : false}
+                onChange={handleSidebarMenuChange}
               />
 
               <svg

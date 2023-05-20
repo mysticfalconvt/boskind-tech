@@ -1,4 +1,3 @@
-"use client";
 import "./globals.css";
 import { Fira_Code } from "next/font/google";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
@@ -7,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
+import Providers from "@/components/Providers";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -14,41 +14,35 @@ const FiraCode = Fira_Code({
   style: "normal",
 });
 
+export const metadata = {
+  title: "Boskind Digital",
+  description: "Boskind Digital LLC - Web Development and Consulting Services",
+
+  icons: {
+    icon: "public/favicon.ico",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
-  const [themeStorage, setTheme] = useLocalStorage({
-    key: "theme",
-    defaultValue: "winter",
-  });
-  const handleThemeChange = () => {
-    setTheme(themeStorage === "winter" ? "dark" : "winter");
-  };
-  const [isMenuOpen, toggleMenu] = useDisclosure(false);
-
   return (
-    <html lang="en" data-theme={themeStorage} className="overflow-x-hidden">
-      <QueryClientProvider client={queryClient}>
+    <html lang="en" className="overflow-x-hidden">
+      <Providers>
         <body
           className={` ${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral `}
         >
-          <HeaderNav
-            theme={themeStorage}
-            toggleTheme={handleThemeChange}
-            menuStatus={isMenuOpen}
-            toggleMenu={toggleMenu.toggle}
-          />
+          <HeaderNav />
           <div className="drawer">
-            <input
+            {/* <input
               id="my-drawer"
               type="checkbox"
               className="drawer-toggle"
               checked={isMenuOpen}
               onChange={toggleMenu.toggle}
-            />
+            /> */}
 
             <div className="drawer-content">{children}</div>
             <div className="drawer-side md:hidden">
@@ -98,7 +92,7 @@ export default function RootLayout({
             </div>
           </div>
         </body>
-      </QueryClientProvider>
+      </Providers>
     </html>
   );
 }
