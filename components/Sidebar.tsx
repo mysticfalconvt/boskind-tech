@@ -2,24 +2,19 @@
 import React from "react";
 import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
-import { useLocalStorage } from "@mantine/hooks";
+import { navStore } from "@/stateHooks/sidebarNav";
 
 export default function Sidebar() {
-  const [sidebarMenu, setSidebarMenu] = useLocalStorage({
-    key: "sidebarMenu",
-    defaultValue: "false",
-  });
-  const handleSidebarMenuChange = () => {
-    setSidebarMenu(sidebarMenu === "false" ? "true" : "false");
-  };
+  const { sidebarMenu, toggleSidebarMenu } = navStore();
+
   return (
     <>
       <input
         id="my-drawer"
         type="checkbox"
         className="drawer-toggle"
-        checked={sidebarMenu === "true" ? true : false}
-        onChange={handleSidebarMenuChange}
+        checked={sidebarMenu}
+        onChange={toggleSidebarMenu}
       />
       <div className="drawer-side md:hidden absolute z-50 w-screen ">
         <label htmlFor="my-drawer" className="drawer-overlay md:hidden"></label>

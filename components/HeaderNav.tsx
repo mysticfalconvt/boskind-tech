@@ -2,13 +2,10 @@
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
 import { useLocalStorage } from "@mantine/hooks";
+import { create } from "zustand";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
-
-type headerNavProps = {
-  menuStatus: boolean;
-  toggleMenu: () => void;
-};
+import { navStore } from "@/stateHooks/sidebarNav";
 
 type linkItem = {
   label: string;
@@ -87,13 +84,8 @@ export const HeaderNav: React.FC = () => {
   const handleThemeChange = () => {
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
-  const [sidebarMenu, setSidebarMenu] = useLocalStorage({
-    key: "sidebarMenu",
-    defaultValue: "false",
-  });
-  const handleSidebarMenuChange = () => {
-    setSidebarMenu(sidebarMenu === "false" ? "true" : "false");
-  };
+
+  const { sidebarMenu, toggleSidebarMenu } = navStore();
 
   const isDarkMode = themeStorage === "dark";
 
@@ -137,8 +129,8 @@ export const HeaderNav: React.FC = () => {
             <label className="btn btn-ghost hover:drop-shadow-md swap swap-rotate">
               <input
                 type="checkbox"
-                checked={sidebarMenu === "true" ? true : false}
-                onChange={handleSidebarMenuChange}
+                checked={sidebarMenu}
+                onChange={toggleSidebarMenu}
               />
 
               <svg
