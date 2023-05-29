@@ -52,7 +52,7 @@ export const headerLinks: linkItemsList = [
       },
       {
         label: "School Dashboards",
-        href: "/school",
+        href: "/schoolDashboards",
         icon: FaSchool,
       },
     ],
