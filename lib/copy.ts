@@ -3,6 +3,9 @@ import { CgWebsite } from "react-icons/cg";
 import { BsFillCameraFill } from "react-icons/bs";
 import { FaSchool } from "react-icons/fa";
 import { MdOutlineEngineering } from "react-icons/md";
+import { MdEmojiObjects } from "react-icons/md";
+import { BsPersonVcardFill } from "react-icons/bs";
+import { FaMicroblog } from "react-icons/fa";
 
 export const copy = {
   components: {
@@ -55,11 +58,28 @@ export const headerLinks: linkItemsList = [
         href: "/schoolDashboards",
         icon: FaSchool,
       },
+      {
+        label: "Little Demos",
+        href: "/demos",
+        icon: MdEmojiObjects,
+      },
     ],
   },
   {
-    label: "Photography",
-    href: "/photography",
-    icon: BsFillCameraFill,
+    label: "Personal",
+    href: "/personal",
+    icon: BsPersonVcardFill,
+    subItems: [
+      {
+        label: "Photography",
+        href: "/photography",
+        icon: BsFillCameraFill,
+      },
+      {
+        label: "Blog",
+        href: "/blog",
+        icon: FaMicroblog,
+      },
+    ],
   },
 ];
