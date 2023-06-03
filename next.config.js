@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: false,
   },
   images: {
-    domains: ["pbs.twimg.com"],
+    domains: ["pbs.twimg.com", "cdn.sanity.io"],
   },
 };
 

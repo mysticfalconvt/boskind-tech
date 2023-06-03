@@ -27,19 +27,22 @@ Then create a new integration, choose the workspace you want, and get that all-i
 
 Now we need to go into our gatsby-config.js and add in a new plugin
 
-`{`
+```
 
-`` resolve:`gatsby-source-notion-api`, ``
+    {
 
-`options:{`
+        resolve:`gatsby-source-notion-api`,
 
-`token:process.env.NOTION_TOKEN,`
+        options:{
 
-`databaseId:process.env.NOTION_ID,`
+            token:process.env.NOTION_TOKEN,
 
-`},`
+            databaseId:process.env.NOTION_ID,
 
-`},`
+        },
+
+    },
+```
 
 Add this in and put the Token into your .env file. You can just put it directly here, but don't do that. Don't be that person who accidentally puts their secrets into a public repo.
 

@@ -1,6 +1,5 @@
 import React from "react";
 import fs from "fs";
-import { type } from "os";
 
 type Post = {
   slug: string;

@@ -28,7 +28,7 @@ export const metadata = {
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main
-      className={`${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral `}
+      className={`${FiraCode.className} bg-gradient-to-br from-base-100 to-neutral min-h-screen`}
     >
       <Head>
         <title>{metadata.title}</title>
@@ -41,9 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Providers>
         <HeaderNav />
-        {/* <Sidebar /> */}
-        <div className="drawer">
-          <div className="drawer-content">
+        <Sidebar />
+        <div className="drawer h-full">
+          <div className="drawer-content ">
             <Component {...pageProps} />
           </div>
         </div>
