@@ -2,6 +2,7 @@ import fs from "fs";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { BsTwitter } from "react-icons/bs";
 
 type StaticPropsParams = {
   params: {
@@ -63,6 +64,33 @@ export default function BlogPost({
       >
         {postContent}
       </ReactMarkdown>
+      <div className="card lg:card-side bg-accent text-accent-content glass shadow-xl m-5">
+        <figure>
+          <Image
+            src="https://cdn.sanity.io/images/jzq9n05y/production/4552e6f0e67b8a97fdd7e4591ea9d9ce34cbb5c2-720x720.png?w=720&h=720&auto=format"
+            alt="Rob Boskind"
+            width={300}
+            height={300}
+            className="rounded-full p-5"
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">Post by: Rob Boskind</h2>
+          <p>Software Engineer</p>
+          <p>Former Math Teacher</p>
+          <p>Code Junkey</p>
+          <p>Father of all Girls</p>
+
+          <div className="card-actions justify-end">
+            <a
+              href="https://twitter.com/RobBoskind"
+              className="btn btn-primary"
+            >
+              <BsTwitter className="mr-2" /> @rBoskind
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

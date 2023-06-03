@@ -3,9 +3,7 @@ title: Tinkercad in Math Class Part 2
 date: 2021-09-16
 ---
 
-![](data:image/svg+xml;charset=utf-8,%3Csvg height='846' width='1918' xmlns='http://www.w3.org/2000/svg' version='1.1'%3E%3C/svg%3E)
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsTAAALEwEAmpwYAAACN0lEQVQokRXS207aAACA4b6VyU7OCAj0XKktLYjQ0kJb2oqAIIioMVviYXMxnrKMJdvFrveC/7LvGT5BVGQkVUHWFFRdZVfXMGUJU5KoqTqWojCQNzlW3mKLRcpViaosI2s6imEiGzaiZlFWdinLOkLrYJ/91j6d9gG9jsfQsrgsFbmoiiyaIct2n7t6lXt9g4OdTapViYZrEIcqoa/RaNax6g1qVh3DshDyPCPNUmbDMXfTJY9Jj7UpsbZdXtIpr8M5j16HE3ELffMDtrHHeR5yPbU4DMsk7QbzaEgexrS9DkKaDTjMM64mp6xXl6xXPs/jPX4cjVjPlzzPc66iDm29gmMUWOUtnmZHLPwWNbFEUHO4TU5YpROiOELo9QPyOOb6aMnDeMY81kn9ChdpyutiycNpzMXI5LBXYDnaZv1F5X5pMziQcWtbuLpM7HgM+ylZniPESZee1yZrdMnsDpYsIVdKjL2I34sbno4XzBKbyCsySQt8/1ri50OBl5t3fPv0hiQs49TrRFHMaDJGWJ02ifsmDdMkcbrErk9N3SVpBdzmZ4xaEbZhoKkSrl3h9rLA31/v+fO6wc35BklPpN1p4XcD+lGMcPvZYj5zSOOAVT7lbDCm5TRpuk16XoBt2uyURYqlCjs7RbJ+kee7bS7nH9nbfY9hyPyf4jgudaeJMJt2OZ70ORpmjPIhh4OMIAjp+D5BP6Tte5iWhSQrFEtlXFdlfqyRDxQ0TcQ0LcJeSDcM8IOQf+aLh6GWi6J1AAAAAElFTkSuQmCC)![](https://cdn.sanity.io/images/jzq9n05y/production/a6e9b5908c25e7bb90f1d47f7f2cb66f663c98cf-1918x846.png?w=1918&h=846&auto=format)
+![](https://cdn.sanity.io/images/jzq9n05y/production/a6e9b5908c25e7bb90f1d47f7f2cb66f663c98cf-1918x846.png?w=1918&h=846&auto=format)
 
 ## So Many Houses!!
 
@@ -82,17 +80,3 @@ Because not all students were complete when I started this, I thought it would b
 ![](https://cdn.sanity.io/images/jzq9n05y/production/1e324ea6781c6d5238b7505dd629d95e625a22a3-1657x955.png?w=600)
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/11fbfe612713fca864d46bc76f94aae77c29a5ed-1683x955.png?w=600)
-
-![](data:image/svg+xml;charset=utf-8,%3Csvg height='720' width='720' xmlns='http://www.w3.org/2000/svg' version='1.1'%3E%3C/svg%3E)
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAFK0lEQVQ4yyWT21OaWRbFv9dEBUEjaqvRRGOrUYm2pjVB8ILcQa5y+QC5iIICmigKGPGaqEklY9LpZGqqK9PpTlX3VM3bVM3TPM38X785nX5YVafOqb3OWmvvLb1J2XiXtPA3WccngZ/jJj7nw/x6XOSXq10+nmS4KCxyEBtkx9/FpruT3PIw66FRVtztRB2NRGzNRM0a1uZVSJeynpfhx7wLTHLt+47r4CM+5QP840WJz2ebvCmYOIwOsee/TdHVRtLcQmixjYCAd0GNd15JcE5FzNBMQqdEunBrqS1pObOP8Nw6wJV9kPeRx/xU8PBj1sx5aJCqt4c9Tw95exvRBRV+gxKPoRHPfDM+YwtBo4bwQgf+uQ6kH2zDHNpG2LEMUTX3cW69w0vvfd7nnHx4EuYyOcup/EhAx65vgJS1BdnYSNjUTMTeSdTVg+zoJuzsxWe/h/TGMkrFOkzG2seGrZuKs5vz5ftcl1L88Oqa81KJWiLIkWynHJkmK9TGzSriJhUrVg0xayuyRUPI0obP1Ip0YB6iaPuWqLWbqO0O60t9PBGh156ucvbmN7bL75E9sig0k4+62EjME/f0E7e2Ebe0EDWpSSyqviI8p0DKmO6RtN1Ftt9Bdg0g+0ZIhSbZ3yty9vafZLZfY5hxoJ+aJ5ba4kntgs2tDJmonqQgTtrayJmayInmyLqbSIG5LvzGTsJCYcTVR8g7QEL+nmfVAq9ef6SwUca16MRmdJHKP+for//h9O0X9nfz5OJ6EiKiFdGoiF6B65HoskffinOuFZ+5i5DzLgGXULuspbwT5fVplcONdbZiEYqJFNXKK979+l8+/v4//vLjZ44qm2RCDwiI7LymTvz2fiSnoQX7/C1cpnZxcRe/q59Y8DuqWyFelLKUEj62BZ6uJjh6WubDu7/z6cu/+enLv7h+dU5p3UTc/4Cof5KMPIVk1qlZ0DVi1DdhN91m2TPKZmKWas5NNuwgYNWxElgg6rUg26xU02muDg45PqhR2Uqwt25hZ93B9qqT4ooeaVH4nptWYjLcEnb7ySVmqBac5KJGjLpxzPox0iEDce8MTv1D1lxWCmE/QbtZfPZYRGHmxV6S53urHBR9SGG36Kx3kLSspbRp4GJ/SVgVBc4ZRga/ZVE/zpM1C+VNO5llI+klK8umBQwTY+gnRljxzlIryJztrHL5bBXppBrheN/HWdnD61qAj2cxrvZDOBcf0Xunl4mxYWT/LPmURczfLObpSb4fGWakr5fxgT6C5inKKRdHuSAXO3Gkl8cZXpTDXO0FeFsJ8eEwJh5CeC0zXwm7unoYGuhnQnsf7dAAPR23+UbTzjctGvpvd+BbeMhB2sXznI+LDWH5ZNvHaUFcFBxcbru53A1ysisTDZq5P9TPrVutNKk1NDe1CrShVmloVDahbGiks7UFh/4Be3ELR2kbx0kTUjVt5XDVLLBIJW1mN+sVm5AmsuJHNzVKR5sGhUJFQ4MKpUL9lUwhzvU3G+hp1+DWayn4Z9jy6Si6p5Ge5QJUM0ti3qw8jYl9TbhJZNNEk7IY9seM3usWJI3U1TVQX6+goV5JQ50ClULJg95OInNjZB1TrFkmSBnHkM4qOWo7aSqFGPu5sJipMBtrK2QTYRKeRaa1A8Kmmps36qm7Wf9V2R+E7c1NzI70kVyYIGt5yLpxnMzcKNLpQZGTap5aeYOD0hr7WymK6Qj5eID0soPp8VHUjWpu3Kij7safhAqhskdEYZsYJGOaJGsWEITZeS3/B64YBn4Ij3kVAAAAAElFTkSuQmCC)![](https://cdn.sanity.io/images/jzq9n05y/production/4552e6f0e67b8a97fdd7e4591ea9d9ce34cbb5c2-720x720.png?w=720&h=720&auto=format)
-
-## Post by: Rob Boskind
-
-8th Grade Math Teacher
-
-Code Junkey
-
-Father of all girls
-
-Find me on Twitter [@RobBoskind](https://twitter.com/RobBoskind)​

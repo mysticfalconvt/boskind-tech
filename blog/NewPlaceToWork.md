@@ -38,15 +38,3 @@ I put a lot of effort into learning some more CSS to get this website done well.
   }
 }
 ```
-
-![](https://cdn.sanity.io/images/jzq9n05y/production/4552e6f0e67b8a97fdd7e4591ea9d9ce34cbb5c2-720x720.png?w=720&h=720&auto=format)
-
-## Post by: Rob Boskind
-
-8th Grade Math Teacher
-
-Code Junkey
-
-Father of all girls
-
-Find me on Twitter [@RobBoskind](https://twitter.com/RobBoskind)​

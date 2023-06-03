@@ -3,9 +3,7 @@ title: NCUJHS.Tech Guided Tour V1
 date: 2021-03-26
 ---
 
-![](data:image/svg+xml;charset=utf-8,%3Csvg height='866' width='1401' xmlns='http://www.w3.org/2000/svg' version='1.1'%3E%3C/svg%3E)
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAADIElEQVQozy2R60+bZRjG+ye5LIvOCQ6GC266mLCoZQM30Ghm1H1YloxEWaZzzrCg2xc1i1haRmvT6oANHNCDLbaUQg+0K9Bzoaf3ffu+4Aplfvn50OzDL9d9X8+d6znp9HYX71wbpv3kWVpfbqPlyOu0CjqOttMpOC041dLBm6+J/thx2o8cpfXwYTFzSMy/xPFjh2hre4WWE6282nEC3YBzmc9/GKG3/xL69/SC7qaee7+bHkHf+V4+6uun/2Iffb0XOK/v5t2uLs68dZrOk2Kjzjc48/Ypus52ca6nB50jmWfC7eOBxYrRaMRoMjFqHOU3g6FZ2+x2ph49ajI5OcmEwGwx8+03N7j04Qd8ckHP5Y8vcvvr61jMZnQVWSadShELhYgGg0SWAoQCi4QW/USXgySfximkU2wKmppJs74awT5m4Psvr3Dr6qcMX7/KhMVERqzraopCPpEg7vWy6nIRdTiIzs8361Wnk7jbzdrCAuuCA014PE3f/+QvXDPTOGce45mbJR6JIEnSQaDM1sYq6cA86cVZMoLs4hy5oINsYI6MX3gBR5PsklOsC0/4xUQApbSOWk1Tq2ZQ5SKqqqBTa1VqW4vISSvKxgO0tAU1OYYc/xk5chcpfI9K+D7FkIli2EA5eh8pPoKSGEdeMwuMKMlxkfEPqlJ5EVj2UU6Z2Fr7hVJyhFToLkuPPyNo7SZu6yVhv8LK+E08hmv8PXYZn+0rAtYhFkYHcRu+wGsdIO7/g2q5JK5ck1CkGMX8E3LJh+LRp8VnWJmxfcesaYDl328QG/8Rz/A9bIO3Md68g3n4V6aGRng4OIRp8BamOz/hnvZSKkoHJ1SoyVnKhRUKKV9Tt/IxNhJhMgIpvYYcE/3UPP7RKZwWD57JECt/+gia5nCNeXFNPCW2UkKqqi8CqzlKuTD5DT/lfARN2aT+bIe9vQbPn//Hvqi38yI8Pkt1w4VSCKMVC6ibVZSihibvoal1gSYC1RparYxSyVDZWkepZvl3WxJhdfb395vs7Wo8k4Js5+xoOSs7FSf1nU12d3dpNBpipkG9LgI1jf8BdMXuemi8f+oAAAAASUVORK5CYII=)![](https://cdn.sanity.io/images/jzq9n05y/production/81e4cfe7316d06836b73f8ca11dce04ae1f45d69-1401x866.png?w=1401&h=866&auto=format)
+![](https://cdn.sanity.io/images/jzq9n05y/production/81e4cfe7316d06836b73f8ca11dce04ae1f45d69-1401x866.png?w=1401&h=866&auto=format)
 
 ## NCUJHS.Tech Guided Tour
 
@@ -62,17 +60,3 @@ A quick look at the Tech Stack for this App:
 It is a Node server running express hosted on Heroku. The data is on a MongoDB Atlas cluster. All the HTML is templated out with PUG-JS. Sass is used to help with the CSS for the project. Graphs are done with Chart-JS. Because it is generally Server side rendered the only APIs used are for searching for users for the autocomplete.
 
 If you're curious I have started working on the [school dashboard MK II](https://boskind.tech/blog/school-dashboard-mk-ii) with react
-
-![](data:image/svg+xml;charset=utf-8,%3Csvg height='720' width='720' xmlns='http://www.w3.org/2000/svg' version='1.1'%3E%3C/svg%3E)
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAFK0lEQVQ4yyWT21OaWRbFv9dEBUEjaqvRRGOrUYm2pjVB8ILcQa5y+QC5iIICmigKGPGaqEklY9LpZGqqK9PpTlX3VM3bVM3TPM38X785nX5YVafOqb3OWmvvLb1J2XiXtPA3WccngZ/jJj7nw/x6XOSXq10+nmS4KCxyEBtkx9/FpruT3PIw66FRVtztRB2NRGzNRM0a1uZVSJeynpfhx7wLTHLt+47r4CM+5QP840WJz2ebvCmYOIwOsee/TdHVRtLcQmixjYCAd0GNd15JcE5FzNBMQqdEunBrqS1pObOP8Nw6wJV9kPeRx/xU8PBj1sx5aJCqt4c9Tw95exvRBRV+gxKPoRHPfDM+YwtBo4bwQgf+uQ6kH2zDHNpG2LEMUTX3cW69w0vvfd7nnHx4EuYyOcup/EhAx65vgJS1BdnYSNjUTMTeSdTVg+zoJuzsxWe/h/TGMkrFOkzG2seGrZuKs5vz5ftcl1L88Oqa81KJWiLIkWynHJkmK9TGzSriJhUrVg0xayuyRUPI0obP1Ip0YB6iaPuWqLWbqO0O60t9PBGh156ucvbmN7bL75E9sig0k4+62EjME/f0E7e2Ebe0EDWpSSyqviI8p0DKmO6RtN1Ftt9Bdg0g+0ZIhSbZ3yty9vafZLZfY5hxoJ+aJ5ba4kntgs2tDJmonqQgTtrayJmayInmyLqbSIG5LvzGTsJCYcTVR8g7QEL+nmfVAq9ef6SwUca16MRmdJHKP+for//h9O0X9nfz5OJ6EiKiFdGoiF6B65HoskffinOuFZ+5i5DzLgGXULuspbwT5fVplcONdbZiEYqJFNXKK979+l8+/v4//vLjZ44qm2RCDwiI7LymTvz2fiSnoQX7/C1cpnZxcRe/q59Y8DuqWyFelLKUEj62BZ6uJjh6WubDu7/z6cu/+enLv7h+dU5p3UTc/4Cof5KMPIVk1qlZ0DVi1DdhN91m2TPKZmKWas5NNuwgYNWxElgg6rUg26xU02muDg45PqhR2Uqwt25hZ93B9qqT4ooeaVH4nptWYjLcEnb7ySVmqBac5KJGjLpxzPox0iEDce8MTv1D1lxWCmE/QbtZfPZYRGHmxV6S53urHBR9SGG36Kx3kLSspbRp4GJ/SVgVBc4ZRga/ZVE/zpM1C+VNO5llI+klK8umBQwTY+gnRljxzlIryJztrHL5bBXppBrheN/HWdnD61qAj2cxrvZDOBcf0Xunl4mxYWT/LPmURczfLObpSb4fGWakr5fxgT6C5inKKRdHuSAXO3Gkl8cZXpTDXO0FeFsJ8eEwJh5CeC0zXwm7unoYGuhnQnsf7dAAPR23+UbTzjctGvpvd+BbeMhB2sXznI+LDWH5ZNvHaUFcFBxcbru53A1ysisTDZq5P9TPrVutNKk1NDe1CrShVmloVDahbGiks7UFh/4Be3ELR2kbx0kTUjVt5XDVLLBIJW1mN+sVm5AmsuJHNzVKR5sGhUJFQ4MKpUL9lUwhzvU3G+hp1+DWayn4Z9jy6Si6p5Ge5QJUM0ti3qw8jYl9TbhJZNNEk7IY9seM3usWJI3U1TVQX6+goV5JQ50ClULJg95OInNjZB1TrFkmSBnHkM4qOWo7aSqFGPu5sJipMBtrK2QTYRKeRaa1A8Kmmps36qm7Wf9V2R+E7c1NzI70kVyYIGt5yLpxnMzcKNLpQZGTap5aeYOD0hr7WymK6Qj5eID0soPp8VHUjWpu3Kij7safhAqhskdEYZsYJGOaJGsWEITZeS3/B64YBn4Ij3kVAAAAAElFTkSuQmCC)![](https://cdn.sanity.io/images/jzq9n05y/production/4552e6f0e67b8a97fdd7e4591ea9d9ce34cbb5c2-720x720.png?w=720&h=720&auto=format)
-
-## Post by: Rob Boskind
-
-8th Grade Math Teacher
-
-Code Junkey
-
-Father of all girls
-
-Find me on Twitter [@RobBoskind](https://twitter.com/RobBoskind)​
