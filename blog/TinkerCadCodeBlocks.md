@@ -1,6 +1,7 @@
 ---
 title: TinkerCad Code Blocks
 date: 2021-08-25
+description: A look at TinkerCad Code Blocks. A great way for students to learn to code and design.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/dc4324a75b171092dadff288e25c0962cd3556e9-5300x2890.png?w=5300&h=2890&auto=format)

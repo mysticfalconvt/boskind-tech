@@ -1,6 +1,7 @@
 ---
 title: NCUJHS.Tech Guided Tour V1
 date: 2021-03-26
+description: A guided tour of the NCUJHS.Tech School Dashboard.  This is the initial version that was used for 2 years.  It was replaced by a new version in 2021.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/81e4cfe7316d06836b73f8ca11dce04ae1f45d69-1401x866.png?w=1401&h=866&auto=format)

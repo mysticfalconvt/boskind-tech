@@ -1,6 +1,7 @@
 ---
 title: Tinkercad in Math Class Part 2
 date: 2021-09-16
+description: Just a bunch of photos of student work.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/a6e9b5908c25e7bb90f1d47f7f2cb66f663c98cf-1918x846.png?w=1918&h=846&auto=format)

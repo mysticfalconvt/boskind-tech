@@ -1,6 +1,7 @@
 ---
 title: Using the new Notion API with Gatsby.JS
 date: 2021-06-04
+description: Quick and dirty intro to using the notion API with Gatsby.JS.  Written in a lunch break.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/5b9369a5b9e1d67c3a1e6fbe864bfcda7827f69d-977x459.png?w=977&h=459&auto=format)

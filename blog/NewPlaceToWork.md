@@ -1,6 +1,7 @@
 ---
 title: New Place To Work
 date: 2021-01-24
+description: A quick look at my new desk in the living room.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/112e15ad51b6ee877030470e813c83b197b5efd4-767x608.png?w=767&h=608&auto=format)

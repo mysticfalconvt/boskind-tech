@@ -1,6 +1,7 @@
 ---
 title: NCUJHS Tech Dashboard V2
 date: 2021-03-28
+description: A quick look at the new version of the NCUJHS Tech Dashboard.  This is the base of the current implementation of the dashboard.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/04aa9e8d6126b1b5a8619956b248dec4b14d72ea-2992x1344.png?w=2992&h=1344&auto=format)

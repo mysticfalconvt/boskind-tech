@@ -1,6 +1,7 @@
 ---
 title: The Fantastic Fraction Game
 date: 2020-12-31
+description: A game I made for my students to practice adding fractions.
 ---
 
 ### 12-31-2020

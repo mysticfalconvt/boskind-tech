@@ -10,25 +10,38 @@ type Post = {
 
 export default function BlogHome({ postsData }: { postsData: Post[] }) {
   return (
-    <div className="flex flex-col prose items-center justify-center">
-      <h1 className="text-3xl m-10">Blog Home</h1>
-      <div className="flex flex-wrap items-center gap-3 justify-center mx-4">
+    <div className="flex flex-col prose items-center justify-center h-full">
+      <h1 className="text-3xl m-10 text-base-content">Blog Home</h1>
+      <div className="flex flex-wrap items-center gap-3 justify-center mx-4 h-full">
         {postsData.map((post) => {
           // trim description at the end of a word
-          const descriptionTrimmed =
-            post.description?.split(" ").slice(0, 15).join(" ") + "...";
+          const descriptionTrimmed = post.description
+            ?.split(" ")
+            .slice(0, 15)
+            .join(" ");
+
           return (
-            <a href={`/blog/${post.slug}`} key={post.slug}>
-              <div className="card w-96 bg-primary text-primary-content">
-                <div className="card-body">
-                  <h2 className="card-title">{post.title}</h2>
-                  <p>{descriptionTrimmed}</p>
-                  <div className="card-actions justify-end">
-                    <button className="btn">{post.date}</button>
+            <div
+              className="tooltip tooltip-info tooltip-top tooltip-multiline"
+              data-tip={post.description}
+              key={post.slug}
+            >
+              <a href={`/blog/${post.slug}`}>
+                <div className="card w-96 bg-primary text-primary-content shadow-md hover:shadow-2xl">
+                  <div className="card-body">
+                    <h2 className="card-title">{post.title}</h2>
+                    <p>
+                      {descriptionTrimmed === post.description
+                        ? descriptionTrimmed
+                        : descriptionTrimmed + "..."}
+                    </p>
+                    <div className="card-actions justify-end">
+                      <button className="btn">{post.date}</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           );
         })}
       </div>

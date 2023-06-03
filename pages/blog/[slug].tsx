@@ -50,14 +50,14 @@ export default function BlogPost({
           },
           img({ node, className, children, ...props }) {
             return (
-              <div className="flex flex-col items-center justify-center">
-                <Image
-                  src={props.src || ""}
-                  alt={props.alt || ""}
-                  width={400}
-                  height={400}
-                ></Image>
-              </div>
+              <Image
+                src={props.src || ""}
+                alt={props.alt || ""}
+                width={500}
+                height={400}
+                priority
+                className="mx-auto my-2 rounded-lg shadow-xl"
+              />
             );
           },
         }}

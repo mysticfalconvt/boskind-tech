@@ -1,6 +1,7 @@
 ---
 title: Tinkercad in math class
 date: 2021-09-04
+description: How Tinkercad can be used in math class to teach geometric transformations.
 ---
 
 ![](https://cdn.sanity.io/images/jzq9n05y/production/00c3bfaab776fb6db6f0673fd4476c00913ccc06-1538x858.png?w=1538&h=858&auto=format)
