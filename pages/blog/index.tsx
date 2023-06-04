@@ -24,9 +24,14 @@ export default function BlogHome({ postsData }: { postsData: Post[] }) {
           return (
             <a key={post.slug} href={`/blog/${post.slug}`}>
               <div className="card w-80 sm:w-96 h-full bg-primary text-primary-content shadow-md shadow-gray-600 hover:shadow-lg hover:shadow-gray-600">
-                <figure>
-                  <img src={post.headerImage} alt="Shoes" />
-                </figure>
+                {post.headerImage ? (
+                  <figure>
+                    <img
+                      src={post.headerImage}
+                      alt={post.description || post.title}
+                    />
+                  </figure>
+                ) : null}
                 <div className="card-body">
                   <h2 className="card-title">{post.title}</h2>
                   {post.description ? (

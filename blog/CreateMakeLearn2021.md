@@ -65,11 +65,13 @@ bringing in lots of stuff to share.
 
 ### coding outside - we did some pseudocode ideas as a game
 
-`If eyes = blue`
+```python
+  If eyes = blue
 
-`then do jumping jacks`
+  then do jumping jacks
 
-`else wave`
+  else wave
+```
 
 ## Created a rock paper scissors game
 

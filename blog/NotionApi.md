@@ -14,7 +14,9 @@ To skip ahead: Check out the ​ [final version right here](/bookReviews)
 
 I am just adding this to an existing Gatsby JS project, so if you want to do this from scratch... start out with a new Gatsby site. Then install Gatsby Source Sanity
 
-`npm install gatsby-source-sanity`
+```javascript
+npm install gatsby-source-sanity
+```
 
 Then you need to get some info from your Notion account => Settings => Integration and create a new integration.
 
@@ -26,7 +28,7 @@ Then create a new integration, choose the workspace you want, and get that all-i
 
 Now we need to go into our gatsby-config.js and add in a new plugin
 
-```
+```json
 
     {
 

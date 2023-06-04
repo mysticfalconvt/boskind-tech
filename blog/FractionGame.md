@@ -24,9 +24,17 @@ Well if that's going to happen then I might as well make it so that you don't ev
 
 LocalStorage in Gatsby is a little tricky since its not available in the build step. I had to get a lot better with the useEffect hook to deal with that.
 
-    useEffect(()=>setPlayRecord(JSON.parse(localStorage.getItem('playRecord'))),[]);
+```javascript
+useEffect(
+  () => setPlayRecord(JSON.parse(localStorage.getItem("playRecord"))),
+  []
+);
 
-    useEffect(()=>localStorage.setItem('playRecord',JSON.stringify(playRecord)),[playRecord]);
+useEffect(
+  () => localStorage.setItem("playRecord", JSON.stringify(playRecord)),
+  [playRecord]
+);
+```
 
 So this was fun... Several near rage quits, lots of achievement through perserverence.
 

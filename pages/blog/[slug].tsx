@@ -25,8 +25,12 @@ export default function BlogPost({
 }: PostProps) {
   return (
     <div className="flex flex-col text-base-content items-center justify-center ">
-      <h1 className="text-3xl m-10">{title}</h1>
-      <h2 className="text-xl">{date}</h2>
+      <h1 className="text-3xl m-10 flex items-end gap-3">
+        {title}
+        <span className="badge badge-lg badge-primary outline-none hover:outline-none hover:badge-accent">
+          {date}
+        </span>
+      </h1>
       <ReactMarkdown
         className="prose w-screen px-20"
         components={{
@@ -48,7 +52,31 @@ export default function BlogPost({
               </div>
             );
           },
+          a({ node, className, children, ...props }) {
+            return (
+              <a
+                href={props.href || ""}
+                className="link link-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {children}
+              </a>
+            );
+          },
           img({ node, className, children, ...props }) {
+            if (props.alt?.includes("icon")) {
+              return (
+                <Image
+                  src={props.src || ""}
+                  alt={props.alt || ""}
+                  width={200}
+                  height={200}
+                  priority
+                  className="mx-auto p-2 bg-slate-400 my-2 rounded-lg shadow-xl"
+                />
+              );
+            }
             return (
               <Image
                 src={props.src || ""}
@@ -64,7 +92,7 @@ export default function BlogPost({
       >
         {postContent}
       </ReactMarkdown>
-      <div className="card lg:card-side bg-accent text-accent-content glass shadow-xl m-5">
+      <div className="card lg:card-side bg-accent hover:bg-accent text-accent-content glass shadow-md hover:shadow-lg m-5">
         <figure>
           <Image
             src="https://cdn.sanity.io/images/jzq9n05y/production/4552e6f0e67b8a97fdd7e4591ea9d9ce34cbb5c2-720x720.png?w=720&h=720&auto=format"
