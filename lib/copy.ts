@@ -28,7 +28,10 @@ export const copy = {
     webdev: {
       title: "Web Development",
       subTitle: "Custom Websites and School Dashboards",
-      copy: `I build custom websites for small businesses and individuals. I also build school dashboards for schools that use the PowerSchool SIS. I am a certified PowerSchool developer and have built many dashboards for schools in Vermont and New Hampshire.`,
+      description: `I build custom websites for small businesses and individuals. I can create a website for you from scratch or I can help you update your existing website.
+      Search Engine Optimization (SEO) is a key component of any website. I can help you improve your SEO and get your website to the top of the search results.
+      `,
+      contact: "Contact Me!",
     },
 
     school: {
