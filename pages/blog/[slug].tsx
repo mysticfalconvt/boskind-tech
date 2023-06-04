@@ -25,9 +25,9 @@ export default function BlogPost({
 }: PostProps) {
   return (
     <div className="flex flex-col text-base-content items-center justify-center ">
-      <h1 className="text-3xl m-10 flex items-end gap-3">
+      <h1 className="text-3xl m-10 flex flex-col md:flex-row items-end gap-3">
         {title}
-        <span className="badge badge-lg badge-primary outline-none hover:outline-none hover:badge-accent">
+        <span className=" badge badge-lg badge-info outline-none hover:outline-none hover:badge-accent">
           {date}
         </span>
       </h1>
