@@ -38,7 +38,7 @@ export default function TextTyper({ text }: { text: string }) {
   });
 
   return (
-    <div className="h-fit w-screen px-3 lg:text-lg">
+    <div className="h-fit w-full px-3 lg:text-lg">
       <div className="mockup-code h-full w-full m-auto md:w-10/12">
         <pre data-prefix=">">
           <code>{linesOfTextArray[0]}</code>

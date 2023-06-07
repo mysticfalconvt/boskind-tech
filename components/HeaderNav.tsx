@@ -1,11 +1,10 @@
-"use client";
 import { copy } from "@/lib/copy";
 import { headerLinks } from "@/lib/copy";
 import { useLocalStorage } from "@mantine/hooks";
-import { create } from "zustand";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
 import { navStore } from "@/stateHooks/sidebarNav";
+import * as React from "react";
 
 type linkItem = {
   label: string;
@@ -21,6 +20,14 @@ type headerLinksRendererProps = {
 };
 
 const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
+  const submenuList = links.map((link) => {
+    if (link.subItems && link.subItems.length > 0 && link.label) {
+      return link.label || "";
+    }
+  });
+  const [subMenus, setSubMenus] = React.useState(
+    submenuList.forEach(() => false)
+  );
   return (
     <>
       {links.map((link) => {
@@ -31,34 +38,27 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
               key={`header${link.label}${link.href}`}
               className="z-30 hidden md:block btn-ghost"
             >
-              <a>
-                {link.icon ? <link.icon /> : null}
-                {link.label}
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                </svg>
-              </a>
-              <ul className="p-2 bg-gradient-to-bl drop-shadow text:base-content from-base-200 to-base-300">
-                {link.subItems.map((subItem) => {
-                  return (
-                    <li
-                      key={`header${subItem.label}${subItem.href}`}
-                      className="btn-ghost hover:drop-shadow-md text-base-content"
-                    >
-                      <Link href={subItem.href}>
-                        {subItem.icon ? <subItem.icon /> : null}
-                        {subItem.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+              <details>
+                <summary>
+                  {link.icon ? <link.icon /> : null}
+                  {link.label}
+                </summary>
+                <ul className="p-2 bg-gradient-to-bl drop-shadow text:base-content from-base-300 to-base-100 dropdown-content">
+                  {link.subItems.map((subItem) => {
+                    return (
+                      <li
+                        key={`header${subItem.label}${subItem.href}`}
+                        className="btn-ghost hover:drop-shadow-md text-base-content"
+                      >
+                        <Link href={subItem.href}>
+                          {subItem.icon ? <subItem.icon /> : null}
+                          {subItem.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
             </li>
           );
         } else {
@@ -97,7 +97,7 @@ export const HeaderNav: React.FC = () => {
         </Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal items-end justify-center px-1">
+        <ul className="menu menu-horizontal items-center justify-center px-1">
           <HeaderLinksRenderer links={headerLinks} />
           <li>
             <label className="swap btn-ghost hover:drop-shadow swap-rotate">

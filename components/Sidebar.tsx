@@ -18,12 +18,12 @@ export default function Sidebar() {
         onChange={toggleSidebarMenu}
       />
       {
-        <div className={sidebarClassNames}>
+        <div className={sidebarClassNames} style={{ top: "inherit" }}>
           <label
             htmlFor="my-drawer"
             className="drawer-overlay md:hidden"
           ></label>
-          <ul className="menu p-4 pb-48 w-100 bg-base-100 text-base-content md:hidden">
+          <ul className="menu p-4 pb-48 w-full bg-base-100 text-base-content md:hidden">
             {
               <ul className=" p-4 w-80 bg-base-100 ">
                 {headerLinks.map((link) => {

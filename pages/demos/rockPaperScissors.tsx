@@ -51,34 +51,37 @@ export default function rockPaperScissors() {
   }
 
   return (
-    <div>
-      <h1>Rock Paper Scissors</h1>
-      <h2>{result ? `${result} wins!` : "New Game"}</h2>
-      <button
-        disabled={!!player2}
-        style={{ margin: "5px" }}
-        onClick={() => setPlayer1("rock")}
-      >
-        Rock
-      </button>
-      <button
-        disabled={!!player2}
-        style={{ margin: "5px" }}
-        onClick={() => setPlayer1("paper")}
-      >
-        Paper
-      </button>
-      <button
-        disabled={!!player2}
-        style={{ margin: "5px" }}
-        onClick={() => setPlayer1("scissors")}
-      >
-        Scissors
-      </button>
+    <div className="p-5 flex flex-col items-center text-base-content">
+      <h1 className="text-5xl">Rock Paper Scissors</h1>
+      <h2 className="text-2xl">{result ? `${result} wins!` : "New Game"}</h2>
+      <div className="join">
+        <button
+          className="btn btn-accent text-accent-content join-item"
+          disabled={!!player2}
+          onClick={() => setPlayer1("rock")}
+        >
+          Rock
+        </button>
+        <button
+          className="btn btn-accent text-accent-content join-item"
+          disabled={!!player2}
+          onClick={() => setPlayer1("paper")}
+        >
+          Paper
+        </button>
+        <button
+          className="btn btn-accent text-accent-content join-item"
+          disabled={!!player2}
+          onClick={() => setPlayer1("scissors")}
+        >
+          Scissors
+        </button>
+      </div>
       <p>Player 1: {player1}</p>
       <p>Player 2: {player2}</p>
       <button
-        hidden={!!player2}
+        className="btn btn-accent text-accent-content"
+        disabled={!!player2}
         style={{ margin: "5px" }}
         onClick={() => {
           getPlayer2();
@@ -87,7 +90,8 @@ export default function rockPaperScissors() {
         Player 2{" "}
       </button>
       <button
-        hidden={!!gameOver || !player2}
+        className="btn btn-secondary text-secondary-content"
+        disabled={!!gameOver || !player2}
         style={{ margin: "5px" }}
         onClick={() => {
           setResult(getWinner());
@@ -97,7 +101,8 @@ export default function rockPaperScissors() {
         Who Won?
       </button>
       <button
-        hidden={!gameOver}
+        className="btn btn-primary text-primary-content"
+        disabled={!gameOver}
         style={{ margin: "5px" }}
         onClick={() => {
           setPlayer2("");
