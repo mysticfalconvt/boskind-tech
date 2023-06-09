@@ -27,7 +27,7 @@ export const copy = {
 
     webdev: {
       title: "Web Development",
-      subTitle: "Custom Websites and School Dashboards",
+      subTitle: "Custom Websites, Hosting, and SEO",
       description: `I build custom websites for small businesses and individuals. I can create a website for you from scratch or I can help you update your existing website.
       Search Engine Optimization (SEO) is a key component of any website. I can help you improve your SEO and get your website to the top of the search results.
       `,

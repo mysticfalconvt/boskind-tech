@@ -9,7 +9,7 @@ export default function page() {
         <div className="hero-content flex-col lg:flex-row border-r-4 glass m-2 rounded-md max-w-6xl">
           <img
             src="/images/NorthCountryCool.png"
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-lg shadow-2xl"
           />
           <div>
             <h1 className="text-5xl font-bold">

@@ -33,33 +33,32 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
       {links.map((link) => {
         if (link.subItems) {
           return (
-            <li
+            <div
               tabIndex={0}
               key={`header${link.label}${link.href}`}
-              className="z-30 hidden md:block btn-ghost"
+              className="z-10 hidden md:block dropdown dropdown-end"
             >
-              <details>
-                <summary>
-                  {link.icon ? <link.icon /> : null}
-                  {link.label}
-                </summary>
-                <ul className="p-2 bg-gradient-to-bl drop-shadow text:base-content from-base-300 to-base-100 dropdown-content">
-                  {link.subItems.map((subItem) => {
-                    return (
-                      <li
-                        key={`header${subItem.label}${subItem.href}`}
-                        className="btn-ghost hover:drop-shadow-md text-base-content"
-                      >
-                        <Link href={subItem.href}>
-                          {subItem.icon ? <subItem.icon /> : null}
-                          {subItem.label}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </details>
-            </li>
+              <label className="btn btn-ghost">
+                {link.icon ? <link.icon /> : null}
+                {link.label}
+              </label>
+
+              <ul className="p-2 mt-1 rounded-md bg-gradient-to-bl drop-shadow text:base-content from-base-300 to-base-100 dropdown-content">
+                {link.subItems.map((subItem) => {
+                  return (
+                    <li
+                      key={`header${subItem.label}${subItem.href}`}
+                      className="btn-ghost hover:drop-shadow-md text-base-content"
+                    >
+                      <Link href={subItem.href}>
+                        {subItem.icon ? <subItem.icon /> : null}
+                        {subItem.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           );
         } else {
           return (

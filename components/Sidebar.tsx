@@ -8,6 +8,7 @@ export default function Sidebar() {
   const sidebarClassNames = `drawer-side md:hidden absolute w-full ${
     sidebarMenu ? "z-10" : ""
   }`;
+
   return (
     <>
       <input

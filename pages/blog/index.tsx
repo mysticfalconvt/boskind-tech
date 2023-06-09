@@ -29,6 +29,7 @@ export default function BlogHome({ postsData }: { postsData: Post[] }) {
                     <img
                       src={post.headerImage}
                       alt={post.description || post.title}
+                      className="min-h-40"
                     />
                   </figure>
                 ) : null}
