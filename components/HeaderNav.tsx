@@ -25,9 +25,6 @@ const HeaderLinksRenderer: React.FC<headerLinksRendererProps> = ({ links }) => {
       return link.label || "";
     }
   });
-  const [subMenus, setSubMenus] = React.useState(
-    submenuList.forEach(() => false)
-  );
   return (
     <>
       {links.map((link) => {

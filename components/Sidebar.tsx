@@ -24,7 +24,7 @@ export default function Sidebar() {
             htmlFor="my-drawer"
             className="drawer-overlay md:hidden"
           ></label>
-          <ul className="menu p-4 pb-48 w-full bg-base-100 text-base-content md:hidden">
+          <ul className="menu h-full p-4 pb-48 w-full bg-base-100 text-base-content md:hidden">
             {
               <ul className=" p-4 w-80 bg-base-100 ">
                 {headerLinks.map((link) => {
@@ -37,7 +37,17 @@ export default function Sidebar() {
                         </div>
                         <ul className=" p-4 pt-0 w-70 bg-base-100 ">
                           {link.subItems.map((subItem) => (
-                            <li key={`sidenav${subItem.label}${subItem.href}`}>
+                            <li
+                              key={`sidenav${subItem.label}${subItem.href}`}
+                              onClick={() => {
+                                if (sidebarMenu) {
+                                  // wait for the sidebar to close before navigating
+                                  setTimeout(() => {
+                                    toggleSidebarMenu();
+                                  }, 200);
+                                }
+                              }}
+                            >
                               <Link href={subItem.href}>
                                 {subItem.label}
                                 {subItem.icon ? <subItem.icon /> : null}
