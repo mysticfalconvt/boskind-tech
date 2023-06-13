@@ -13,6 +13,11 @@ const demoList: Demo[] = [
     description: "A simple game of Rock Paper Scissors",
     url: "/demos/rockPaperScissors",
   },
+  {
+    title: "Color Picker Game",
+    description: "A game to guess colors based on their RGB values",
+    url: "/demos/colorPickerGame",
+  },
 ];
 
 export default function Demos() {
