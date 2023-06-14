@@ -60,9 +60,9 @@ export default function isOdious() {
         Number Of Ones: <span id="oneCount">{oneCount}</span>
       </p>
       {error ? (
-        <p>
-          Error: <span id="error">{error}</span>
-        </p>
+        <div className="badge badge-error">
+          Error: <span id="error"> {error}</span>
+        </div>
       ) : null}
     </div>
   );

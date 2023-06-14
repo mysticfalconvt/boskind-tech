@@ -35,6 +35,11 @@ const demoList: Demo[] = [
       "How many zeros does the factorial of a number have? This is a simple algorithm to find out.",
     url: "/demos/factorialZeros",
   },
+  {
+    title: "Student Projects",
+    description: "Here are some of the projects my students have created. ",
+    url: "/demos/studentProjects",
+  },
 ];
 
 export default function Demos() {

@@ -5,6 +5,10 @@ export default function factorialZeros() {
   const [numberOfZeros, setNumberOfZeros] = React.useState(0);
 
   function calcFactorialZeros() {
+    if (number === 0) {
+      setNumberOfZeros(0);
+      return;
+    }
     const numberOfZeros = divideByFive(number, 0);
     setNumberOfZeros(numberOfZeros);
   }
@@ -33,7 +37,7 @@ export default function factorialZeros() {
         type="number"
         className="input input-bordered input-primary m-4"
         value={number}
-        onChange={(e) => setNumber(parseInt(e.target.value))}
+        onChange={(e) => setNumber(parseInt(e.target.value) || 0)}
       />
       <p>
         Trailing Zeros: <a id="zeros">{numberOfZeros}</a>

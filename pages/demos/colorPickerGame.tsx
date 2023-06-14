@@ -41,7 +41,6 @@ export default function ColorGame() {
   if (!onClient) return null;
 
   const winningColorBG = colorTiles.filter((color) => color.isCorrect)[0].color;
-  console.log(winningColorBG);
 
   return (
     <div className="flex flex-col content-around w-full items-center text-base-content">
@@ -57,15 +56,6 @@ export default function ColorGame() {
       </h1>
       <h2 className="text-3xl m-2">RGB Values: {winningColor()}</h2>
 
-      {/* <button
-        className={
-          "btn btn-primary m-3 text-primary-content shadow-sm disabled:btn-neutral shadow-primary-focus hover:shadow-md hover:shadow-primary"
-        }
-        disabled={!isGameOver}
-        onClick={startNewGame}
-      >
-        New Game
-      </button> */}
       <div className="form-control rounded-md border-2 m-4 border-accent">
         <label className="label cursor-pointer">
           <span className="label-text text-accent pr-5">Challenge Mode</span>
@@ -84,7 +74,7 @@ export default function ColorGame() {
         {isGameOver && (
           <div
             style={{ backgroundColor: winningColorBG }}
-            className="absolute flex flex-col items-center justify-center alert alert-info w-2/3 border-2 border-primary-focus"
+            className="absolute flex flex-col items-center justify-center alert alert-info z-20 w-2/3 border-2 border-primary-focus"
           >
             <div className="bg-info px-2 rounded-lg">
               You Won!!!!{" "}
@@ -104,14 +94,20 @@ export default function ColorGame() {
           {colorTiles.map((colorTile, index) => (
             <div
               key={colorTile.color + index}
-              className="rounded-lg aspect-video"
+              className="rounded-lg aspect-video flex items-center justify-center"
               style={{ backgroundColor: colorTile.color }}
               onClick={() => {
                 if (!isGameOver) {
                   checkColor(index);
                 }
               }}
-            />
+            >
+              {colorTile.isClicked ? (
+                <>
+                  <div className="flex flex-col items-center justify-center w-3/4 h-3/4 z-10 bg-black opacity-50 rounded-full"></div>
+                </>
+              ) : null}
+            </div>
           ))}
         </div>
       </div>
