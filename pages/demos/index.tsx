@@ -18,6 +18,11 @@ const demoList: Demo[] = [
     description: "A game to guess colors based on their RGB values",
     url: "/demos/colorPickerGame",
   },
+  {
+    title: "Fizz Buzz",
+    description: "Simple Fizz-Buzz... the obvious programming question",
+    url: "/demos/fizzBuzz",
+  },
 ];
 
 export default function Demos() {
@@ -32,7 +37,7 @@ export default function Demos() {
       </h2>
       <div className="shadow-lg w-full py-2 sm:p-14 sm:rounded-md flex flex-col items-center sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gradient-to-br from-green-200 via-green-400 to-blue-500 ">
         {demoList.map((demo) => (
-          <div className="card shadow-lg  text-base-content glass w-80">
+          <div className="card shadow-lg  text-base-content glass w-full">
             <div className="card-body">
               <h2 className="card-title font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-500 to-orange-600">
                 {demo.title}
