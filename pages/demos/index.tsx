@@ -23,6 +23,18 @@ const demoList: Demo[] = [
     description: "Simple Fizz-Buzz... the obvious programming question",
     url: "/demos/fizzBuzz",
   },
+  {
+    title: "Odious numbers",
+    description:
+      " An 'odious number' is a non-negative number that has an odd number of 1s in its binary expansion.",
+    url: "/demos/isOdious",
+  },
+  {
+    title: "Factorial Zeros",
+    description:
+      "How many zeros does the factorial of a number have? This is a simple algorithm to find out.",
+    url: "/demos/factorialZeros",
+  },
 ];
 
 export default function Demos() {
