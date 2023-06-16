@@ -6,6 +6,7 @@ import { MdOutlineEngineering } from "react-icons/md";
 import { MdEmojiObjects } from "react-icons/md";
 import { BsPersonVcardFill } from "react-icons/bs";
 import { FaMicroblog } from "react-icons/fa";
+import { BsPersonBadge } from "react-icons/bs";
 
 export const copy = {
   components: {
@@ -82,6 +83,11 @@ export const headerLinks: linkItemsList = [
         label: "Blog",
         href: "/blog",
         icon: FaMicroblog,
+      },
+      {
+        label: "Portfolio",
+        href: "/portfolio",
+        icon: BsPersonBadge,
       },
     ],
   },

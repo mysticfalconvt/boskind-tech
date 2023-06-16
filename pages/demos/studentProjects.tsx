@@ -1,5 +1,11 @@
 import React from "react";
 
+export type studentProject = {
+  title: string;
+  description: string;
+  url: string;
+};
+
 export default function studentProjects() {
   return (
     <div className="flex flex-col ">
