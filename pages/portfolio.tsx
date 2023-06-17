@@ -210,7 +210,7 @@ const Home: NextPage = () => {
       </header>
       <section className="max-w-screen-lg xl:max-w-screen-xl px-2 flex flex-col md:flex-row gap-2 items-center md:items-baseline justify-around mx-auto mt-4 flex-wrap">
         <div className="sm:flex sm:space-x-6 space-y-4 sm:space-y-0 items-center">
-          <a href="/Resume Robert Boskind.pdf">
+          <a href="Resume-Boskind.pdf">
             <Button>Resume</Button>
           </a>
         </div>
