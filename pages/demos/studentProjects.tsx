@@ -6,7 +6,26 @@ export type studentProject = {
   url: string;
 };
 
+const getPhotos = () => {
+  // fetch photos from the api
+  // photos.boskind.tech/api/v1/config
+
+  const photos = fetch(
+    "http://photos.rboskind.com/api/v1/albums/arwgefbfv608w7e7",
+    {
+      // set no-cors
+      mode: "no-cors",
+    }
+  )
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
+  return photos;
+};
+
 export default function studentProjects() {
+  const photos = getPhotos();
+
   return (
     <div className="flex flex-col ">
       <h1 className="text-4xl text-base-content m-10">Student Samples</h1>

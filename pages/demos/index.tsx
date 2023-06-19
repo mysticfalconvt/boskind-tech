@@ -40,6 +40,12 @@ const demoList: Demo[] = [
     description: "Here are some of the projects my students have created. ",
     url: "/demos/studentProjects",
   },
+  {
+    title: "JSON Depth Calculator",
+    description:
+      "This is a simple algorithm to calculate the depth of a JSON object",
+    url: "/demos/jsonDepth",
+  },
 ];
 
 export default function Demos() {
