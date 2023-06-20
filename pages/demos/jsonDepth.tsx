@@ -102,7 +102,7 @@ export default function jsonDepth() {
             className="link link-secondary-content flex items-center justify-center gap-3"
             href="https://github.com/mysticfalconvt/boskind-tech/blob/main/pages/demos/jsonDepth.tsx"
           >
-            <button className="btn btn-primary">
+            <button className="btn btn-primary shadow-md ">
               <FaGithubSquare className="h-8 w-8" /> View Code
             </button>
           </a>

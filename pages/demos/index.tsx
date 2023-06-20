@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import { DemoCard } from "../../components/DemoCard";
 
 export type Demo = {
   title: string;
@@ -7,7 +7,7 @@ export type Demo = {
   url: string;
 };
 
-const demoList: Demo[] = [
+export const demoList: Demo[] = [
   {
     title: "Rock Paper Scissors",
     description: "A simple game of Rock Paper Scissors",
@@ -60,22 +60,7 @@ export default function Demos() {
       </h2>
       <div className="shadow-lg w-full py-2 sm:p-14 sm:rounded-md flex flex-col items-center sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gradient-to-br from-green-200 via-green-400 to-blue-500 ">
         {demoList.map((demo) => (
-          <div className="card shadow-lg  text-base-content glass w-full">
-            <div className="card-body">
-              <h2 className="card-title font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-500 to-orange-600">
-                {demo.title}
-              </h2>
-              <p className=" text-transparent bg-clip-text bg-gradient-to-br from-slate-500 to-orange-600">
-                {demo.description}
-              </p>
-              <Link
-                href={demo.url}
-                className="btn btn-accent opacity-70 text-yellow-50 mt-4"
-              >
-                View Demo
-              </Link>
-            </div>
-          </div>
+          <DemoCard demo={demo} />
         ))}
       </div>
     </div>
