@@ -5,7 +5,7 @@ import { navStore } from "@/stateHooks/sidebarNav";
 
 export default function Sidebar() {
   const { sidebarMenu, toggleSidebarMenu } = navStore();
-  const sidebarClassNames = `drawer-side h-max mb-20 md:hidden absolute w-full ${
+  const sidebarClassNames = `drawer-side h-96  mb-20 md:hidden absolute w-full ${
     sidebarMenu ? "z-10" : ""
   }`;
 
@@ -24,7 +24,7 @@ export default function Sidebar() {
             htmlFor="my-drawer"
             className="drawer-overlay h-m md:hidden"
           ></label>
-          <ul className="menu h-full p-4 pb-48 w-full bg-base-100 text-base-content md:hidden">
+          <ul className="menu  p-4 pb-48 w-full bg-base-100 text-base-content md:hidden">
             {
               <ul className=" p-4 w-80 bg-base-100 ">
                 {headerLinks.map((link) => {
