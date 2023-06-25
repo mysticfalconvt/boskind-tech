@@ -58,9 +58,9 @@ export default function Demos() {
         This is a small collection of interesting little side projects and code
         ideas I have created. I hope you enjoy them!
       </h2>
-      <div className="shadow-lg w-full py-2 sm:p-14 sm:rounded-md flex flex-col items-center sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gradient-to-br from-green-200 via-green-400 to-blue-500 ">
+      <div className="shadow-lg w-full py-8 sm:p-14 sm:rounded-md flex flex-col items-center sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gradient-to-br from-green-200 via-green-400 to-blue-500 ">
         {demoList.map((demo) => (
-          <DemoCard demo={demo} />
+          <DemoCard key={demo.title} demo={demo} />
         ))}
       </div>
     </div>
