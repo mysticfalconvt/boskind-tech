@@ -9,7 +9,7 @@ import { BlogCard } from "@/components/BlogCard";
 
 export default function Home({ postsData }: { postsData: Post[] }) {
   const [demoIndex, setDemoIndex] = React.useState(0);
-  const [blogIndex, setBlogIndex] = React.useState(0);
+  const [blogIndex, setBlogIndex] = React.useState(1);
   const randomDemo = demoList[demoIndex];
 
   React.useEffect(() => {
@@ -35,7 +35,7 @@ export default function Home({ postsData }: { postsData: Post[] }) {
       <div className="flex flex-col mb-8 w-full sm:flex-row items-center justify-center">
         <TextTyper text={copy.components.BoskindDigital.copy} />
       </div>
-      <div className="flex flex-col h-full sm:p-10 w-full items-center justify-center">
+      <div className="flex flex-col h-full sm:p-10 w-96 items-center justify-center">
         <DemoCard demo={randomDemo} isCassidoo={false} />
         <div className="mt-5 flex flex-col gap-4">
           <BlogCard post={postsData[0]} />
