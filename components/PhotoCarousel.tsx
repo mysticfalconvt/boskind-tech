@@ -19,13 +19,13 @@ export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
             className="carousel-item relative overflow-visible w-full"
             key={`slide${index}`}
           >
-            <img
+            <Image
               src={panorama.url}
               alt={panorama.description}
               className="w-full"
               width={3840}
               height={2160}
-              // priority
+              priority
             />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
               <a href={`#slide${previousIndex}`} className="btn btn-circle">
