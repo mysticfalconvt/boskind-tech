@@ -1,3 +1,4 @@
+import CassidooFooter from "@/components/CassidooFooter";
 import React from "react";
 
 export default function isOdious() {
@@ -64,6 +65,11 @@ export default function isOdious() {
           Error: <span id="error"> {error}</span>
         </div>
       ) : null}
+
+      <CassidooFooter
+        githubLink="https://github.com/mysticfalconvt/boskind-tech/blob/7d7c9b40a0df9548c06fd814edf9e714497afe42/pages/demos/isOdious.tsx"
+        newsletterLink="https://buttondown.email/cassidoo/archive/we-were-together-i-forget-the-rest-walt-whitman/"
+      />
     </div>
   );
 }

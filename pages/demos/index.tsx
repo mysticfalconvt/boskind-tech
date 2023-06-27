@@ -1,5 +1,7 @@
 import React from "react";
 import { DemoCard } from "../../components/DemoCard";
+import fs from "fs";
+import { GetStaticProps } from "next";
 
 export type Demo = {
   title: string;
@@ -46,9 +48,16 @@ export const demoList: Demo[] = [
       "This is a simple algorithm to calculate the depth of a JSON object",
     url: "/demos/jsonDepth",
   },
+  {
+    title: "Missing Letters",
+    description:
+      "This is an algorithm to find the missing letters in a list of consecutive letters ",
+    url: "/demos/consecutiveLetters",
+  },
 ];
 
-export default function Demos() {
+export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {
+  console.log(CassidooFiles);
   return (
     <div className="flex flex-col sm:p-10 items-center justify-center">
       <h1 className="text-4xl text-base-content m-10">
@@ -60,9 +69,33 @@ export default function Demos() {
       </h2>
       <div className="shadow-lg w-full py-8 sm:p-14 sm:rounded-md flex flex-col items-center sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gradient-to-br from-green-200 via-green-400 to-blue-500 ">
         {demoList.map((demo) => (
-          <DemoCard key={demo.title} demo={demo} />
+          <DemoCard
+            key={demo.title}
+            demo={demo}
+            isCassidoo={CassidooFiles.includes(demo.url.split("/")[2])}
+          />
         ))}
       </div>
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  // get all files in this dir
+  const files = fs
+    .readdirSync("pages/demos")
+    .filter((file) => file !== "index.tsx");
+
+  // get the name of every file that has the componenet <CassidooFooter
+  const CassidooFiles = files
+    .filter((file) => {
+      const fileContents = fs.readFileSync(`pages/demos/${file}`, "utf8");
+      return fileContents.includes("<CassidooFooter");
+    })
+    .map((file) => file.replace(".tsx", ""));
+  return {
+    props: {
+      CassidooFiles,
+    },
+  };
+};

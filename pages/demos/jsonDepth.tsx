@@ -1,5 +1,5 @@
+import CassidooFooter from "@/components/CassidooFooter";
 import React from "react";
-import { FaGithubSquare } from "react-icons/fa";
 
 export default function jsonDepth() {
   const [json, setJson] = React.useState(
@@ -87,27 +87,10 @@ export default function jsonDepth() {
           Depth: <span id="depth">{depth}</span>
         </p>
       )}
-      <div className="card w-96 bg-secondary text-secondary-content shadow-xl m-2 mt-6">
-        <div className="card-body">
-          <p>
-            This is a problem from the{" "}
-            <a
-              className="link link-secondary-content"
-              href="https://buttondown.email/cassidoo/archive/5640/"
-            >
-              Rendezvous with Cassidoo Newsletter
-            </a>{" "}
-          </p>
-          <a
-            className="link link-secondary-content flex items-center justify-center gap-3"
-            href="https://github.com/mysticfalconvt/boskind-tech/blob/main/pages/demos/jsonDepth.tsx"
-          >
-            <button className="btn btn-primary shadow-md ">
-              <FaGithubSquare className="h-8 w-8" /> View Code
-            </button>
-          </a>
-        </div>
-      </div>
+      <CassidooFooter
+        newsletterLink="https://buttondown.email/cassidoo/archive/5640/"
+        githubLink="https://github.com/mysticfalconvt/boskind-tech/blob/main/pages/demos/jsonDepth.tsx"
+      />
     </div>
   );
 }

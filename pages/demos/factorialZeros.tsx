@@ -1,3 +1,4 @@
+import CassidooFooter from "@/components/CassidooFooter";
 import React, { use } from "react";
 
 export default function factorialZeros() {
@@ -42,6 +43,10 @@ export default function factorialZeros() {
       <p>
         Trailing Zeros: <a id="zeros">{numberOfZeros}</a>
       </p>
+      <CassidooFooter
+        newsletterLink="https://buttondown.email/cassidoo/archive/computers-are-useless-they-can-only-give-you/"
+        githubLink="https://github.com/mysticfalconvt/boskind-tech/blob/7d7c9b40a0df9548c06fd814edf9e714497afe42/pages/demos/factorialZeros.tsx"
+      />
     </div>
   );
 }

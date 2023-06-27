@@ -19,25 +19,21 @@ export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
             className="carousel-item relative overflow-visible w-full"
             key={`slide${index}`}
           >
-            <div
-              className="tooltip tooltip-open tooltip-top"
-              data-tip="Panorama"
-            >
-              <Image
-                src={panorama.url}
-                alt={panorama.description}
-                className="w-full"
-                width={3840}
-                height={2160}
-              />
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href={`#slide${previousIndex}`} className="btn btn-circle">
-                  ❮
-                </a>
-                <a href={`#slide${nextIndex}`} className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
+            <img
+              src={panorama.url}
+              alt={panorama.description}
+              className="w-full"
+              width={3840}
+              height={2160}
+              // priority
+            />
+            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href={`#slide${previousIndex}`} className="btn btn-circle">
+                ❮
+              </a>
+              <a href={`#slide${nextIndex}`} className="btn btn-circle">
+                ❯
+              </a>
             </div>
           </div>
         );
