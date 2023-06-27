@@ -87,7 +87,7 @@ export default function consecutiveLetters() {
       <p className="prose">
         This is an algorithm that will fill in all of the missing letters in a
         list of consecutive letters. For example, if the input is "abce", the
-        output will be ["e"]. if the input is "abcdefghjklmnoquvwz", the output
+        output will be ["d"]. if the input is "abcdefghjklmnoquvwz", the output
         should be ["i", "p", "r", "s", "t", "x", "y"].
       </p>
       <input
