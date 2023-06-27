@@ -36,7 +36,7 @@ export default function Home({ postsData }: { postsData: Post[] }) {
         <TextTyper text={copy.components.BoskindDigital.copy} />
       </div>
       <div className="flex flex-col h-full sm:p-10 w-full items-center justify-center">
-        <DemoCard demo={randomDemo} />
+        <DemoCard demo={randomDemo} isCassidoo={false} />
         <div className="mt-5 flex flex-col gap-4">
           <BlogCard post={postsData[0]} />
           <BlogCard post={postsData[blogIndex]} />
