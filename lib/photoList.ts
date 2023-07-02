@@ -29,3 +29,28 @@ export const panoramaList: Photo[] = [
     description: "This is a panorama of Jay Peak over Lake Memphremagog",
   },
 ];
+
+export const landscapeList: Photo[] = [
+  {
+    url: "https://photos.rboskind.com/api/v1/t/88f7dbdc633b96b9cd381b8b794ef7246d876ab9/35562ksr/fit_3840",
+    title: "Headlights on Main St Newport",
+    description:
+      "This is a landscape photo of headlights on Main St Newport.  It was taken in the evening with a long exposure.",
+  },
+  {
+    url: "https://photos.rboskind.com/api/v1/t/dca8812c0a4b4642afa02491c7bd2f5ba3d20169/35562ksr/fit_3840",
+    title: "Stars over Lake Memphremagog",
+    description:
+      "This is a landscape photo of stars over Lake Memphremagog.  It was taken at night (3AM) with a very long exposure.",
+  },
+  {
+    url: "https://photos.rboskind.com/api/v1/t/2c367210ccaed008be0c783fd80f7daecfffe66a/35562ksr/fit_3840",
+    title: "Saint Mary's Church",
+    description: "This is a landscape photo of Saint Mary's Church.",
+  },
+];
+
+export const photoAlbums: { [key: string]: Photo[] } = {
+  panorama: panoramaList,
+  landscape: landscapeList,
+};

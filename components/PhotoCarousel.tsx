@@ -9,7 +9,7 @@ type PhotoCarouselProps = {
 export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
   return (
     <div className="carousel w-full">
-      {photoList.map((panorama, index) => {
+      {photoList.map((photo, index) => {
         const previousIndex = index === 0 ? panoramaList.length - 1 : index - 1;
         const nextIndex = index === panoramaList.length - 1 ? 0 : index + 1;
         return (
@@ -19,8 +19,8 @@ export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
             key={`slide${index}`}
           >
             <Image
-              src={panorama.url}
-              alt={panorama.description}
+              src={photo.url}
+              alt={photo.description}
               className="w-full object-contain "
               width={0}
               height={0}
