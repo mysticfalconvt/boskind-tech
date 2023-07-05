@@ -4,11 +4,15 @@ import { Photo, panoramaList } from "@/lib/photoList";
 
 type PhotoCarouselProps = {
   photoList: Photo[];
+  albumName: string;
 };
 
-export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
+export default function PhotoCarousel({
+  photoList,
+  albumName,
+}: PhotoCarouselProps) {
   return (
-    <div className="carousel w-full">
+    <div className="carousel w-full" key={albumName}>
       {photoList.map((photo, index) => {
         const previousIndex = index === 0 ? panoramaList.length - 1 : index - 1;
         const nextIndex = index === panoramaList.length - 1 ? 0 : index + 1;
@@ -16,7 +20,7 @@ export default function PhotoCarousel({ photoList }: PhotoCarouselProps) {
           <div
             id={`slide${index}`}
             className="carousel-item relative overflow-visible w-full"
-            key={`slide${index}`}
+            key={`album-${albumName}-slide${index}`}
           >
             <Image
               src={photo.url}

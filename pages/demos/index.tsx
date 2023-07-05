@@ -54,6 +54,12 @@ export const demoList: Demo[] = [
       "This is an algorithm to find the missing letters in a list of consecutive letters ",
     url: "/demos/consecutiveLetters",
   },
+  {
+    title: "Reversed Squares",
+    description:
+      "This is an algorithm to find if a number is botha  square number, and the reverse of a square number",
+    url: "/demos/reversedSquare",
+  },
 ];
 
 export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {

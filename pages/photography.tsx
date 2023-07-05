@@ -35,8 +35,12 @@ export default function page() {
           </button>
         ))}
       </div>
-      <div className="mt-4">
-        <PhotoCarousel photoList={photoList} />
+      <div className="mt-4" key={albumName}>
+        <PhotoCarousel
+          photoList={photoList}
+          albumName={albumName}
+          key={albumName}
+        />
       </div>
     </div>
   );
