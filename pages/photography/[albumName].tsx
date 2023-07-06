@@ -1,17 +1,12 @@
+import React from "react";
+import { photoAlbums } from "@/lib/photoList";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import { copy } from "@/lib/copy";
-import { photoAlbums } from "@/lib/photoList";
-import React from "react";
 
-export default function page() {
-  const [albumName, setAlbumName] = React.useState("panorama");
-  const [photoList, setPhotoList] = React.useState(photoAlbums[albumName]);
-  const listOfAlbums = Object.keys(photoAlbums);
+const listOfAlbums = Object.keys(photoAlbums);
 
-  // whenever the album name changes, remove the #slide from the url and update to #slide0
-  React.useEffect(() => {
-    window.location.hash = "#slide0";
-  }, [albumName]);
+export default function albumPage({ albumName }: { albumName: string }) {
+  console.log(albumName);
   return (
     <div className="flex flex-col items-center justify-center text-base-content">
       <h1 className="text-5xl m-5">{copy.components.photography.title}</h1>
@@ -32,11 +27,29 @@ export default function page() {
       </div>
       <div className="mt-4" key={albumName}>
         <PhotoCarousel
-          photoList={photoList}
+          photoList={photoAlbums[albumName]}
           albumName={albumName}
           key={albumName}
         />
       </div>
     </div>
   );
+}
+
+export async function getStaticProps({
+  params,
+}: {
+  params: { albumName: string };
+}) {
+  const albumName = params.albumName;
+  return { props: { albumName } };
+}
+
+export async function getStaticPaths() {
+  const albums = photoAlbums;
+  const paths = Object.keys(albums).map((albumName) => ({
+    params: { albumName },
+  }));
+  console.log(paths);
+  return { paths, fallback: false };
 }

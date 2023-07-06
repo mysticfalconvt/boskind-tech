@@ -14,8 +14,8 @@ export default function PhotoCarousel({
   return (
     <div className="carousel w-full" key={albumName}>
       {photoList.map((photo, index) => {
-        const previousIndex = index === 0 ? panoramaList.length - 1 : index - 1;
-        const nextIndex = index === panoramaList.length - 1 ? 0 : index + 1;
+        const previousIndex = index === 0 ? photoList.length - 1 : index - 1;
+        const nextIndex = index === photoList.length - 1 ? 0 : index + 1;
         return (
           <div
             id={`slide${index}`}

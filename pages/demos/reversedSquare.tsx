@@ -26,7 +26,6 @@ function generateReversedSquareList(max: number) {
         reversedSquareList.push(squareOfNumber);
       }
     }
-    console.log(i, squareOfNumber, reversed, squareList, reversedSquareList);
   }
   return reversedSquareList;
 }
