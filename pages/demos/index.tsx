@@ -21,6 +21,11 @@ export const demoList: Demo[] = [
     url: "/demos/colorPickerGame",
   },
   {
+    title: "Guess a number",
+    description: "A simple game to guess a number in a range",
+    url: "/demos/guessANumber",
+  },
+  {
     title: "Fizz Buzz",
     description: "Simple Fizz-Buzz... the obvious programming question",
     url: "/demos/fizzBuzz",
