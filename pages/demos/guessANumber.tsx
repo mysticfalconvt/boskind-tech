@@ -2,7 +2,6 @@ import CassidooFooter from "@/components/CassidooFooter";
 import React from "react";
 
 enum gameStatus {
-  BEFORE_START,
   IN_PROGRESS,
   WON,
   LOST,
@@ -14,7 +13,7 @@ export default function guessANumber() {
   const [range, setRange] = React.useState(100);
   const [message, setMessage] = React.useState("");
   const [number, setNumber] = React.useState(Math.floor(Math.random() * range));
-  const [gameState, setGameState] = React.useState(gameStatus.BEFORE_START);
+  const [gameState, setGameState] = React.useState(gameStatus.IN_PROGRESS);
 
   const handleGuess = () => {
     if (guess === number) {
@@ -27,9 +26,7 @@ export default function guessANumber() {
     if (guess < number) {
       setMessage("Too low!");
     }
-    if (gameState === gameStatus.BEFORE_START) {
-      setGameState(gameStatus.IN_PROGRESS);
-    }
+
     if (gameState === gameStatus.IN_PROGRESS) {
       if (numberOfGuesses === 9) {
         setNumberOfGuesses(10);
@@ -54,13 +51,15 @@ export default function guessANumber() {
       {gameState === gameStatus.WON ? (
         <div className="card w-96 bg-primary text-primary-content absolute z-20 ">
           <div className="card-body">
-            <h2 className="card-title">You Won!!!</h2>
+            <h2 className="card-title">
+              You Won!!! in {numberOfGuesses} tries
+            </h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
             <div className="card-actions justify-end">
               <button
                 className="btn"
                 onClick={() => {
-                  setGameState(gameStatus.BEFORE_START);
+                  setGameState(gameStatus.IN_PROGRESS);
                   setNumber(Math.floor(Math.random() * range));
                   setNumberOfGuesses(0);
                   setGuess(0);
@@ -81,7 +80,7 @@ export default function guessANumber() {
               <button
                 className="btn"
                 onClick={() => {
-                  setGameState(gameStatus.BEFORE_START);
+                  setGameState(gameStatus.IN_PROGRESS);
                   setNumber(Math.floor(Math.random() * range));
                   setNumberOfGuesses(0);
                   setGuess(0);
