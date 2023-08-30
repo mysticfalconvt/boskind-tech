@@ -26,6 +26,11 @@ export const demoList: Demo[] = [
     url: "/demos/guessANumber",
   },
   {
+    title: "Count and Say",
+    description: "Generate a count and say string from a sequence of numbers",
+    url: "/demos/countAndSay",
+  },
+  {
     title: "Fizz Buzz",
     description: "Simple Fizz-Buzz... the obvious programming question",
     url: "/demos/fizzBuzz",
