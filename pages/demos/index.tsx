@@ -70,6 +70,12 @@ export const demoList: Demo[] = [
       "This is an algorithm to find if a number is botha  square number, and the reverse of a square number",
     url: "/demos/reversedSquare",
   },
+  {
+    title: "Pokemon",
+    description:
+      "Using the pokemon API to find out what a pokemon is strong and weak against",
+    url: "/demos/pokemon",
+  },
 ];
 
 export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {
