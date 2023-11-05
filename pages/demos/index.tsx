@@ -76,6 +76,12 @@ export const demoList: Demo[] = [
       "Using the pokemon API to find out what a pokemon is strong and weak against",
     url: "/demos/pokemon",
   },
+  {
+    title: "Isomorphic Strings",
+    description:
+      "Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if there is a one-to-one mapping possible for every character of the first string to every character of the second string.",
+    url: "/demos/isIsomorphic",
+  },
 ];
 
 export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {
