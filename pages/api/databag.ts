@@ -10,26 +10,23 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let { text } = req.body;
-  console.log("text", text);
-
+  let { text } = req.headers;
   //   the body of the post request should look like {"data":"{\"text\":\"text message here\"}","datatype":"superbasictopic"}
+  if (text) {
+    const body = JSON.stringify({
+      data: JSON.stringify({ text: text }),
+      datatype: "superbasictopic",
+    });
+    const data = await fetch(endpoint, {
+      method: "POST",
+      body: body,
+    }).then((res) => res.json());
 
-  const body = JSON.stringify({
-    data: JSON.stringify({ text: text }),
-    datatype: "superbasictopic",
-  });
-  const data = await fetch(endpoint, {
-    method: "POST",
-    body: body,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
-
-  if (data) {
-    res.status(200).json({ success: true });
-  } else {
-    res.status(400).json({ success: false });
+    if (data) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(400).json({ success: false });
+    }
   }
+  res.status(400).json({ success: false });
 }
