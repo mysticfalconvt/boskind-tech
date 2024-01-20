@@ -12,11 +12,11 @@ export default async function handler(
 ) {
   let { text } = req.body;
   console.log("text", text);
-  const messageText = "asdfasdfasdf";
+
   //   the body of the post request should look like {"data":"{\"text\":\"text message here\"}","datatype":"superbasictopic"}
 
   const body = JSON.stringify({
-    data: JSON.stringify({ text: messageText }),
+    data: JSON.stringify({ text: text }),
     datatype: "superbasictopic",
   });
   const data = await fetch(endpoint, {
