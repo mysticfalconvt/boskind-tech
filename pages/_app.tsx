@@ -26,6 +26,7 @@ export const metadata = {
 };
 
 export default function App({ Component, pageProps }: AppProps) {
+  const isProduction = process.env.NODE_ENV === "production";
   return (
     <main className={`${FiraCode.className} `}>
       <Head>
@@ -36,11 +37,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="category" content={metadata.category} />
         <link rel="icon" type="image/png" href={metadata.icons.icon} />
         <link rel="shortcut icon" href={metadata.icons.icon} />
-        <script
-          async
-          src="https://umami.rboskind.com/script.js"
-          data-website-id="c3e15d76-8b20-4ba3-ad68-2a97d7dce064"
-        ></script>
+        {isProduction && (
+          <script
+            async
+            src="https://umami.rboskind.com/script.js"
+            data-website-id="c3e15d76-8b20-4ba3-ad68-2a97d7dce064"
+          ></script>
+        )}
       </Head>
       <Providers>
         <HeaderNav />
