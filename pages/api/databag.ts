@@ -11,10 +11,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   let { text } = req.headers;
+  let { body } = req;
+
+  const textToSend = body.msg;
+
   //   the body of the post request should look like {"data":"{\"text\":\"text message here\"}","datatype":"superbasictopic"}
-  if (text) {
+  if (text === "Uptime Kuma has a down application") {
     const body = JSON.stringify({
-      data: JSON.stringify({ text: text }),
+      data: JSON.stringify({ text: textToSend }),
       datatype: "superbasictopic",
     });
     const data = await fetch(endpoint, {
@@ -27,6 +31,7 @@ export default async function handler(
     } else {
       res.status(400).json({ success: false });
     }
+    return;
   }
   res.status(400).json({ success: false });
 }
