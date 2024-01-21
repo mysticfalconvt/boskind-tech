@@ -73,7 +73,6 @@ export default function () {
         newsletterLink="https://buttondown.email/cassidoo/archive/no-matter-what-people-tell-you-words-and-ideas/"
         githubLink="https://github.com/mysticfalconvt/boskind-tech/blob/main/pages/demos/isIsomorphic.tsx"
       />
-      <button onClick={() => methodDoesNotExist()}>Break the world</button>;
     </div>
   );
 }
