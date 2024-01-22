@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isProduction = process.env.NODE_ENV === "production";
 
   Sentry.init({
-    dsn: "https://6867b71b74cd8f312d347b351458f54a@o4506610880741376.ingest.sentry.io/4506610882510848",
+    dsn: "https://6b7dc650ff75f3542fe1c7a7ce3704fe@o4506610880741376.ingest.sentry.io/4506612007174144",
     integrations: [
       new Sentry.BrowserTracing({
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
