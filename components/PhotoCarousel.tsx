@@ -21,5 +21,13 @@ export default function PhotoCarousel({
     originalTitle: photo.description,
   }));
 
-  return <ImageGallery items={images} thumbnailPosition="top" />;
+  return (
+    <>
+      <ImageGallery
+        items={images}
+        thumbnailPosition="top"
+        // renderItem={renderItem}
+      />
+    </>
+  );
 }

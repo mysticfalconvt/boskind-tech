@@ -42,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
     ],
     // Performance Monitoring
     tracesSampleRate: 1.0, //  Capture 100% of the transactions
+    enabled: isProduction,
   });
   return (
     <main className={`${FiraCode.className} `}>
