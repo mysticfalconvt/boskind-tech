@@ -16,4 +16,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+/*    
+      overflow-y: auto;
+      scrollbar-gutter: stable; */
+  
 }

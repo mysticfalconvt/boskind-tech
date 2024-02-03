@@ -5,10 +5,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { photoId, isWeb = true } = req.query;
-  const apiUrl = `https://pics.rboskind.com/api/asset/file/${photoId}${
-    isWeb ? "/?isWeb=true" : ""
-  }`;
+  const { photoId, isWeb = true, isThumb = false } = req.query;
+  const query = `isWeb=${isWeb}&isThumb=${isThumb}`;
+
+  const apiUrl = `https://pics.rboskind.com/api/asset/file/${photoId}/?${query}`;
   const response = await fetch(apiUrl, {
     headers: {
       "x-api-key": process.env.IMMICH_API_KEY as string,

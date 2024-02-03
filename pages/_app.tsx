@@ -65,8 +65,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Providers>
         <HeaderNav />
         <Sidebar />
-        <div className="drawer h-full">
-          <div className="drawer-content h-full">
+        <div className="drawer flex h-full w-full">
+          <div
+            className="drawer-content h-full w-full"
+            style={{ scrollbarGutter: "stable" }}
+          >
             <Component {...pageProps} />
           </div>
         </div>

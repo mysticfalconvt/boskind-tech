@@ -76,7 +76,7 @@ export const headerLinks: linkItemsList = [
     subItems: [
       {
         label: "Photography",
-        href: "/photography",
+        href: "/photography/1",
         icon: BsFillCameraFill,
       },
       {
