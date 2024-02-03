@@ -10,7 +10,7 @@ const getAlbumInfo = async (albumId: string): Promise<any> => {
   const baseImmichUrl =
     process.env.NODE_ENV === "development"
       ? "http://10.0.0.166:2283"
-      : "https://pics.boskind.tech";
+      : "https://pics.rboskind.com";
   const queryAlbumId = albumId && albumId !== "1" ? albumId : defaultAlbumId;
   const apiUrl = `${baseImmichUrl}/api/album/${queryAlbumId}`;
   let resData = [""];
@@ -35,7 +35,7 @@ const getAlbumList = async (): Promise<any> => {
   const baseImmichUrl =
     process.env.NODE_ENV === "development"
       ? "http://10.0.0.166:2283"
-      : "https://pics.boskind.tech";
+      : "https://pics.rboskind.com";
   const apiUrl = `${baseImmichUrl}/api/album`;
   let resData = [""];
   await fetch(apiUrl, {
