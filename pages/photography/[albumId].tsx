@@ -100,7 +100,7 @@ export const getStaticPaths = async () => {
       albumNamesById[album.id] = album.albumName;
     }
   });
-  albumNamesById[1] = "default";
+
   const paths = Object.keys(albumNamesById).map((albumId) => ({
     params: { albumId },
   }));
