@@ -28,7 +28,7 @@ const getAlbumInfo = async (albumId: string): Promise<any> => {
 export const getServerSideProps = async () => {
   const albumInfo = await getAlbumInfo(albumId);
   const photos = albumInfo.assets.map((photo: any) => photo.id);
-  const path = "http://localhost:3000/api/image";
+  const path = "https://boskind.tech/api/image";
   const photoList: Photo[] = photos.map((photo: any) => {
     return {
       url: `${path}/?photoId=${photo}&isWeb=true`,
