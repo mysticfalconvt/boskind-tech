@@ -6,13 +6,13 @@ import React from "react";
 const defaultAlbumId = "78dc32d2-7155-44fb-99bf-5b75bc5d43d0";
 const xApiKey = process.env.IMMICH_API_KEY || "";
 
-const baseImmichUrl =
-  process.env.NODE_ENV === "development"
-    ? "http://10.0.0.166:2283"
-    : "https://pics.boskind.tech";
-
 const getAlbumInfo = async (albumId: string): Promise<any> => {
-  const apiUrl = `${baseImmichUrl}/api/album/${albumId}`;
+  const baseImmichUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://10.0.0.166:2283"
+      : "https://pics.boskind.tech";
+  const queryAlbumId = albumId && albumId !== "1" ? albumId : defaultAlbumId;
+  const apiUrl = `${baseImmichUrl}/api/album/${queryAlbumId}`;
   let resData = [""];
   await fetch(apiUrl, {
     method: "GET",
@@ -32,6 +32,10 @@ const getAlbumInfo = async (albumId: string): Promise<any> => {
 };
 
 const getAlbumList = async (): Promise<any> => {
+  const baseImmichUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://10.0.0.166:2283"
+      : "https://pics.boskind.tech";
   const apiUrl = `${baseImmichUrl}/api/album`;
   let resData = [""];
   await fetch(apiUrl, {
@@ -65,7 +69,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const albumInfo = await getAlbumInfo(
     doesAlbumExist ? albumId : defaultAlbumId
   );
-  const photos = albumInfo.assets.map((photo: any) => photo.id);
+  const photos = albumInfo?.assets?.map((photo: any) => photo.id);
   const path = `${
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
