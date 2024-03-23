@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { forwardRef, ComponentProps } from "react";
+import { ComponentProps, forwardRef } from "react";
 
 const features: FeatureProps[] = [
   {
@@ -194,19 +194,11 @@ const Home: NextPage = () => {
           <code className="font-mono text-accent font-bold">
             software project
           </code>
-          . My lastest project is the school dashboard website that I recently
-          rebuilt from the ground up. This project is a full-stack web
-          application that allows teachers, students, and parents to manage
-          everything about their school experience. The{" "}
-          <code className="font-mono text-accent font-bold">Front-End</code> is
-          built with React, Next.js, Styled Components, React-Query, and
-          Chart.js. The{" "}
-          <code className="font-mono text-accent font-bold">Back-End</code> is
-          built using Node.js, Keystone.js, Express, PostgreSQL, and GraphQL.
-          This is{" "}
-          <code className="font-mono text-accent font-bold">hosted</code> using
-          Linode and Vercel.
+          . 
+          <br />
+          I am a full-stack developer with varied experience and a desire to always be the most productive person around.
         </p>
+        
       </header>
       <section className="max-w-screen-lg xl:max-w-screen-xl px-2 flex flex-col md:flex-row gap-2 items-center md:items-baseline justify-around mx-auto mt-4 flex-wrap">
         <div className="sm:flex sm:space-x-6 space-y-4 sm:space-y-0 items-center">
