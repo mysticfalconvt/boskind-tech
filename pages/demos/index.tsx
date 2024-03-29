@@ -82,6 +82,11 @@ export const demoList: Demo[] = [
       "Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if there is a one-to-one mapping possible for every character of the first string to every character of the second string.",
     url: "/demos/isIsomorphic",
   },
+  {
+    title: "Markdown Link Parser",
+    description: "This will parse markdown formatted links in a string",
+    url: "/demos/markdownLinkParser",
+  },
 ];
 
 export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {
