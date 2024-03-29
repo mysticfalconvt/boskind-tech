@@ -38,6 +38,14 @@ export default function markdownLinks() {
       />
 
       <p className="text-2xl  m-10">{parseMarkdownLinks(inputText)}</p>
+      <footer className="text-2xl  m-10">
+        <a
+          className="link"
+          href="https://github.com/mysticfalconvt/boskind-tech/blob/76d3fb6f40d0c7683e48171303ffd96ba28bdc13/pages/demos/markdownLinkParser.tsx"
+        >
+          Github
+        </a>
+      </footer>
     </div>
   );
 }
