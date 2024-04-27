@@ -28,6 +28,7 @@ export const metadata = {
 
 export default function App({ Component, pageProps }: AppProps) {
   const isProduction = process.env.NODE_ENV === "production";
+  const umamiId = process.env.UMAMI_ID || "";
 
   Sentry.init({
     dsn: "https://6b7dc650ff75f3542fe1c7a7ce3704fe@o4506610880741376.ingest.sentry.io/4506612007174144",
@@ -58,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <script
             async
             src="https://umami.rboskind.com/script.js"
-            data-website-id="c3e15d76-8b20-4ba3-ad68-2a97d7dce064"
+            data-website-id={umamiId}
           ></script>
         )}
       </Head>
