@@ -62,13 +62,13 @@ export default function App({
         <meta name="category" content={metadata.category} />
         <link rel="icon" type="image/png" href={metadata.icons.icon} />
         <link rel="shortcut icon" href={metadata.icons.icon} />
-        {/* {isProduction && (
+        {isProduction && (
           <script
             async
             src="https://umami.rboskind.com/script.js"
             data-website-id={umamiId}
           ></script>
-        )} */}
+        )}
       </Head>
       <Providers>
         <HeaderNav />
