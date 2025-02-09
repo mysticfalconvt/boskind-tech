@@ -1,7 +1,5 @@
 "use client";
 import { useLocalStorage } from "@mantine/hooks";
-import { Session } from "next-auth";
-import { SessionProvider, useSession } from "next-auth/react";
 import React, { Children } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -23,11 +21,7 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <>
-      <SessionProvider>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </>
   );
 }

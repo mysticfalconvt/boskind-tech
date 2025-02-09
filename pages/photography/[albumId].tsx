@@ -34,9 +34,9 @@ const getAlbumInfo = async (albumId: string): Promise<any> => {
 const getAlbumList = async (): Promise<any> => {
   const baseImmichUrl =
     process.env.NODE_ENV === "development"
-      ? "http://10.0.0.166:2283"
+      ? "http://10.0.0.50:2283"
       : "https://pics.rboskind.com";
-  const apiUrl = `${baseImmichUrl}/api/album`;
+  const apiUrl = `${baseImmichUrl}/api/getAllAlbums`;
   let resData = [""];
   await fetch(apiUrl, {
     method: "GET",
@@ -46,13 +46,15 @@ const getAlbumList = async (): Promise<any> => {
     },
   })
     .then(async (response) => {
-      resData = await response.json();
+      console.log("response", response);
+      const json = await response.json();
+      console.log("json", json);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 
-  return resData;
+  return resData || [];
 };
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -95,7 +97,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 export const getStaticPaths = async () => {
   const albumList = await getAlbumList();
   let albumNamesById: Record<string, string> = {};
-  albumList.forEach((album: any) => {
+  albumList?.forEach((album: any) => {
     if (album.shared === true) {
       albumNamesById[album.id] = album.albumName;
     }

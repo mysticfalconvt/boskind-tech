@@ -38,7 +38,6 @@ export const getAllPostsData = async () => {
   const firstImageInPost = postsMarkdown.map((post) => {
     const firstImage = post.split("![](")[1]?.split(")")[0];
 
-    console.log("firstImage", firstImage);
     return firstImage;
   });
 

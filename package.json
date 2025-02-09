@@ -1,18 +1,15 @@
 {
-  "name": "postgres-prisma",
-  "repository": "https://github.com/vercel/examples.git",
+  "name": "Boskind-tech-homepage",
+  "repository": "https://github.com/mysticfalconvt/boskind-tech",
   "license": "MIT",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": " next dev --turbo",
-    "build": "prisma generate && prisma db push && prisma db seed && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch"
-  },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -23,7 +20,6 @@
     "@mantine/modals": "^6.0.11",
     "@mantine/notifications": "^6.0.11",
     "@mantine/spotlight": "^6.0.11",
-    "@prisma/client": "4.14.1",
     "@sentry/react": "^7.94.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -69,7 +65,6 @@
   },
   "devDependencies": {
     "@types/ms": "^0.7.31",
-    "prisma": "^4.14.1",
     "turbo": "^1.9.9"
   }
 }

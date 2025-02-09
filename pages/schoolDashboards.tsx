@@ -1,5 +1,3 @@
-import Loading from "@/components/Loading";
-import Table from "@/components/table";
 import { copy } from "@/lib/copy";
 import React from "react";
 import {
