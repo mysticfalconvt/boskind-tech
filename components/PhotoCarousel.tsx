@@ -43,11 +43,11 @@ export default function PhotoCarousel({
       {albumName && albumName !== "default" ? (
         <h3 className="text-center text-3xl font-bold">{albumName}</h3>
       ) : null}
-      <ImageGallery
+      {/* <ImageGallery
         items={images}
         thumbnailPosition="top"
         // renderItem={renderItem}
-      />
+      /> */}
     </div>
   );
 }

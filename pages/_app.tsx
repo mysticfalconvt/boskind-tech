@@ -6,7 +6,8 @@ import React from "react";
 import Providers from "@/components/Providers";
 import Sidebar from "@/components/Sidebar";
 import Head from "next/head";
-import { AppProps } from "next/app";
+
+import type { ElementType } from "react";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -26,7 +27,13 @@ export const metadata = {
   },
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps,
+}: {
+  Component: React.ElementType;
+  pageProps: any;
+}) {
   const isProduction = process.env.NODE_ENV === "production";
   const umamiId = process.env.UMAMI_ID || "";
 
@@ -55,13 +62,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="category" content={metadata.category} />
         <link rel="icon" type="image/png" href={metadata.icons.icon} />
         <link rel="shortcut icon" href={metadata.icons.icon} />
-        {isProduction && (
+        {/* {isProduction && (
           <script
             async
             src="https://umami.rboskind.com/script.js"
             data-website-id={umamiId}
           ></script>
-        )}
+        )} */}
       </Head>
       <Providers>
         <HeaderNav />
@@ -71,6 +78,7 @@ export default function App({ Component, pageProps }: AppProps) {
             className="drawer-content h-full w-full"
             style={{ scrollbarGutter: "stable" }}
           >
+            {/* @ts-ignore */}
             <Component {...pageProps} />
           </div>
         </div>

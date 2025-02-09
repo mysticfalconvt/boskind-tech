@@ -4,7 +4,6 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
     "airbnb-typescript",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "react-hooks"],
