@@ -18,8 +18,11 @@ interface ParseResult {
 function formatQuote(quote: string, timestring: string): string {
   // Create a regex that matches the timestring, case insensitive
   const regex = new RegExp(`(${timestring})`, 'gi');
-  // Replace the timestring with a bold version
-  return quote.replace(regex, '<strong>$1</strong>');
+  // Replace the timestring with a bold and colored version
+  return quote.replace(
+    regex,
+    '<strong class="font-extrabold text-primary dark:text-primary-focus">$1</strong>',
+  );
 }
 
 export default function BookClock() {
