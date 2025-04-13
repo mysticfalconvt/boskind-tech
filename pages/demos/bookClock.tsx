@@ -15,6 +15,13 @@ interface ParseResult {
   meta: any;
 }
 
+function formatQuote(quote: string, timestring: string): string {
+  // Create a regex that matches the timestring, case insensitive
+  const regex = new RegExp(`(${timestring})`, 'gi');
+  // Replace the timestring with a bold version
+  return quote.replace(regex, '<strong>$1</strong>');
+}
+
 export default function BookClock() {
   const [currentQuote, setCurrentQuote] = useState<BookQuote | null>(null);
   const [quotes, setQuotes] = useState<BookQuote[]>([]);
@@ -78,9 +85,15 @@ export default function BookClock() {
     <div className="flex flex-col items-center justify-center min-h-screen p-10">
       {currentQuote ? (
         <div className="max-w-3xl w-full bg-base-100 dark:bg-base-200 rounded-lg shadow-lg p-8 border border-base-300 dark:border-base-300">
-          <div className="text-2xl mb-8 italic text-base-content">
-            "{currentQuote.quote}"
-          </div>
+          <div
+            className="text-2xl mb-8 italic text-base-content"
+            dangerouslySetInnerHTML={{
+              __html: `"${formatQuote(
+                currentQuote.quote,
+                currentQuote.timestring,
+              )}"`,
+            }}
+          />
           <div className="text-right">
             <div className="text-lg text-base-content">
               {currentQuote.title}
