@@ -129,11 +129,6 @@ export default function BookClock({
     return () => clearInterval(quoteInterval);
   }, [currentTimeQuotes]);
 
-  // Debug information
-  console.log('Quotes loaded:', quotes.length);
-  console.log('Current time quotes:', currentTimeQuotes.length);
-  console.log('Current quote:', currentQuote);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10 bg-base-100">
       {currentQuote ? (
