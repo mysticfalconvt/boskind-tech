@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface BookQuote {
   time: string;
@@ -29,45 +29,105 @@ export default function BookClock() {
   const [currentQuote, setCurrentQuote] = useState<BookQuote | null>(null);
   const [quotes, setQuotes] = useState<BookQuote[]>([]);
   const [currentTimeQuotes, setCurrentTimeQuotes] = useState<BookQuote[]>([]);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Load and parse the CSV file
-    fetch('/bookQuotes.csv')
-      .then((response) => response.text())
-      .then((csvText) => {
+    const loadQuotes = async () => {
+      // Check localStorage first
+      const cachedQuotes = localStorage.getItem('bookQuotes');
+      const lastFetchTime = localStorage.getItem('bookQuotesLastFetch');
+      const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+      if (
+        cachedQuotes &&
+        lastFetchTime &&
+        Date.now() - Number(lastFetchTime) < oneDay
+      ) {
+        // Use cached data if it's less than a day old
+        setQuotes(JSON.parse(cachedQuotes));
+        return;
+      }
+
+      try {
+        // Fetch with cache control headers
+        const response = await fetch('/bookQuotes.csv', {
+          headers: {
+            'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
+          },
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch quotes');
+
+        const csvText = await response.text();
         Papa.parse<BookQuote>(csvText, {
           header: true,
           complete: (results: ParseResult) => {
-            setQuotes(results.data);
+            const parsedQuotes = results.data;
+            setQuotes(parsedQuotes);
+            // Cache the parsed data
+            localStorage.setItem('bookQuotes', JSON.stringify(parsedQuotes));
+            localStorage.setItem('bookQuotesLastFetch', Date.now().toString());
           },
         });
-      });
-  }, []);
-
-  useEffect(() => {
-    const updateCurrentTimeQuotes = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const currentTime = `${hours}:${minutes}`;
-
-      const matchingQuotes = quotes.filter(
-        (quote) => quote.time === currentTime,
-      );
-      setCurrentTimeQuotes(matchingQuotes);
-
-      // If we have quotes for this time, select a random one
-      if (matchingQuotes.length > 0) {
-        const randomIndex = Math.floor(Math.random() * matchingQuotes.length);
-        setCurrentQuote(matchingQuotes[randomIndex]);
+      } catch (error) {
+        console.error('Error loading quotes:', error);
+        // If fetch fails and we have cached data, use that
+        if (cachedQuotes) {
+          setQuotes(JSON.parse(cachedQuotes));
+        }
       }
     };
 
-    // Update the current time quotes every minute
-    updateCurrentTimeQuotes();
-    const timeInterval = setInterval(updateCurrentTimeQuotes, 60000);
+    loadQuotes();
+  }, []);
 
-    return () => clearInterval(timeInterval);
+  const updateCurrentTimeQuotes = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const currentTime = `${hours}:${minutes}`;
+
+    const matchingQuotes = quotes.filter((quote) => quote.time === currentTime);
+    setCurrentTimeQuotes(matchingQuotes);
+
+    // If we have quotes for this time, select a random one
+    if (matchingQuotes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * matchingQuotes.length);
+      setCurrentQuote(matchingQuotes[randomIndex]);
+    }
+  };
+
+  useEffect(() => {
+    const scheduleNextUpdate = () => {
+      const now = new Date();
+      const nextMinute = new Date(now);
+      nextMinute.setMinutes(now.getMinutes() + 1);
+      nextMinute.setSeconds(0);
+      nextMinute.setMilliseconds(0);
+
+      const timeUntilNextMinute = nextMinute.getTime() - now.getTime();
+
+      // Clear any existing timer
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+
+      // Schedule the next update
+      timerRef.current = setTimeout(() => {
+        updateCurrentTimeQuotes();
+        scheduleNextUpdate();
+      }, timeUntilNextMinute);
+    };
+
+    // Initial update
+    updateCurrentTimeQuotes();
+    scheduleNextUpdate();
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [quotes]);
 
   useEffect(() => {
