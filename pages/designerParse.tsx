@@ -75,6 +75,34 @@ export default function DesignerParse() {
     }
   };
 
+  const handleSelectAll = () => {
+    const preElement = document.querySelector('pre');
+    if (preElement) {
+      const range = document.createRange();
+      range.selectNodeContents(preElement);
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  };
+
+  const handleDownload = () => {
+    if (!selectedFile || !decodedContent) return;
+
+    const jsonString = JSON.stringify(decodedContent, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = selectedFile.name.replace(/\.[^/.]+$/, '') + '.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex flex-col p-10 bg-base-100">
       <div className="w-full bg-base-200 rounded-xl shadow-xl p-8 border border-base-300">
@@ -126,16 +154,27 @@ export default function DesignerParse() {
               Selected file: {selectedFile.name} (
               {(selectedFile.size / 1024).toFixed(2)} KB)
             </span>
-            <button
-              onClick={() => {
-                setSelectedFile(null);
-                setDecodedContent(null);
-                setError(null);
-              }}
-              className="btn btn-ghost btn-sm"
-            >
-              Remove
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSelectAll}
+                className="btn btn-ghost btn-sm"
+              >
+                Select All
+              </button>
+              <button onClick={handleDownload} className="btn btn-ghost btn-sm">
+                Download JSON
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedFile(null);
+                  setDecodedContent(null);
+                  setError(null);
+                }}
+                className="btn btn-ghost btn-sm"
+              >
+                Remove
+              </button>
+            </div>
           </div>
         )}
 
