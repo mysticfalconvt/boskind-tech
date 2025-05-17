@@ -3,6 +3,7 @@
 // to get the image
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import sharp from 'sharp';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { photoId, isThumb = false } = req.query;
@@ -24,13 +25,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (response.ok) {
-      // Get the image content and set it as the response
+      // Get the image content
       const imageBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(imageBuffer);
+
+      // Process the image with Sharp
+      let processedImage = sharp(buffer);
+
+      // If it's not a thumbnail, resize and optimize
+      if (isThumb !== 'true') {
+        processedImage = processedImage
+          .resize(1920, 1080, {
+            // Max dimensions
+            fit: 'inside',
+            withoutEnlargement: true,
+          })
+          .jpeg({
+            quality: 80,
+            mozjpeg: true, // Better compression
+          });
+      }
+
+      // Get the processed image buffer
+      const processedBuffer = await processedImage.toBuffer();
+
+      // Set response headers
       res.setHeader('Content-Type', 'image/jpeg');
       res.setHeader('Cache-Control', 'max-age=31536000, immutable');
       res.setHeader('Access-Control-Allow-Origin', '*');
-      const buffer = Buffer.from(imageBuffer);
-      res.end(buffer);
+      res.end(processedBuffer);
     } else {
       // Handle non-successful responses
       const errorMessage = await response.text();
