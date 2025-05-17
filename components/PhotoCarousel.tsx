@@ -7,6 +7,22 @@ type PhotoCarouselProps = {
   albumName: string;
 };
 
+const formatDate = (dateString: string) => {
+  if (!dateString) return 'No date';
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch (error) {
+    return dateString;
+  }
+};
+
 export default function PhotoCarousel({
   photoList,
   albumName,
@@ -43,6 +59,7 @@ export default function PhotoCarousel({
               photoList[currentIndex].title
             }
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
             className="object-contain"
             priority
           />
@@ -63,17 +80,36 @@ export default function PhotoCarousel({
         </div>
         <div className="mt-2 text-center">
           <p className="text-lg font-semibold">
-            {photoList[currentIndex].title}
+            {formatDate(photoList[currentIndex].title)}
           </p>
-          {photoList[currentIndex].description && (
-            <p className="text-sm text-gray-600">
-              {photoList[currentIndex].description}
-            </p>
-          )}
           <p className="text-sm text-gray-500">
             {currentIndex + 1} of {photoList.length}
           </p>
         </div>
+      </div>
+
+      {/* Thumbnail strip */}
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
+        {photoList.map((photo, index) => (
+          <div
+            key={photo.url}
+            className={`relative h-20 w-20 flex-shrink-0 cursor-pointer transition-opacity ${
+              index === currentIndex
+                ? 'ring-2 ring-primary'
+                : 'opacity-70 hover:opacity-100'
+            }`}
+            onClick={() => setCurrentIndex(index)}
+          >
+            <Image
+              src={photo.thumbnailUrl || photo.url}
+              alt={photo.description || photo.title}
+              fill
+              sizes="80px"
+              priority={index === 0}
+              className="object-cover rounded"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

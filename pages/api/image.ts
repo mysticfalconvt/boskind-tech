@@ -7,10 +7,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { photoId, isThumb = false } = req.query;
 
-  const baseImmichUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://10.0.0.50:2283'
-      : 'https://pics.rboskind.com';
+  const baseImmichUrl = process.env.IMMICH_URL || '';
 
   // Use different endpoints based on whether we want a thumbnail or full-size image
   const apiUrl =

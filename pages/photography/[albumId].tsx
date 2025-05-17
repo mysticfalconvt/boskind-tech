@@ -6,10 +6,7 @@ const defaultAlbumId = '78dc32d2-7155-44fb-99bf-5b75bc5d43d0';
 const xApiKey = process.env.IMMICH_API_KEY || '';
 
 const getAlbumInfo = async (albumId: string): Promise<any> => {
-  const baseImmichUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://10.0.0.50:2283'
-      : 'https://pics.rboskind.com';
+  const baseImmichUrl = process.env.IMMICH_URL || '';
   const queryAlbumId = albumId && albumId !== '1' ? albumId : defaultAlbumId;
   const apiUrl = `${baseImmichUrl}/api/albums/${queryAlbumId}`;
   let resData = null;
@@ -33,15 +30,11 @@ const getAlbumInfo = async (albumId: string): Promise<any> => {
       albumName: 'Error loading album',
     };
   }
-  console.log('resData', resData);
   return resData;
 };
 
 const getAlbumList = async (): Promise<any> => {
-  const baseImmichUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://10.0.0.50:2283'
-      : 'https://pics.rboskind.com';
+  const baseImmichUrl = process.env.IMMICH_URL || '';
   const apiUrl = `${baseImmichUrl}/api/albums`;
   let resData = [];
   try {
@@ -63,37 +56,67 @@ const getAlbumList = async (): Promise<any> => {
   return resData;
 };
 
+const getPhotoDetails = async (photoId: string): Promise<any> => {
+  const baseImmichUrl = process.env.IMMICH_URL || '';
+  const apiUrl = `${baseImmichUrl}/api/assets/${photoId}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'x-api-key': xApiKey,
+        contentType: 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching photo details:', error);
+    return null;
+  }
+};
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   try {
     const albumId = (context.params?.albumId as string) || defaultAlbumId;
     const albumList = await getAlbumList();
     let albumNamesById: Record<string, string> = {};
     albumList.forEach((album: any) => {
-      if (album.shared === true) {
-        albumNamesById[album.id] = album.albumName;
+      if (album.shared === true && album.albumName.includes('**')) {
+        albumNamesById[album.id] = album.albumName.replace(/\*\*/g, '');
       }
     });
     const doesAlbumExist = albumId && albumNamesById[albumId];
     const albumInfo = await getAlbumInfo(
       doesAlbumExist ? albumId : defaultAlbumId,
     );
-    const photos = albumInfo?.assets?.map((photo: any) => photo.id) || [];
+    const photoIds = albumInfo?.assets?.map((photo: any) => photo.id) || [];
     const path = `${
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3000'
         : 'https://boskind.tech'
     }/api/image`;
-    const photoList: Photo[] = photos.map((photo: any) => {
-      return {
-        url: `${path}/?photoId=${photo}&isWeb=true`,
-        thumbnailUrl: `${path}/?photoId=${photo}&isWeb=false&isThumb=true`,
-        title: photo.fileCreatedAt || 'No date',
-        description:
-          photo.description ||
-          photo.fileCreatedAt ||
-          'No description available',
-      };
-    });
+
+    // Fetch details for each photo
+    const photoDetails = await Promise.all(
+      photoIds.map((id: string) => getPhotoDetails(id)),
+    );
+
+    const photoList: Photo[] = photoDetails
+      .filter((photo): photo is any => photo !== null)
+      .map((photo) => {
+        return {
+          url: `${path}/?photoId=${photo.id}&isWeb=true`,
+          thumbnailUrl: `${path}/?photoId=${photo.id}&isThumb=true`,
+          title: photo.localDateTime || 'No date',
+          description:
+            photo.description ||
+            photo.localDateTime ||
+            'No description available',
+        };
+      });
+
     return {
       props: {
         albumInfo,
@@ -117,18 +140,16 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 export const getStaticPaths = async () => {
   const albumList = await getAlbumList();
-  console.log('albumListPaths');
   let albumNamesById: Record<string, string> = {};
   albumList?.forEach((album: any) => {
-    if (album.shared === true) {
-      albumNamesById[album.id] = album.albumName;
+    if (album.shared === true && album.albumName.includes('**')) {
+      albumNamesById[album.id] = album.albumName.replace(/\*\*/g, ''); // Remove ** from display name
     }
   });
 
   const paths = Object.keys(albumNamesById).map((albumId) => ({
     params: { albumId },
   }));
-  console.log('paths', paths);
   return { paths, fallback: false };
 };
 
@@ -146,7 +167,6 @@ export default function page({
   const listOfAlbums = Object.entries(albumNamesById).map((entry) => {
     return { title: entry[1], id: entry[0] };
   });
-  console.log('photos', photos);
   const albumName = albumNamesById[albumId] || 'default';
   return (
     <div className="flex flex-col w-full items-center justify-center text-base-content">
