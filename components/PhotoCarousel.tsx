@@ -29,6 +29,7 @@ export default function PhotoCarousel({
 }: PhotoCarouselProps): JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -41,8 +42,32 @@ export default function PhotoCarousel({
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [isFullscreen]);
 
+  useEffect(() => {
+    let slideshowInterval: NodeJS.Timeout;
+
+    if (isFullscreen && isPlaying) {
+      slideshowInterval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % photoList.length);
+      }, 5000);
+    }
+
+    return () => {
+      if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+      }
+    };
+  }, [isFullscreen, isPlaying, photoList.length]);
+
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
+    if (!isFullscreen) {
+      setIsPlaying(true);
+    }
+  };
+
+  const togglePlayPause = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsPlaying(!isPlaying);
   };
 
   const nextImage = () => {
@@ -111,25 +136,72 @@ export default function PhotoCarousel({
                 className="object-contain cursor-zoom-out"
                 priority
               />
+              <button
+                onClick={togglePlayPause}
+                className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto z-10"
+                title={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+              >
+                {isPlaying ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                )}
+              </button>
               <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
-                >
-                  →
-                </button>
+                {!isPlaying && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        prevImage();
+                      }}
+                      className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        nextImage();
+                      }}
+                      className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                    >
+                      →
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
