@@ -6,21 +6,21 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import sharp from 'sharp';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { photoId, isThumb = false } = req.query;
+  const { photoId, isThumb = false, fullRes = false } = req.query;
 
   const baseImmichUrl = process.env.IMMICH_URL || '';
 
   // Use different endpoints based on whether we want a thumbnail or full-size image
   const apiUrl =
     isThumb === 'true'
-      ? `${baseImmichUrl}/api/assets/${photoId}/thumbnail?=fullsize`
+      ? `${baseImmichUrl}/api/assets/${photoId}/thumbnail`
       : `${baseImmichUrl}/api/assets/${photoId}/original`;
 
   try {
     const response = await fetch(apiUrl, {
       headers: {
         'x-api-key': process.env.IMMICH_API_KEY as string,
-        type: 'image/jpeg',
+        Accept: 'image/jpeg',
       },
     });
 
@@ -29,25 +29,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const imageBuffer = await response.arrayBuffer();
       const buffer = Buffer.from(imageBuffer);
 
-      // Process the image with Sharp
-      let processedImage = sharp(buffer);
-
-      // If it's not a thumbnail, resize and optimize
-      if (isThumb !== 'true') {
-        processedImage = processedImage
+      // Process the image with Sharp only if not full resolution
+      let processedBuffer = buffer;
+      if (isThumb !== 'true' && fullRes !== 'true') {
+        processedBuffer = await sharp(buffer)
           .resize(1920, 1080, {
-            // Max dimensions
             fit: 'inside',
             withoutEnlargement: true,
           })
           .jpeg({
             quality: 80,
-            mozjpeg: true, // Better compression
-          });
+            mozjpeg: true,
+          })
+          .toBuffer();
       }
-
-      // Get the processed image buffer
-      const processedBuffer = await processedImage.toBuffer();
 
       // Set response headers
       res.setHeader('Content-Type', 'image/jpeg');

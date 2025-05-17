@@ -37,6 +37,33 @@ export default function PhotoCarousel({
     setCurrentIndex((prev) => (prev - 1 + photoList.length) % photoList.length);
   };
 
+  const handleDownload = async () => {
+    const photo = photoList[currentIndex];
+    const fullResUrl = `/api/image?photoId=${
+      photo.url.split('photoId=')[1].split('&')[0]
+    }&fullRes=true`;
+
+    try {
+      console.log('Downloading from:', fullResUrl);
+      const response = await fetch(fullResUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `photo-${photo.title || currentIndex}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error downloading image:', error);
+      alert('Failed to download image. Please try again.');
+    }
+  };
+
   if (!photoList.length) {
     return (
       <div className="w-10/12 text-center">
@@ -63,28 +90,37 @@ export default function PhotoCarousel({
             className="object-contain"
             priority
           />
+          {/* Navigation buttons */}
+          <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
+            <button
+              onClick={prevImage}
+              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+            >
+              ←
+            </button>
+            <button
+              onClick={nextImage}
+              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+            >
+              →
+            </button>
+          </div>
         </div>
-        <div className="absolute inset-0 flex items-center justify-between p-4">
-          <button
-            onClick={prevImage}
-            className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
-          >
-            ←
-          </button>
-          <button
-            onClick={nextImage}
-            className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
-          >
-            →
-          </button>
-        </div>
-        <div className="mt-2 text-center">
+        {/* Image info and download button */}
+        <div className="mt-2 text-center relative z-10">
           <p className="text-lg font-semibold">
             {formatDate(photoList[currentIndex].title)}
           </p>
           <p className="text-sm text-gray-500">
             {currentIndex + 1} of {photoList.length}
           </p>
+          <button
+            type="button"
+            onClick={handleDownload}
+            className="mt-2 px-4 py-2 bg-primary text-primary-content rounded-lg hover:bg-primary-focus transition-colors cursor-pointer select-text"
+          >
+            Download Full Resolution
+          </button>
         </div>
       </div>
 
