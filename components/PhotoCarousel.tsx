@@ -1,9 +1,6 @@
-import React from "react";
-import { Photo } from "@/lib/photoList";
-import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
-// import stylesheet if you're not already using CSS @import
-import "react-image-gallery/styles/css/image-gallery.css";
-import Image from "next/image";
+import { Photo } from '@/lib/photoList';
+import Image from 'next/image';
+import { useState } from 'react';
 
 type PhotoCarouselProps = {
   photoList: Photo[];
@@ -14,40 +11,70 @@ export default function PhotoCarousel({
   photoList,
   albumName,
 }: PhotoCarouselProps): JSX.Element {
-  const images: ReactImageGalleryItem[] = photoList.map((photo) => ({
-    original: photo.url,
-    thumbnail: photo.thumbnailUrl || photo.url,
-    originalAlt: photo.description || photo.title,
-    // description: photo.description,
-    originalTitle: photo.description,
-  }));
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const renderItem = (item: ReactImageGalleryItem) => {
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % photoList.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + photoList.length) % photoList.length);
+  };
+
+  if (!photoList.length) {
     return (
-      <div className="image-gallery-image">
-        <Image
-          src={item.original}
-          sizes={item.sizes}
-          title={item.originalTitle}
-          alt={item.originalAlt || "no description"}
-        />
-        {item.description ? (
-          <span className="image-gallery-description">{item.description}</span>
-        ) : null}
+      <div className="w-10/12 text-center">
+        <h3 className="text-3xl font-bold">No images available</h3>
       </div>
     );
-  };
+  }
 
   return (
     <div className="w-10/12">
-      {albumName && albumName !== "default" ? (
-        <h3 className="text-center text-3xl font-bold">{albumName}</h3>
+      {albumName && albumName !== 'default' ? (
+        <h3 className="text-center text-3xl font-bold mb-4">{albumName}</h3>
       ) : null}
-      {/* <ImageGallery
-        items={images}
-        thumbnailPosition="top"
-        // renderItem={renderItem}
-      /> */}
+      <div className="relative">
+        <div className="relative w-full h-[600px]">
+          <Image
+            src={photoList[currentIndex].url}
+            alt={
+              photoList[currentIndex].description ||
+              photoList[currentIndex].title
+            }
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 flex items-center justify-between p-4">
+          <button
+            onClick={prevImage}
+            className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+          >
+            ←
+          </button>
+          <button
+            onClick={nextImage}
+            className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+          >
+            →
+          </button>
+        </div>
+        <div className="mt-2 text-center">
+          <p className="text-lg font-semibold">
+            {photoList[currentIndex].title}
+          </p>
+          {photoList[currentIndex].description && (
+            <p className="text-sm text-gray-600">
+              {photoList[currentIndex].description}
+            </p>
+          )}
+          <p className="text-sm text-gray-500">
+            {currentIndex + 1} of {photoList.length}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
