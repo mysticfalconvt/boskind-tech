@@ -243,9 +243,6 @@ export default function PhotoCarousel({
             </div>
             {/* Image info and download button */}
             <div className="mt-2 text-center relative z-10">
-              <p className="text-lg font-semibold">
-                {formatDate(photoList[currentIndex].title)}
-              </p>
               <p className="text-sm text-gray-500">
                 {currentIndex + 1} of {photoList.length}
               </p>
