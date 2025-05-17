@@ -1,6 +1,6 @@
 import { Photo } from '@/lib/photoList';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type PhotoCarouselProps = {
   photoList: Photo[];
@@ -28,6 +28,22 @@ export default function PhotoCarousel({
   albumName,
 }: PhotoCarouselProps): JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isFullscreen]);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % photoList.length);
@@ -78,74 +94,125 @@ export default function PhotoCarousel({
         <h3 className="text-center text-3xl font-bold mb-4">{albumName}</h3>
       ) : null}
       <div className="relative">
-        <div className="relative w-full h-[600px]">
-          <Image
-            src={photoList[currentIndex].url}
-            alt={
-              photoList[currentIndex].description ||
-              photoList[currentIndex].title
-            }
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-            className="object-contain"
-            priority
-          />
-          {/* Navigation buttons */}
-          <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
-            <button
-              onClick={prevImage}
-              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
-            >
-              ←
-            </button>
-            <button
-              onClick={nextImage}
-              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
-            >
-              →
-            </button>
-          </div>
-        </div>
-        {/* Image info and download button */}
-        <div className="mt-2 text-center relative z-10">
-          <p className="text-lg font-semibold">
-            {formatDate(photoList[currentIndex].title)}
-          </p>
-          <p className="text-sm text-gray-500">
-            {currentIndex + 1} of {photoList.length}
-          </p>
-          <button
-            type="button"
-            onClick={handleDownload}
-            className="mt-2 px-4 py-2 bg-primary text-primary-content rounded-lg hover:bg-primary-focus transition-colors cursor-pointer select-text"
-          >
-            Download Full Resolution
-          </button>
-        </div>
-      </div>
-
-      {/* Thumbnail strip */}
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
-        {photoList.map((photo, index) => (
+        {isFullscreen ? (
           <div
-            key={photo.url}
-            className={`relative h-20 w-20 flex-shrink-0 cursor-pointer transition-opacity ${
-              index === currentIndex
-                ? 'ring-2 ring-primary'
-                : 'opacity-70 hover:opacity-100'
-            }`}
-            onClick={() => setCurrentIndex(index)}
+            className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center"
+            onClick={toggleFullscreen}
           >
-            <Image
-              src={photo.thumbnailUrl || photo.url}
-              alt={photo.description || photo.title}
-              fill
-              sizes="80px"
-              priority={index === 0}
-              className="object-cover rounded"
-            />
+            <div className="relative w-full h-full">
+              <Image
+                src={photoList[currentIndex].url}
+                alt={
+                  photoList[currentIndex].description ||
+                  photoList[currentIndex].title
+                }
+                fill
+                sizes="100vw"
+                className="object-contain cursor-zoom-out"
+                priority
+              />
+              <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                >
+                  →
+                </button>
+              </div>
+            </div>
           </div>
-        ))}
+        ) : (
+          <>
+            <div className="relative w-full h-[600px]">
+              <Image
+                src={photoList[currentIndex].url}
+                alt={
+                  photoList[currentIndex].description ||
+                  photoList[currentIndex].title
+                }
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                className="object-contain cursor-zoom-in"
+                priority
+                onClick={toggleFullscreen}
+              />
+              <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 pointer-events-auto"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+            {/* Image info and download button */}
+            <div className="mt-2 text-center relative z-10">
+              <p className="text-lg font-semibold">
+                {formatDate(photoList[currentIndex].title)}
+              </p>
+              <p className="text-sm text-gray-500">
+                {currentIndex + 1} of {photoList.length}
+              </p>
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="mt-2 px-4 py-2 bg-primary text-primary-content rounded-lg hover:bg-primary-focus transition-colors cursor-pointer select-text"
+              >
+                Download Full Resolution
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* Thumbnail strip */}
+        {!isFullscreen && (
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
+            {photoList.map((photo, index) => (
+              <div
+                key={photo.url}
+                className={`relative h-20 w-20 flex-shrink-0 cursor-pointer transition-opacity ${
+                  index === currentIndex
+                    ? 'ring-2 ring-primary'
+                    : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={() => setCurrentIndex(index)}
+              >
+                <Image
+                  src={photo.thumbnailUrl || photo.url}
+                  alt={photo.description || photo.title}
+                  fill
+                  sizes="80px"
+                  priority={index === 0}
+                  className="object-cover rounded"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
