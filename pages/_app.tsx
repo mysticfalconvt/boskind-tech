@@ -38,13 +38,12 @@ export default function App({
   Sentry.init({
     dsn: 'https://6b7dc650ff75f3542fe1c7a7ce3704fe@o4506610880741376.ingest.sentry.io/4506612007174144',
     integrations: [
-      new Sentry.BrowserTracing({
-        // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-        tracePropagationTargets: [
-          'localhost',
-          /^https:\/\/yourserver\.io\/api/,
-        ],
-      }),
+      Sentry.browserTracingIntegration(),
+    ],
+    // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+    tracePropagationTargets: [
+      'localhost',
+      /^https:\/\/yourserver\.io\/api/,
     ],
     // Performance Monitoring
     tracesSampleRate: 1.0, //  Capture 100% of the transactions

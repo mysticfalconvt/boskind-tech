@@ -34,8 +34,9 @@ export default function BlogPost({
       <ReactMarkdown
         className="prose w-screen px-20"
         components={{
-          code({ node, inline, className, children, ...props }) {
+          code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
+            const inline = !match;
             return !inline && match ? (
               <SyntaxHighlighter
                 children={String(children).replace(/\n$/, "")}

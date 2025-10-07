@@ -30,7 +30,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const buffer = Buffer.from(imageBuffer);
 
       // Process the image with Sharp only if not full resolution
-      let processedBuffer = buffer;
+      let processedBuffer: Buffer = buffer;
       if (isThumb !== 'true' && fullRes !== 'true') {
         processedBuffer = await sharp(buffer)
           .resize(1920, 1080, {
