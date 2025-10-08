@@ -134,6 +134,7 @@ export const useIroningBeadsStore = create<ExtendedIroningBeadsStore>((set, get)
   customColors: loadFromStorage(STORAGE_KEYS.CUSTOM_COLORS, []),
   gridSize: DEFAULT_GRID_SIZE,
   isDragging: false,
+  isBatchingUpdates: false,
   
   // Authentication state
   user: null,
@@ -472,6 +473,7 @@ export const useIroningBeadsStore = create<ExtendedIroningBeadsStore>((set, get)
         modifiedAt: new Date(project.updatedAt),
         beadData: project.gridData,
         gridSize: { width: project.gridWidth, height: project.gridHeight },
+        username: project.creator?.username || 'Anonymous',
       }));
 
       set({ publicProjects: processedProjects });
@@ -498,6 +500,7 @@ export const useIroningBeadsStore = create<ExtendedIroningBeadsStore>((set, get)
         modifiedAt: new Date(project.updatedAt),
         beadData: project.gridData,
         gridSize: { width: project.gridWidth, height: project.gridHeight },
+        username: project.creator?.username || 'Anonymous',
       }));
 
       set({ 
@@ -581,10 +584,12 @@ export const useIroningBeadsStore = create<ExtendedIroningBeadsStore>((set, get)
         p.id === updatedProject.id ? updatedProject : p
       );
 
-      // Auto-save to API (async)
-      setTimeout(() => {
-        get().saveProject().catch(console.error);
-      }, 500); // Debounce auto-save
+      // Auto-save to API (async) - but not during batch updates
+      if (!currentState.isBatchingUpdates) {
+        setTimeout(() => {
+          get().saveProject().catch(console.error);
+        }, 500); // Debounce auto-save
+      }
 
       return {
         projects: updatedProjects,
@@ -668,11 +673,15 @@ export const useIroningBeadsStore = create<ExtendedIroningBeadsStore>((set, get)
 
   // Drag Operations
   startDrag: () => {
-    set({ isDragging: true });
+    set({ isDragging: true, isBatchingUpdates: true });
   },
 
   endDrag: () => {
-    set({ isDragging: false });
+    set({ isDragging: false, isBatchingUpdates: false });
+    // Trigger auto-save after drag ends
+    setTimeout(() => {
+      get().saveProject().catch(console.error);
+    }, 100); // Short delay to ensure state is updated
   },
 
   dragOverCell: (x: number, y: number) => {

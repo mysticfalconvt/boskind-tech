@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Try to get session from Authorization header (sent from client)
     const authHeader = req.headers.authorization;
-    
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(401).json({ error: 'Session expired' });
     }
 
-    return res.status(200).json({ 
+    return res.status(200).json({
       user: sessionData[0].user
     });
   } catch (error) {

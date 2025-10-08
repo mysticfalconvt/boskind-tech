@@ -38,6 +38,7 @@ export interface IroningBeadsStore {
   customColors: string[];
   gridSize: { width: number; height: number };
   isDragging: boolean;
+  isBatchingUpdates: boolean;
   
   // Actions
   createProject: (name: string) => Promise<void>;
