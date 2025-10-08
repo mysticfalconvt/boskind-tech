@@ -95,7 +95,6 @@ export const demoList: Demo[] = [
 ];
 
 export default function Demos({ CassidooFiles }: { CassidooFiles: string[] }) {
-  console.log(CassidooFiles);
   return (
     <div className="flex flex-col sm:p-10 items-center justify-center">
       <h1 className="text-4xl text-base-content m-10">

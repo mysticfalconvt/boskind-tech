@@ -4,7 +4,6 @@ export async function getPhotosFromAlbum(album: string) {
   const photoPrismUser = process.env.PHOTOPRISM_USERNAME || "admin";
   const photoPrismPassword =
     process.env.PHOTOPRISM_PASSWORD || "UOuvwS*#yZJ6MF";
-  console.log(photoPrismUrl, photoPrismUser, photoPrismPassword);
   //   // login to photoprism
   //   const session = await fetch(`${photoPrismUrl}/api/v1/session/`, {
   //     method: "POST",
@@ -17,7 +16,6 @@ export async function getPhotosFromAlbum(album: string) {
   //       password: photoPrismPassword,
   //     }),
   //   });
-  //   console.log(session);
 
   const albums = await fetch(
     `${photoPrismUrl}/api/v1/photos?count=120&offset=0&s=arwgefbfv608w7e7&merged=true&country=&camera=0&order=oldest&q=`,
@@ -29,7 +27,6 @@ export async function getPhotosFromAlbum(album: string) {
       },
     }
   );
-  console.log(albums);
 
   const defaultAlbum = "arxa97q206lfb6ek";
   const url = `https://photos.rboskind.com/s/1dfnjcb9rb/wildlife`;

@@ -85,7 +85,6 @@ export default function PhotoCarousel({
     }&fullRes=true`;
 
     try {
-      console.log('Downloading from:', fullResUrl);
       const response = await fetch(fullResUrl);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

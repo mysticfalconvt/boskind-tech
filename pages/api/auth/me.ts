@@ -11,15 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Try to get session from Authorization header (sent from client)
     const authHeader = req.headers.authorization;
-    console.log('Auth me - authorization header:', authHeader);
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      console.log('Auth me - no authorization header found');
       return res.status(401).json({ error: 'Not authenticated' });
     }
 
     const sessionId = authHeader.replace('Bearer ', '');
-    console.log('Auth me - session ID from header:', sessionId);
 
     // Find valid session
     const sessionData = await db

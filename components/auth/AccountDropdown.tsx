@@ -46,7 +46,6 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
   }, [isOpen]);
 
   const handleItemClick = (action: () => void, event: React.MouseEvent) => {
-    console.log('handleItemClick called');
     event.preventDefault();
     event.stopPropagation();
     action();

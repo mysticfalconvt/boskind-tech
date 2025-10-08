@@ -22,11 +22,9 @@ export default function AccountSettings() {
       }
     })
       .then(res => {
-        console.log('Account settings - auth response:', res.status);
         return res.ok ? res.json() : null;
       })
       .then(data => {
-        console.log('Account settings - auth data:', data);
         if (data?.user) {
           setSession({ user: data.user });
         } else {
@@ -36,7 +34,6 @@ export default function AccountSettings() {
         setIsPending(false);
       })
       .catch((error) => {
-        console.log('Account settings - auth error:', error);
         router.push('/');
         setIsPending(false);
       });

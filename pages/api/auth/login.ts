@@ -45,8 +45,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // For now, return the session token in the response instead of cookie
-    console.log('Login successful for user:', user[0].username);
-    console.log('Session created:', sessionId);
 
     return res.status(200).json({ 
       success: true, 

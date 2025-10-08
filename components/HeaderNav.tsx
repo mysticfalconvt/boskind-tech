@@ -100,12 +100,10 @@ export const HeaderNav: React.FC = () => {
   const isDarkMode = themeStorage === "dark";
 
   const handleLogin = () => {
-    console.log('Login button clicked');
     setShowAuthModal('login');
   };
 
   const handleRegister = () => {
-    console.log('Register button clicked');
     setShowAuthModal('register');
   };
 
@@ -124,7 +122,6 @@ export const HeaderNav: React.FC = () => {
 
   const handleAuthSuccess = async (user: any) => {
     // The store should already be updated by the AuthModal
-    console.log('Authentication successful:', user);
   };
 
   return (

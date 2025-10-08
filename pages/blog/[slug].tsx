@@ -125,7 +125,6 @@ export default function BlogPost({
 }
 
 export async function getStaticProps({ params }: StaticPropsParams) {
-  console.log(params);
   const post = fs.readFileSync(`blog/${params.slug}.md`).toString();
   const frontMatter = post.split("---")[1];
   const date = frontMatter.split("date: ")[1].split("\n")[0];
