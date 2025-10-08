@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useIroningBeadsStore } from '@/stateHooks/ironingBeadsStore';
 import { ProjectCard } from '@/components/ironingBeads/ProjectCard';
+import { AuthModal } from '@/components/auth/AuthModal';
+import { ProjectTabs } from '@/components/ironingBeads/ProjectTabs';
+import { PublicProjectGallery } from '@/components/ironingBeads/PublicProjectGallery';
 
 export const ProjectListView: React.FC = () => {
-  const { projects, createProject, loadProject } = useIroningBeadsStore();
+  const router = useRouter();
+  const { projects, createProject, loadProject, isAuthenticated, checkAuth, authLoading } = useIroningBeadsStore();
   const [isCreating, setIsCreating] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState<'login' | 'register' | null>(null);
+  const [activeTab, setActiveTab] = useState<'my-projects' | 'discover'>('my-projects');
 
-  const handleCreateProject = () => {
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  // Switch to discover tab if not authenticated and trying to view my projects
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated && activeTab === 'my-projects') {
+      setActiveTab('discover');
+    }
+  }, [isAuthenticated, authLoading, activeTab]);
+
+  const handleCreateProject = async () => {
     if (newProjectName.trim()) {
-      createProject(newProjectName.trim());
-      setNewProjectName('');
-      setIsCreating(false);
+      try {
+        await createProject(newProjectName.trim());
+        setNewProjectName('');
+        setIsCreating(false);
+      } catch (error: any) {
+        if (error.message === 'Must be logged in to create projects') {
+          setShowAuthModal('login');
+        } else {
+          console.error('Failed to create project:', error);
+          // You could add a toast notification here for other errors
+        }
+      }
     }
   };
 
@@ -28,6 +55,31 @@ export const ProjectListView: React.FC = () => {
     }
   };
 
+  const handleAuthSuccess = async (user: any) => {
+    // The store should already be updated by the AuthModal
+    // After successful authentication, try creating the project again
+    if (newProjectName.trim()) {
+      try {
+        await createProject(newProjectName.trim());
+        setNewProjectName('');
+        setIsCreating(false);
+      } catch (error) {
+        console.error('Failed to create project after authentication:', error);
+      }
+    }
+  };
+
+  if (authLoading) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="text-center py-12">
+          <div className="loading loading-spinner loading-lg"></div>
+          <p className="mt-4 text-base-content opacity-70">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
@@ -39,8 +91,18 @@ export const ProjectListView: React.FC = () => {
         </p>
       </div>
 
-      {/* Create New Project Section */}
-      <div className="mb-8 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
+      {/* Project Tabs */}
+      <ProjectTabs
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        isAuthenticated={isAuthenticated}
+      />
+
+      {/* Tab Content */}
+      {activeTab === 'my-projects' ? (
+        <>
+          {/* Create New Project Section */}
+          <div className="mb-8 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
         {!isCreating ? (
           <div className="text-center">
             <h2 className="text-xl font-semibold text-base-content mb-2">
@@ -50,7 +112,13 @@ export const ProjectListView: React.FC = () => {
               Create a new 29×29 bead pattern design
             </p>
             <button
-              onClick={() => setIsCreating(true)}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  setShowAuthModal('login');
+                } else {
+                  setIsCreating(true);
+                }
+              }}
               className="btn btn-primary"
             >
               <svg 
@@ -112,7 +180,45 @@ export const ProjectListView: React.FC = () => {
       </div>
 
       {/* Projects Grid */}
-      {projects.length > 0 ? (
+      {!isAuthenticated ? (
+        <div className="text-center py-12">
+          <div className="w-24 h-24 mx-auto mb-4 bg-base-200 rounded-full flex items-center justify-center">
+            <svg 
+              className="w-12 h-12 text-base-content opacity-40" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+              />
+            </svg>
+          </div>
+          <h3 className="text-xl font-medium text-base-content opacity-80 mb-2">
+            Sign in to manage your projects
+          </h3>
+          <p className="text-base-content opacity-60 mb-4">
+            Create an account or sign in to save and manage your bead patterns
+          </p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={() => setShowAuthModal('login')}
+              className="btn btn-primary"
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => setShowAuthModal('register')}
+              className="btn btn-outline"
+            >
+              Create Account
+            </button>
+          </div>
+        </div>
+      ) : projects.length > 0 ? (
         <div>
           <h2 className="text-2xl font-semibold text-base-content mb-6">
             Your Projects ({projects.length})
@@ -124,7 +230,9 @@ export const ProjectListView: React.FC = () => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  onSelect={() => loadProject(project.id)}
+                  onSelect={() => {
+                    router.push(`/ironingBeads/projects/${project.id}`);
+                  }}
                 />
               ))}
           </div>
@@ -154,6 +262,19 @@ export const ProjectListView: React.FC = () => {
           </p>
         </div>
       )}
+        </>
+      ) : (
+        /* Discover Tab */
+        <PublicProjectGallery />
+      )}
+
+      {/* Authentication Modal */}
+      <AuthModal
+        mode={showAuthModal || 'login'}
+        isOpen={!!showAuthModal}
+        onClose={() => setShowAuthModal(null)}
+        onSuccess={handleAuthSuccess}
+      />
     </div>
   );
 };

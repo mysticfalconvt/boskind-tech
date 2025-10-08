@@ -4,6 +4,11 @@ import { useLocalStorage } from "@mantine/hooks";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
 import { navStore } from "@/stateHooks/sidebarNav";
+import { useIroningBeadsStore } from "@/stateHooks/ironingBeadsStore";
+import { AccountDropdown } from "./auth/AccountDropdown";
+import { AuthModal } from "./auth/AuthModal";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import * as React from "react";
 
 type linkItem = {
@@ -77,13 +82,50 @@ export const HeaderNav: React.FC = () => {
     key: "theme",
     defaultValue: "winter",
   });
+  const [showAuthModal, setShowAuthModal] = useState<'login' | 'register' | null>(null);
+  
   const handleThemeChange = () => {
     setTheme(themeStorage === "winter" ? "dark" : "winter");
   };
 
   const { sidebarMenu, toggleSidebarMenu } = navStore();
+  const { user, isAuthenticated, authLoading, logout, checkAuth } = useIroningBeadsStore();
+  const router = useRouter();
+
+  // Initialize authentication on mount
+  React.useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   const isDarkMode = themeStorage === "dark";
+
+  const handleLogin = () => {
+    console.log('Login button clicked');
+    setShowAuthModal('login');
+  };
+
+  const handleRegister = () => {
+    console.log('Register button clicked');
+    setShowAuthModal('register');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  const handleAccountSettings = () => {
+    router.push('/account/settings');
+  };
+
+  const handleAuthSuccess = async (user: any) => {
+    // The store should already be updated by the AuthModal
+    console.log('Authentication successful:', user);
+  };
 
   return (
     <div className="navbar bg-gradient-to-tr from-primary to-secondary text-primary-content font-mono">
@@ -95,6 +137,18 @@ export const HeaderNav: React.FC = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal items-center justify-center px-1">
           <HeaderLinksRenderer links={headerLinks} />
+          <AccountDropdown
+            user={user ? {
+              id: user.id,
+              username: user.username,
+              createdAt: user.createdAt
+            } : null}
+            isLoading={authLoading}
+            onLogin={handleLogin}
+            onRegister={handleRegister}
+            onLogout={handleLogout}
+            onAccountSettings={handleAccountSettings}
+          />
           <li>
             <label className="swap btn-ghost hover:drop-shadow swap-rotate">
               <input
@@ -152,6 +206,14 @@ export const HeaderNav: React.FC = () => {
           </li>
         </ul>
       </div>
+
+      {/* Authentication Modal */}
+      <AuthModal
+        mode={showAuthModal || 'login'}
+        isOpen={!!showAuthModal}
+        onClose={() => setShowAuthModal(null)}
+        onSuccess={handleAuthSuccess}
+      />
     </div>
   );
 };

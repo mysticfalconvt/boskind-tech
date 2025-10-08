@@ -1,18 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useIroningBeadsStore } from '@/stateHooks/ironingBeadsStore';
 import { BeadGrid } from '@/components/ironingBeads/BeadGrid';
 import { ColorPalette } from '@/components/ironingBeads/ColorPalette';
 
 interface DesignCanvasViewProps {
-  onBackToProjects: () => void;
+  onBackToProjects?: () => void;
 }
 
 export const DesignCanvasView: React.FC<DesignCanvasViewProps> = ({ onBackToProjects }) => {
+  const router = useRouter();
   const { currentProject, saveProject, clearGrid, clearCurrentProject, renameProject } = useIroningBeadsStore();
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [isRenamingProject, setIsRenamingProject] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
+
+  const handleBackToProjects = async () => {
+    try {
+      // Auto-save before leaving
+      await saveProject();
+    } catch (error) {
+      console.error('Error saving project:', error);
+    }
+    
+    // Clear the current project and navigate back
+    clearCurrentProject();
+    
+    if (onBackToProjects) {
+      onBackToProjects();
+    } else {
+      router.push('/ironingBeads');
+    }
+  };
 
   if (!currentProject) {
     return (
@@ -20,7 +40,7 @@ export const DesignCanvasView: React.FC<DesignCanvasViewProps> = ({ onBackToProj
         <div className="text-center">
           <p className="text-gray-500 mb-4">No project selected</p>
           <button
-            onClick={onBackToProjects}
+            onClick={handleBackToProjects}
             className="btn btn-primary px-4 py-2 text-white rounded-lg"
           >
             Back to Projects
@@ -44,14 +64,6 @@ export const DesignCanvasView: React.FC<DesignCanvasViewProps> = ({ onBackToProj
   const handleClear = () => {
     clearGrid();
     setShowClearConfirm(false);
-  };
-
-  const handleBackToProjects = () => {
-    // Auto-save before leaving
-    saveProject();
-    // Clear the current project to prevent automatic switching back
-    clearCurrentProject();
-    onBackToProjects();
   };
 
   const handleProjectNameClick = () => {

@@ -7,6 +7,7 @@ export interface BeadProject {
   modifiedAt: Date;
   gridSize: { width: number; height: number };
   beadData: BeadCell[][];
+  isPublic?: boolean;
 }
 
 export interface BeadCell {
@@ -39,11 +40,11 @@ export interface IroningBeadsStore {
   isDragging: boolean;
   
   // Actions
-  createProject: (name: string) => void;
+  createProject: (name: string) => Promise<void>;
   loadProject: (id: string) => void;
-  saveProject: () => void;
-  deleteProject: (id: string) => void;
-  duplicateProject: (id: string) => void;
+  saveProject: () => Promise<void>;
+  deleteProject: (id: string) => Promise<void>;
+  duplicateProject: (id: string) => Promise<void>;
   clearCurrentProject: () => void;
   renameProject: (id: string, newName: string) => void;
   

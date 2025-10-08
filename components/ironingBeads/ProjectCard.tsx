@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) => {
-  const { deleteProject, duplicateProject, renameProject } = useIroningBeadsStore();
+  const { deleteProject, duplicateProject, renameProject, toggleProjectVisibility } = useIroningBeadsStore();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showActions, setShowActions] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -28,6 +28,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
     setIsRenaming(true);
     setShowActions(false);
     setNewName(project.name);
+  };
+
+  const handleToggleVisibility = async () => {
+    try {
+      await toggleProjectVisibility(project.id, !project.isPublic);
+      setShowActions(false);
+    } catch (error) {
+      console.error('Failed to toggle project visibility:', error);
+    }
   };
 
   const handleRenameSubmit = () => {
@@ -60,58 +69,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
     }).format(date);
   };
 
-  // Generate a more accurate thumbnail from bead data
+  // Generate full resolution thumbnail from bead data
   const generateThumbnail = () => {
-    const thumbnailSize = 16; // Increased resolution for better accuracy
-    const stepX = project.gridSize.width / thumbnailSize;
-    const stepY = project.gridSize.height / thumbnailSize;
-    
     const thumbnailData = [];
-    for (let y = 0; y < thumbnailSize; y++) {
-      for (let x = 0; x < thumbnailSize; x++) {
-        // Sample multiple cells and find the most common color in this region
-        const regionColors: (string | null)[] = [];
-        const startX = Math.floor(x * stepX);
-        const endX = Math.min(Math.ceil((x + 1) * stepX), project.gridSize.width);
-        const startY = Math.floor(y * stepY);
-        const endY = Math.min(Math.ceil((y + 1) * stepY), project.gridSize.height);
-        
-        // Collect all colors in this region
-        for (let regionY = startY; regionY < endY; regionY++) {
-          for (let regionX = startX; regionX < endX; regionX++) {
-            const cell = project.beadData[regionY]?.[regionX];
-            if (cell && !cell.isEmpty) {
-              regionColors.push(cell.color);
-            } else {
-              regionColors.push(null);
-            }
-          }
+    
+    // Use the full resolution of the project grid
+    for (let y = 0; y < project.gridSize.height; y++) {
+      for (let x = 0; x < project.gridSize.width; x++) {
+        const cell = project.beadData[y]?.[x];
+        if (cell && !cell.isEmpty) {
+          thumbnailData.push(cell.color);
+        } else {
+          thumbnailData.push(null);
         }
-        
-        // Find the most common color in this region
-        const colorCounts: { [key: string]: number } = {};
-        let nullCount = 0;
-        
-        regionColors.forEach(color => {
-          if (color === null) {
-            nullCount++;
-          } else {
-            colorCounts[color] = (colorCounts[color] || 0) + 1;
-          }
-        });
-        
-        // Determine the representative color
-        let representativeColor: string | null = null;
-        let maxCount = nullCount;
-        
-        Object.entries(colorCounts).forEach(([color, count]) => {
-          if (count > maxCount) {
-            maxCount = count;
-            representativeColor = color;
-          }
-        });
-        
-        thumbnailData.push(representativeColor);
       }
     }
     
@@ -130,10 +100,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
       >
         {hasContent ? (
           <div 
-            className="grid gap-0 aspect-square h-full max-h-28 max-w-28 p-1"
+            className="grid gap-0 h-full max-h-28 max-w-28 p-1"
             style={{
-              gridTemplateColumns: 'repeat(16, 1fr)',
-              gridTemplateRows: 'repeat(16, 1fr)',
+              gridTemplateColumns: `repeat(${project.gridSize.width}, 1fr)`,
+              gridTemplateRows: `repeat(${project.gridSize.height}, 1fr)`,
+              aspectRatio: `${project.gridSize.width} / ${project.gridSize.height}`,
             }}
           >
             {thumbnailData.map((color, index) => (
@@ -245,6 +216,27 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
                     Duplicate
                   </button>
                   <button
+                    onClick={handleToggleVisibility}
+                    className="w-full px-3 py-2 text-left text-sm text-base-content hover:bg-base-200 transition-colors duration-200"
+                  >
+                    {project.isPublic ? (
+                      <>
+                        <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                        </svg>
+                        Make Private
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Make Public
+                      </>
+                    )}
+                  </button>
+                  <button
                     onClick={() => {
                       setShowDeleteConfirm(true);
                       setShowActions(false);
@@ -263,6 +255,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
           <div>Created: {formatDate(project.createdAt)}</div>
           <div>Modified: {formatDate(project.modifiedAt)}</div>
           <div>Size: {project.gridSize.width}×{project.gridSize.height}</div>
+          <div className="flex items-center gap-1">
+            {project.isPublic ? (
+              <>
+                <svg className="w-3 h-3 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span className="text-success">Public</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <span>Private</span>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
