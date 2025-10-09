@@ -3,6 +3,7 @@ import {
   BsFillCameraFill,
   BsPersonBadge,
   BsPersonVcardFill,
+  BsGrid3X3Gap,
 } from 'react-icons/bs';
 import { CgWebsite } from 'react-icons/cg';
 import { FaMicroblog, FaSchool } from 'react-icons/fa';
@@ -90,5 +91,10 @@ export const headerLinks: linkItemsList = [
         icon: BsPersonBadge,
       },
     ],
+  },
+  {
+    label: 'Ironing Beads',
+    href: '/ironingBeads',
+    icon: BsGrid3X3Gap,
   },
 ];
