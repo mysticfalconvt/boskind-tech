@@ -4,7 +4,7 @@ import { db } from '../../../lib/db';
 import { projects } from '../../../lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-async function handler(req: NextApiRequest, res: NextApiResponse, session: unknown) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: any) {
   const userId = session.user.id;
 
   if (req.method === 'GET') {
