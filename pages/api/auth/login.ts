@@ -17,11 +17,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    // Find user
+    // Find user (case-insensitive)
     const user = await db
       .select()
       .from(users)
-      .where(eq(users.username, username))
+      .where(eq(users.username, username.toLowerCase()))
       .limit(1);
 
     if (user.length === 0) {

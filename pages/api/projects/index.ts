@@ -4,7 +4,7 @@ import { db } from '../../../lib/db';
 import { projects } from '../../../lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-async function handler(req: NextApiRequest, res: NextApiResponse, session: any) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: unknown) {
   const userId = session.user.id;
 
   if (req.method === 'GET') {
@@ -14,7 +14,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse, session: any) 
         .from(projects)
         .where(eq(projects.userId, userId))
         .orderBy(projects.updatedAt);
-
       return res.status(200).json(userProjects);
     } catch (error) {
       console.error('Error fetching projects:', error);

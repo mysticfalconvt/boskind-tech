@@ -26,11 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: passwordError });
     }
 
-    // Check if username already exists
+    // Check if username already exists (case-insensitive)
     const existingUser = await db
       .select()
       .from(users)
-      .where(eq(users.username, username))
+      .where(eq(users.username, username.toLowerCase()))
       .limit(1);
 
     if (existingUser.length > 0) {
@@ -41,11 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const saltRounds = 12;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // Create user
+    // Create user (store username in lowercase)
     const newUser = await db
       .insert(users)
       .values({
-        username,
+        username: username.toLowerCase(),
         passwordHash,
       })
       .returning();
