@@ -4,6 +4,7 @@ import Sidebar from '@/components/Sidebar';
 import * as Sentry from '@sentry/react';
 import { Fira_Code } from 'next/font/google';
 import Head from 'next/head';
+import Script from 'next/script';
 import React from 'react';
 import '../styles/globals.css';
 
@@ -33,18 +34,17 @@ export default function App({
   pageProps: any;
 }) {
   const isProduction = process.env.NODE_ENV === 'production';
-  const umamiId = process.env.UMAMI_ID || '';
+  // Use public env vars so value is available in the client bundle
+  const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? '';
+  const umamiScriptUrl =
+    process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ??
+    'https://umami.rboskind.com/script.js';
 
   Sentry.init({
     dsn: 'https://6b7dc650ff75f3542fe1c7a7ce3704fe@o4506610880741376.ingest.sentry.io/4506612007174144',
-    integrations: [
-      Sentry.browserTracingIntegration(),
-    ],
+    integrations: [Sentry.browserTracingIntegration()],
     // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-    tracePropagationTargets: [
-      'localhost',
-      /^https:\/\/yourserver\.io\/api/,
-    ],
+    tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/],
     // Performance Monitoring
     tracesSampleRate: 1.0, //  Capture 100% of the transactions
     enabled: isProduction,
@@ -59,12 +59,12 @@ export default function App({
         <meta name="category" content={metadata.category} />
         <link rel="icon" type="image/png" href={metadata.icons.icon} />
         <link rel="shortcut icon" href={metadata.icons.icon} />
-        {isProduction && (
-          <script
-            async
-            src="https://umami.rboskind.com/script.js"
-            data-website-id={umamiId}
-          ></script>
+        {isProduction && umamiWebsiteId && (
+          <Script
+            src={umamiScriptUrl}
+            data-website-id={umamiWebsiteId}
+            strategy="afterInteractive"
+          />
         )}
       </Head>
       <Providers>
