@@ -39,6 +39,8 @@ export default function App({
   const umamiScriptUrl =
     process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ??
     'https://umami.rboskind.com/script.js';
+  const umamiDomains = process.env.NEXT_PUBLIC_UMAMI_DOMAINS;
+  const umamiHostUrl = process.env.NEXT_PUBLIC_UMAMI_HOST_URL;
 
   Sentry.init({
     dsn: 'https://6b7dc650ff75f3542fe1c7a7ce3704fe@o4506610880741376.ingest.sentry.io/4506612007174144',
@@ -63,6 +65,8 @@ export default function App({
           <Script
             src={umamiScriptUrl}
             data-website-id={umamiWebsiteId}
+            {...(umamiDomains ? { ['data-domains']: umamiDomains } : {})}
+            {...(umamiHostUrl ? { ['data-host-url']: umamiHostUrl } : {})}
             strategy="afterInteractive"
           />
         )}
