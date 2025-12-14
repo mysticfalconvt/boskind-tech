@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { BeadCell } from '@/components/ironingBeads/BeadCell';
 import { useIroningBeadsStore } from '@/stateHooks/ironingBeadsStore';
+import React, { useCallback, useRef, useState } from 'react';
 
 export const BeadGrid: React.FC = () => {
   const {
@@ -14,8 +14,14 @@ export const BeadGrid: React.FC = () => {
     dragOverCell,
   } = useIroningBeadsStore();
 
-  const [hoveredCell, setHoveredCell] = useState<{ x: number; y: number } | null>(null);
-  const [focusedCell, setFocusedCell] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [hoveredCell, setHoveredCell] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const [focusedCell, setFocusedCell] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
   const gridRef = useRef<HTMLDivElement>(null);
 
   if (!currentProject) {
@@ -28,25 +34,34 @@ export const BeadGrid: React.FC = () => {
 
   const { beadData, gridSize } = currentProject;
 
-  const handleCellClick = useCallback((x: number, y: number) => {
-    if (selectedTool.type === 'color' && selectedTool.color) {
-      setBeadColor(x, y, selectedTool.color);
-    } else if (selectedTool.type === 'eraser') {
-      clearBead(x, y);
-    }
-  }, [selectedTool, setBeadColor, clearBead]);
+  const handleCellClick = useCallback(
+    (x: number, y: number) => {
+      if (selectedTool.type === 'color' && selectedTool.color) {
+        setBeadColor(x, y, selectedTool.color);
+      } else if (selectedTool.type === 'eraser') {
+        clearBead(x, y);
+      }
+    },
+    [selectedTool, setBeadColor, clearBead],
+  );
 
-  const handleMouseDown = useCallback((x: number, y: number) => {
-    startDrag();
-    handleCellClick(x, y);
-  }, [startDrag, handleCellClick]);
+  const handleMouseDown = useCallback(
+    (x: number, y: number) => {
+      startDrag();
+      handleCellClick(x, y);
+    },
+    [startDrag, handleCellClick],
+  );
 
-  const handleMouseEnter = useCallback((x: number, y: number) => {
-    setHoveredCell({ x, y });
-    if (isDragging) {
-      dragOverCell(x, y);
-    }
-  }, [isDragging, dragOverCell]);
+  const handleMouseEnter = useCallback(
+    (x: number, y: number) => {
+      setHoveredCell({ x, y });
+      if (isDragging) {
+        dragOverCell(x, y);
+      }
+    },
+    [isDragging, dragOverCell],
+  );
 
   const handleMouseUp = useCallback(() => {
     endDrag();
@@ -56,46 +71,49 @@ export const BeadGrid: React.FC = () => {
     setHoveredCell(null);
   }, []);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    const { x, y } = focusedCell;
-    let newX = x;
-    let newY = y;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const { x, y } = focusedCell;
+      let newX = x;
+      let newY = y;
 
-    switch (e.key) {
-      case 'ArrowUp':
-        e.preventDefault();
-        newY = Math.max(0, y - 1);
-        break;
-      case 'ArrowDown':
-        e.preventDefault();
-        newY = Math.min(gridSize.height - 1, y + 1);
-        break;
-      case 'ArrowLeft':
-        e.preventDefault();
-        newX = Math.max(0, x - 1);
-        break;
-      case 'ArrowRight':
-        e.preventDefault();
-        newX = Math.min(gridSize.width - 1, x + 1);
-        break;
-      case 'Enter':
-      case ' ':
-        e.preventDefault();
-        handleCellClick(x, y);
-        break;
-      case 'Delete':
-      case 'Backspace':
-        e.preventDefault();
-        clearBead(x, y);
-        break;
-      default:
-        return;
-    }
+      switch (e.key) {
+        case 'ArrowUp':
+          e.preventDefault();
+          newY = Math.max(0, y - 1);
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          newY = Math.min(gridSize.height - 1, y + 1);
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          newX = Math.max(0, x - 1);
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          newX = Math.min(gridSize.width - 1, x + 1);
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          handleCellClick(x, y);
+          break;
+        case 'Delete':
+        case 'Backspace':
+          e.preventDefault();
+          clearBead(x, y);
+          break;
+        default:
+          return;
+      }
 
-    if (newX !== x || newY !== y) {
-      setFocusedCell({ x: newX, y: newY });
-    }
-  }, [focusedCell, gridSize, handleCellClick, clearBead]);
+      if (newX !== x || newY !== y) {
+        setFocusedCell({ x: newX, y: newY });
+      }
+    },
+    [focusedCell, gridSize, handleCellClick, clearBead],
+  );
 
   const getPreviewColor = (x: number, y: number): string | null => {
     if (hoveredCell?.x === x && hoveredCell?.y === y) {
@@ -118,7 +136,7 @@ export const BeadGrid: React.FC = () => {
       <div className="mb-4 text-sm text-base-content opacity-70">
         Grid: {gridSize.width} × {gridSize.height}
       </div>
-      
+
       <div
         ref={gridRef}
         className="grid gap-0 border-2 border-base-content/30 bg-base-100 select-none focus:outline-none focus:ring-2 focus:ring-primary"
@@ -127,6 +145,7 @@ export const BeadGrid: React.FC = () => {
           gridTemplateRows: `repeat(${gridSize.height}, ${cellSize}px)`,
           width: `${gridWidth}px`,
           height: `${gridHeight}px`,
+          zIndex: '10',
         }}
         onMouseLeave={handleMouseLeave}
         onContextMenu={(e) => e.preventDefault()} // Prevent right-click menu
@@ -157,12 +176,13 @@ export const BeadGrid: React.FC = () => {
                 onMouseUp={handleMouseUp}
               />
             </div>
-          ))
+          )),
         )}
       </div>
-      
+
       <div className="mt-4 text-xs text-base-content opacity-60 text-center">
-        Click to place beads • Drag to draw • Use eraser to remove<br />
+        Click to place beads • Drag to draw • Use eraser to remove
+        <br />
         Arrow keys to navigate • Enter/Space to place • Delete to erase
       </div>
     </div>

@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
-import { BeadProject } from '@/types/ironingBeads';
 import { useIroningBeadsStore } from '@/stateHooks/ironingBeadsStore';
+import { BeadProject } from '@/types/ironingBeads';
+import React, { useState } from 'react';
 
 interface ProjectCardProps {
   project: BeadProject;
   onSelect: () => void;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) => {
-  const { deleteProject, duplicateProject, renameProject, toggleProjectVisibility } = useIroningBeadsStore();
+export const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  onSelect,
+}) => {
+  const {
+    deleteProject,
+    duplicateProject,
+    renameProject,
+    toggleProjectVisibility,
+  } = useIroningBeadsStore();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showActions, setShowActions] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -72,7 +80,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
   // Generate full resolution thumbnail from bead data
   const generateThumbnail = () => {
     const thumbnailData = [];
-    
+
     // Use the full resolution of the project grid
     for (let y = 0; y < project.gridSize.height; y++) {
       for (let x = 0; x < project.gridSize.width; x++) {
@@ -84,27 +92,29 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
         }
       }
     }
-    
+
     return thumbnailData;
   };
 
   const thumbnailData = generateThumbnail();
-  const hasContent = thumbnailData.some(color => color !== null);
+  const hasContent = thumbnailData.some((color) => color !== null);
 
   return (
-    <div className="bg-base-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-base-300 relative">
+    <div className="bg-base-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-base-300 relative group">
       {/* Thumbnail */}
-      <div 
-        className="h-32 bg-base-200 cursor-pointer relative overflow-hidden rounded-t-lg flex items-center justify-center"
+      <div
+        className="h-32 bg-white cursor-pointer relative overflow-hidden rounded-t-lg flex items-center justify-center"
         onClick={onSelect}
       >
         {hasContent ? (
-          <div 
-            className="grid gap-0 h-full max-h-28 max-w-28 p-1"
+          <div
+            className="grid gap-0 h-full max-h-28 max-w-28 p-1 relative"
             style={{
               gridTemplateColumns: `repeat(${project.gridSize.width}, 1fr)`,
               gridTemplateRows: `repeat(${project.gridSize.height}, 1fr)`,
               aspectRatio: `${project.gridSize.width} / ${project.gridSize.height}`,
+              zIndex: '10',
+              color: 'red',
             }}
           >
             {thumbnailData.map((color, index) => (
@@ -120,44 +130,44 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
         ) : (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <svg 
-                className="w-8 h-8 text-base-content opacity-40 mx-auto mb-2" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-8 h-8 text-base-content opacity-40 mx-auto mb-2"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                 />
               </svg>
               <p className="text-xs text-base-content opacity-60">Empty</p>
             </div>
           </div>
         )}
-        
+
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-200 flex items-center justify-center">
-          <div className="opacity-0 hover:opacity-100 transition-opacity duration-200">
-            <svg 
-              className="w-8 h-8 text-white drop-shadow-lg" 
-              fill="none" 
-              stroke="currentColor" 
+        <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-200 flex items-center justify-center pointer-events-none z-20">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <svg
+              className="w-8 h-8 text-white drop-shadow-lg"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
               />
             </svg>
           </div>
@@ -179,7 +189,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
               maxLength={50}
             />
           ) : (
-            <h3 
+            <h3
               className="font-semibold text-base-content truncate cursor-pointer hover:text-primary transition-colors duration-200"
               onClick={onSelect}
               title={project.name}
@@ -187,7 +197,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
               {project.name}
             </h3>
           )}
-          
+
           {/* Actions Menu */}
           {!isRenaming && (
             <div className="relative">
@@ -196,11 +206,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
                 className="p-1 text-base-content opacity-60 hover:opacity-100 rounded transition-colors duration-200"
                 aria-label="Project actions"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                 </svg>
               </button>
-              
+
               {showActions && (
                 <div className="absolute right-0 top-8 bg-base-100 border border-base-300 rounded-lg shadow-xl z-50 min-w-32 max-w-48">
                   <button
@@ -221,16 +235,41 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
                   >
                     {project.isPublic ? (
                       <>
-                        <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                        <svg
+                          className="w-4 h-4 inline mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                          />
                         </svg>
                         Make Private
                       </>
                     ) : (
                       <>
-                        <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        <svg
+                          className="w-4 h-4 inline mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
                         </svg>
                         Make Public
                       </>
@@ -250,24 +289,51 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
             </div>
           )}
         </div>
-        
+
         <div className="text-xs text-base-content opacity-60 space-y-1">
           <div>Created: {formatDate(project.createdAt)}</div>
           <div>Modified: {formatDate(project.modifiedAt)}</div>
-          <div>Size: {project.gridSize.width}×{project.gridSize.height}</div>
+          <div>
+            Size: {project.gridSize.width}×{project.gridSize.height}
+          </div>
           <div className="flex items-center gap-1">
             {project.isPublic ? (
               <>
-                <svg className="w-3 h-3 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                <svg
+                  className="w-3 h-3 text-success"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
                 </svg>
                 <span className="text-success">Public</span>
               </>
             ) : (
               <>
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                <svg
+                  className="w-3 h-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
                 </svg>
                 <span>Private</span>
               </>
@@ -284,7 +350,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
               Delete Project
             </h3>
             <p className="text-base-content opacity-80 mb-4">
-              Are you sure you want to delete "{project.name}"? This action cannot be undone.
+              Are you sure you want to delete "{project.name}"? This action
+              cannot be undone.
             </p>
             <div className="flex gap-3 justify-end">
               <button
@@ -293,21 +360,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
               >
                 Cancel
               </button>
-              <button
-                onClick={handleDelete}
-                className="btn btn-error"
-              >
+              <button onClick={handleDelete} className="btn btn-error">
                 Delete
               </button>
             </div>
           </div>
         </div>
       )}
-      
+
       {/* Click outside to close actions menu */}
       {showActions && (
-        <div 
-          className="fixed inset-0 z-40" 
+        <div
+          className="fixed inset-0 z-40"
           onClick={() => setShowActions(false)}
         />
       )}

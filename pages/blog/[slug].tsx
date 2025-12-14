@@ -31,9 +31,9 @@ export default function BlogPost({
           {date}
         </span>
       </h1>
-      <ReactMarkdown
-        className="prose w-screen px-20"
-        components={{
+      <div className="prose w-screen px-20">
+        <ReactMarkdown
+          components={{
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             const inline = !match;
@@ -89,10 +89,11 @@ export default function BlogPost({
               />
             );
           },
-        }}
-      >
-        {postContent}
-      </ReactMarkdown>
+          }}
+        >
+          {postContent}
+        </ReactMarkdown>
+      </div>
       <div className="card lg:card-side bg-accent hover:bg-accent text-accent-content glass shadow-md hover:shadow-lg m-5">
         <figure>
           <Image

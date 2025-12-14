@@ -14,9 +14,9 @@ import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html className="h-screen">
+    <Html className="h-screen" data-theme="winter">
       <Head />
-      <body className="min-h-screen bg-gradient-to-br  from-base-100 to-base-300">
+      <body className="min-h-screen bg-base-100">
         <Main />
         <NextScript />
       </body>
