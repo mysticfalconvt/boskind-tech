@@ -8,6 +8,7 @@ import {
 import { CgWebsite } from 'react-icons/cg';
 import { FaMicroblog, FaSchool } from 'react-icons/fa';
 import { MdEmojiObjects, MdOutlineEngineering } from 'react-icons/md';
+import { MdSolarPower } from 'react-icons/md';
 
 export const copy = {
   components: {
@@ -96,5 +97,10 @@ export const headerLinks: linkItemsList = [
     label: 'Ironing Beads',
     href: '/ironingBeads',
     icon: BsGrid3X3Gap,
+  },
+  {
+    label: 'Solar Calc',
+    href: '/solar',
+    icon: MdSolarPower,
   },
 ];
