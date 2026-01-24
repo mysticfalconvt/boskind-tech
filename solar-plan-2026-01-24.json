@@ -1,0 +1,183 @@
+{
+  "homeEnergyData": {
+    "yearlyUsageKwh": 17400,
+    "monthlyUsageKwh": 1450,
+    "electricityRate": 0.235,
+    "gridBuybackRate": 0.13,
+    "monthlyFixedCosts": 23,
+    "energyInflationRate": 3
+  },
+  "systems": [
+    {
+      "id": "system-1769275037289",
+      "name": "Green Mountain Solar",
+      "bomItems": [
+        {
+          "id": "bom-1769275037289-1",
+          "category": "Solar Panels",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-2",
+          "category": "Inverter(s)",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-3",
+          "category": "Batteries",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-4",
+          "category": "Mounting/Racking",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-5",
+          "category": "Electrical/Wiring",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-6",
+          "category": "Installation Labor",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        },
+        {
+          "id": "bom-1769275037289-7",
+          "category": "Permits/Inspection",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        }
+      ],
+      "specifications": {
+        "panelWattage": 400,
+        "panelQuantity": 41,
+        "panelEfficiency": 20,
+        "locationSunHoursPerDay": 3.6,
+        "systemEfficiencyFactor": 85,
+        "degradationRate": 0.5,
+        "annualProductionKwh": 9928,
+        "gridInteraction": {
+          "netMeteringEnabled": true,
+          "gridFeedRate": 0.13,
+          "gridPurchaseRate": 0.235,
+          "batteryPriority": "self-consumption"
+        }
+      },
+      "loanInterestRate": 6,
+      "loanTermYears": 15,
+      "loanDownPaymentPercent": 20,
+      "loanDownPaymentDollar": 0,
+      "downPaymentMode": "percent",
+      "simpleMode": true,
+      "simpleTotalCost": 51000,
+      "simpleSpecMode": true,
+      "simpleSystemSizeKw": 16.5
+    },
+    {
+      "id": "system-1769275446230",
+      "name": "DIY off-Grid sub panel",
+      "bomItems": [
+        {
+          "id": "bom-1769275446230-1",
+          "category": "Solar Panels",
+          "description": "",
+          "quantity": 18,
+          "unitCost": 200
+        },
+        {
+          "id": "bom-1769275446230-2",
+          "category": "Inverter(s)",
+          "description": "6000 xp",
+          "quantity": 1,
+          "unitCost": 1600
+        },
+        {
+          "id": "bom-1769275446230-3",
+          "category": "Batteries",
+          "description": "EG4-WallMount Indoor Battery",
+          "quantity": 1,
+          "unitCost": 3109
+        },
+        {
+          "id": "bom-1769275446230-4",
+          "category": "Mounting/Racking",
+          "description": "",
+          "quantity": 1,
+          "unitCost": 1500
+        },
+        {
+          "id": "bom-1769275446230-5",
+          "category": "Electrical/Wiring",
+          "description": "",
+          "quantity": 1,
+          "unitCost": 500
+        },
+        {
+          "id": "bom-1769275446230-6",
+          "category": "Installation Labor",
+          "description": "",
+          "quantity": 1,
+          "unitCost": 500
+        },
+        {
+          "id": "bom-1769275446230-7",
+          "category": "Permits/Inspection",
+          "description": "",
+          "quantity": 0,
+          "unitCost": 0
+        }
+      ],
+      "specifications": {
+        "panelWattage": 400,
+        "panelQuantity": 18,
+        "panelEfficiency": 20,
+        "locationSunHoursPerDay": 3.5,
+        "systemEfficiencyFactor": 85,
+        "degradationRate": 0.5,
+        "annualProductionKwh": 9928,
+        "gridInteraction": {
+          "netMeteringEnabled": false,
+          "gridFeedRate": 0.13,
+          "gridPurchaseRate": 0.235,
+          "batteryPriority": "self-consumption"
+        },
+        "battery": {
+          "capacityKwh": 14.3,
+          "usableCapacityPercent": 85,
+          "roundTripEfficiency": 90,
+          "dailyUsageTarget": 9
+        }
+      },
+      "loanInterestRate": 6.5,
+      "loanTermYears": 5,
+      "loanDownPaymentPercent": 20,
+      "loanDownPaymentDollar": 0,
+      "downPaymentMode": "dollar",
+      "simpleMode": false,
+      "simpleTotalCost": 0,
+      "simpleSpecMode": false,
+      "simpleSystemSizeKw": 7.2
+    }
+  ],
+  "incentives": {
+    "federalTaxCreditPercent": 0,
+    "stateRebate": 0,
+    "localUtilityIncentives": 0,
+    "srecValuePerYear": 0,
+    "applyToAllSystems": true
+  }
+}

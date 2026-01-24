@@ -107,7 +107,7 @@ export default function Sidebar() {
                 })}
 
                 {/* Authentication Section */}
-                <li className="border-t border-base-300 mt-4 pt-4">
+                <div className="border-t border-base-300 mt-4 pt-4">
                   {authLoading ? (
                     <div className="flex items-center justify-center p-2">
                       <span className="loading loading-spinner loading-sm"></span>
@@ -225,7 +225,7 @@ export default function Sidebar() {
                       </li>
                     </>
                   )}
-                </li>
+                </div>
               </ul>
             }
           </ul>

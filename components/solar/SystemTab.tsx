@@ -92,9 +92,18 @@ export default function SystemTab({
     handleSpecChange('panelQuantity', newPanelQuantity);
   };
 
-  // Auto-calculate annual production if not manually overridden
+  // Auto-calculate annual production if not manually overridden or if specs change significantly
   useEffect(() => {
-    if (system.specifications.annualProductionKwh === 0) {
+    const currentProduction = system.specifications.annualProductionKwh;
+
+    // Auto-update if:
+    // 1. Production is 0 (new system)
+    // 2. Calculated production differs by more than 5% (specs were changed)
+    const shouldUpdate =
+      currentProduction === 0 ||
+      (currentProduction > 0 && Math.abs(calculatedProduction - currentProduction) / currentProduction > 0.05);
+
+    if (shouldUpdate && calculatedProduction !== currentProduction) {
       onUpdate({
         ...system,
         specifications: {
@@ -103,7 +112,13 @@ export default function SystemTab({
         },
       });
     }
-  }, [calculatedProduction]);
+  }, [
+    calculatedProduction,
+    system.specifications.panelWattage,
+    system.specifications.panelQuantity,
+    system.specifications.locationSunHoursPerDay,
+    system.specifications.systemEfficiencyFactor,
+  ]);
 
   const handleNameChange = (name: string) => {
     onUpdate({ ...system, name });

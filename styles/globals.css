@@ -3,3 +3,12 @@
 @import "tailwindcss/utilities" layer(utilities);
 
 @config "../tailwind.config.mjs";
+
+/* DaisyUI tabs-lifted styles */
+.tabs-lifted > .tab-content {
+  display: none;
+}
+
+.tabs-lifted > input[type="radio"]:checked + .tab-content {
+  display: block;
+}

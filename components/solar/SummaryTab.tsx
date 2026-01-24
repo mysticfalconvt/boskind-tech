@@ -10,6 +10,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
+  ReferenceDot,
 } from 'recharts';
 import { HomeEnergyData, SolarSystem, Incentives, FinancingOption } from '@/lib/solar/types';
 import {
@@ -39,6 +41,10 @@ export default function SummaryTab({
     [systemId: string]: FinancingOption;
   }>({});
   const [timeHorizonYears, setTimeHorizonYears] = useState(25);
+
+  // Get theme-aware color for breakeven line
+  // Use a medium gray that's visible in both light and dark modes
+  const breakevenColor = '#999999';
 
   // Initialize financing options for all systems if not set
   React.useEffect(() => {
@@ -267,6 +273,54 @@ export default function SummaryTab({
     return dataPoint;
   });
 
+  // Calculate breakeven points for each system
+  const breakevenPoints: { [systemName: string]: { year: number; value: number } | null } = {};
+  systems.forEach((system, idx) => {
+    let prevCumulative = -analyses[idx].totalCostAfterIncentives;
+    let breakevenYear: number | null = null;
+
+    for (let y = 1; y <= timeHorizonYears; y++) {
+      const production = calculateProductionWithDegradation(
+        system.specifications.annualProductionKwh,
+        y,
+        system.specifications.degradationRate
+      );
+      const savings = calculateAnnualSavings(
+        homeEnergyData,
+        production,
+        y,
+        system.specifications.gridInteraction.gridFeedRate,
+        system.specifications.gridInteraction.netMeteringEnabled
+      );
+      let cumulative = prevCumulative + savings;
+
+      // Subtract loan payments if applicable
+      const financing = getFinancingForSystem(system.id);
+      if (financing.type === 'loan' && financing.loanDetails && y <= financing.loanDetails.termYears) {
+        cumulative -= (analyses[idx].loanMonthlyPayment || 0) * 12;
+      }
+
+      // Check if we crossed zero
+      if (prevCumulative < 0 && cumulative >= 0) {
+        // Linear interpolation to find exact breakeven
+        const fraction = -prevCumulative / (cumulative - prevCumulative);
+        breakevenYear = y - 1 + fraction;
+        break;
+      }
+
+      prevCumulative = cumulative;
+    }
+
+    if (breakevenYear !== null) {
+      breakevenPoints[system.name] = {
+        year: breakevenYear,
+        value: 0,
+      };
+    } else {
+      breakevenPoints[system.name] = null;
+    }
+  });
+
   // Production vs Consumption chart data
   const prodConsChartData = systems.map((system, idx) => ({
     name: system.name,
@@ -437,6 +491,16 @@ export default function SummaryTab({
               <YAxis label={{ value: 'Cumulative Savings ($)', angle: -90, position: 'insideLeft' }} />
               <Tooltip formatter={(value) => value !== undefined ? `$${value.toLocaleString()}` : ''} />
               <Legend />
+
+              {/* Zero line - prominent to show breakeven */}
+              <ReferenceLine
+                y={0}
+                stroke={breakevenColor}
+                strokeWidth={2}
+                label={{ value: 'Break Even', position: 'insideTopRight', fill: breakevenColor, fontWeight: 'bold' }}
+              />
+
+              {/* System lines */}
               {systems.map((system, idx) => (
                 <Line
                   key={system.id}
@@ -444,8 +508,35 @@ export default function SummaryTab({
                   dataKey={system.name}
                   stroke={colors[idx % colors.length]}
                   strokeWidth={2}
+                  dot={false}
                 />
               ))}
+
+              {/* Breakeven dots */}
+              {systems.map((system, idx) => {
+                const breakeven = breakevenPoints[system.name];
+                if (breakeven) {
+                  return (
+                    <ReferenceDot
+                      key={`breakeven-${system.id}`}
+                      x={breakeven.year}
+                      y={0}
+                      r={8}
+                      fill={colors[idx % colors.length]}
+                      stroke="#fff"
+                      strokeWidth={2}
+                      label={{
+                        value: `${system.name}: ${breakeven.year.toFixed(1)}y`,
+                        position: 'top',
+                        fill: colors[idx % colors.length],
+                        fontWeight: 'bold',
+                        fontSize: 12,
+                      }}
+                    />
+                  );
+                }
+                return null;
+              })}
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -88,9 +88,9 @@ export default function SolarCalculator() {
       ],
       specifications: {
         panelWattage: 400,
-        panelQuantity: 20,
+        panelQuantity: 25,
         panelEfficiency: 20,
-        locationSunHoursPerDay: 4,
+        locationSunHoursPerDay: 4.5,
         systemEfficiencyFactor: 85,
         degradationRate: 0.5,
         annualProductionKwh: 0,
@@ -101,6 +101,14 @@ export default function SolarCalculator() {
           batteryPriority: 'self-consumption',
         },
       },
+      simpleMode: true,
+      simpleTotalCost: 25000,
+      simpleSpecMode: false,
+      loanInterestRate: 6,
+      loanTermYears: 15,
+      loanDownPaymentPercent: 20,
+      loanDownPaymentDollar: 5000,
+      downPaymentMode: 'percent',
     };
 
     setData((prev) => ({
@@ -208,89 +216,91 @@ export default function SolarCalculator() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="tabs tabs-boxed bg-base-200 mb-6 overflow-x-auto flex-nowrap">
-          <button
-            className={`tab ${activeTab === 'home' ? 'tab-active' : ''}`}
-            onClick={() => setActiveTab('home')}
-          >
-            Home Energy
-          </button>
-
-          {data.systems.map((system) => (
-            <button
-              key={system.id}
-              className={`tab ${activeTab === system.id ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab(system.id)}
-            >
-              {system.name}
-            </button>
-          ))}
-
-          <button
-            className="tab tab-bordered"
-            onClick={handleAddSystem}
-            title="Add New System"
-          >
-            + Add System
-          </button>
-
-          <button
-            className={`tab ${activeTab === 'incentives' ? 'tab-active' : ''}`}
-            onClick={() => setActiveTab('incentives')}
-          >
-            Incentives
-          </button>
-
-          <button
-            className={`tab ${activeTab === 'summary' ? 'tab-active' : ''}`}
-            onClick={() => setActiveTab('summary')}
-            disabled={data.systems.length === 0}
-          >
-            Summary
-          </button>
-        </div>
-
-        {/* Tab Content */}
-        <div className="bg-base-100">
-          {activeTab === 'home' && (
+        <div className="tabs tabs-lifted w-full">
+          <input
+            type="radio"
+            name="solar_tabs"
+            role="tab"
+            className="tab text-base font-medium"
+            aria-label="Home Energy"
+            checked={activeTab === 'home'}
+            onChange={() => setActiveTab('home')}
+          />
+          <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
             <HomeDataTab
               data={data.homeEnergyData}
               onUpdate={(updated) =>
                 setData((prev) => ({ ...prev, homeEnergyData: updated }))
               }
             />
-          )}
+          </div>
 
-          {activeTab === 'incentives' && (
-            <IncentivesTab
-              data={data.incentives}
-              onUpdate={(updated) =>
-                setData((prev) => ({ ...prev, incentives: updated }))
-              }
-            />
-          )}
-
-          {activeTab === 'summary' && (
-            <SummaryTab
-              homeEnergyData={data.homeEnergyData}
-              systems={data.systems}
-              incentives={data.incentives}
-            />
-          )}
-
-          {data.systems.map(
-            (system) =>
-              activeTab === system.id && (
+          {data.systems.map((system) => (
+            <React.Fragment key={system.id}>
+              <input
+                type="radio"
+                name="solar_tabs"
+                role="tab"
+                className="tab text-base font-medium"
+                aria-label={system.name}
+                checked={activeTab === system.id}
+                onChange={() => setActiveTab(system.id)}
+              />
+              <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
                 <SystemTab
-                  key={system.id}
                   system={system}
                   homeEnergyData={data.homeEnergyData}
                   onUpdate={(updated) => handleUpdateSystem(system.id, updated)}
                   onDuplicate={() => handleDuplicateSystem(system.id)}
                   onDelete={() => handleDeleteSystem(system.id)}
                 />
-              )
-          )}
+              </div>
+            </React.Fragment>
+          ))}
+
+          <button
+            className="tab text-base font-medium hover:bg-base-200"
+            onClick={handleAddSystem}
+            title="Add New System"
+          >
+            + Add System
+          </button>
+
+          <input
+            type="radio"
+            name="solar_tabs"
+            role="tab"
+            className="tab text-base font-medium"
+            aria-label="Incentives"
+            checked={activeTab === 'incentives'}
+            onChange={() => setActiveTab('incentives')}
+          />
+          <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+            <IncentivesTab
+              data={data.incentives}
+              onUpdate={(updated) =>
+                setData((prev) => ({ ...prev, incentives: updated }))
+              }
+            />
+          </div>
+
+          <input
+            type="radio"
+            name="solar_tabs"
+            role="tab"
+            className="tab text-base font-medium"
+            aria-label="Summary"
+            checked={activeTab === 'summary'}
+            onChange={() => setActiveTab('summary')}
+            disabled={data.systems.length === 0}
+          />
+          <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+            <SummaryTab
+              homeEnergyData={data.homeEnergyData}
+              systems={data.systems}
+              incentives={data.incentives}
+            />
+          </div>
         </div>
       </div>
 
