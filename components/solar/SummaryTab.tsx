@@ -93,6 +93,15 @@ export default function SummaryTab({
     return totalCost > 0 ? (dollarAmount / totalCost) * 100 : 0;
   };
 
+  // Helper to calculate annualized (compounded) ROI
+  const calculateAnnualizedROI = (totalReturn: number, initialInvestment: number, years: number): number => {
+    if (initialInvestment <= 0 || years <= 0) return 0;
+    // Formula: ((Final Value / Initial Value) ^ (1 / years)) - 1
+    const finalValue = initialInvestment + totalReturn;
+    const annualizedReturn = (Math.pow(finalValue / initialInvestment, 1 / years) - 1) * 100;
+    return annualizedReturn;
+  };
+
   // Helper to estimate wasted power for off-grid without battery
   // Solar production is concentrated during daylight hours (~6-8 hours peak)
   // but consumption is spread across 24 hours
@@ -368,13 +377,27 @@ export default function SummaryTab({
                   <th>Annual Production</th>
                   <th>Year 1 Savings</th>
                   <th>Payback Period</th>
-                  <th>25-Year Net</th>
+                  <th>{timeHorizonYears}-Year Net</th>
                   <th>ROI</th>
                 </tr>
               </thead>
               <tbody>
                 {systems.map((system, idx) => {
                   const analysis = analyses[idx];
+                  // Calculate net savings for the current time horizon
+                  const netSavingsAtHorizon = calculateNetSavings(
+                    homeEnergyData,
+                    system,
+                    analysis.totalCostAfterIncentives,
+                    getFinancingForSystem(system.id),
+                    timeHorizonYears
+                  );
+                  const annualizedRoi = calculateAnnualizedROI(
+                    netSavingsAtHorizon,
+                    analysis.totalCostAfterIncentives,
+                    timeHorizonYears
+                  );
+
                   return (
                     <tr key={system.id}>
                       <td className="font-semibold">{system.name}</td>
@@ -391,15 +414,15 @@ export default function SummaryTab({
                       </td>
                       <td
                         className={
-                          analysis.net25YearSavings > 0 ? 'text-success' : 'text-error'
+                          netSavingsAtHorizon > 0 ? 'text-success' : 'text-error'
                         }
                       >
-                        ${analysis.net25YearSavings.toLocaleString()}
+                        ${netSavingsAtHorizon.toLocaleString()}
                       </td>
                       <td
-                        className={analysis.roiPercent > 0 ? 'text-success' : 'text-error'}
+                        className={annualizedRoi > 0 ? 'text-success' : 'text-error'}
                       >
-                        {analysis.roiPercent.toFixed(1)}%
+                        {annualizedRoi.toFixed(1)}%/yr
                       </td>
                     </tr>
                   );
@@ -564,7 +587,6 @@ export default function SummaryTab({
 
       {/* Per-System Deep Dives */}
       {systems.map((system, idx) => {
-        const analysis = analyses[idx];
         const pc = prodCons[idx];
         const bp = batteryPerf[idx];
 
