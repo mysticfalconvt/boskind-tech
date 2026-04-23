@@ -8,6 +8,7 @@ type ProxyState = {
   upstream: string;
   latencyMs: number | null;
   jitterMs: number | null;
+  bandwidthKbps: number | null;
 };
 
 type ListResponse = {
@@ -26,12 +27,21 @@ type MutationResponse = {
   hint?: string;
 };
 
-type ProxyInputs = { latency: string; jitter: string };
+type ProxyInputs = { latency: string; jitter: string; bandwidth: string };
 
 const PASSWORD_STORAGE_KEY = 'toxiproxy-password';
 
 function joinErr(err?: string, hint?: string, fallback = 'Request failed'): string {
   return [err, hint].filter(Boolean).join(' — ') || fallback;
+}
+
+function inputsFromState(p: ProxyState, prev?: ProxyInputs): ProxyInputs {
+  return {
+    latency: p.latencyMs != null ? String(p.latencyMs) : prev?.latency ?? '',
+    jitter: p.jitterMs != null ? String(p.jitterMs) : prev?.jitter ?? '0',
+    bandwidth:
+      p.bandwidthKbps != null ? String(p.bandwidthKbps) : prev?.bandwidth ?? '',
+  };
 }
 
 export default function ToxiproxyDelayPage() {
@@ -71,10 +81,7 @@ export default function ToxiproxyDelayPage() {
     });
     setInputs((prev) => ({
       ...prev,
-      [next.proxy]: {
-        latency: next.latencyMs != null ? String(next.latencyMs) : prev[next.proxy]?.latency ?? '',
-        jitter: next.jitterMs != null ? String(next.jitterMs) : prev[next.proxy]?.jitter ?? '0',
-      },
+      [next.proxy]: inputsFromState(next, prev[next.proxy]),
     }));
   }, []);
 
@@ -93,10 +100,7 @@ export default function ToxiproxyDelayPage() {
       setInputs((prev) => {
         const next: Record<string, ProxyInputs> = { ...prev };
         for (const p of data.proxies) {
-          next[p.proxy] = {
-            latency: p.latencyMs != null ? String(p.latencyMs) : prev[p.proxy]?.latency ?? '',
-            jitter: p.jitterMs != null ? String(p.jitterMs) : prev[p.proxy]?.jitter ?? '0',
-          };
+          next[p.proxy] = inputsFromState(p, prev[p.proxy]);
         }
         return next;
       });
@@ -111,81 +115,129 @@ export default function ToxiproxyDelayPage() {
     void refresh();
   }, [refresh]);
 
-  const applyLatency = async (proxy: string) => {
+  const requirePassword = (): boolean => {
     if (!password) {
-      setError('Enter the admin password before changing a delay.');
-      return;
+      setError('Enter the admin password before making changes.');
+      return false;
     }
-    const form = inputs[proxy] ?? { latency: '', jitter: '0' };
-    const latency = Number(form.latency);
-    const jitter = Number(form.jitter || '0');
+    return true;
+  };
+
+  const runMutation = async (
+    proxy: string,
+    url: string,
+    init: RequestInit,
+    successMessage: string,
+  ) => {
     setBusyProxy(proxy);
     setError(null);
     setSuccess(null);
     try {
-      const res = await fetch('/api/toxiproxy/latency', {
+      const res = await fetch(url, init);
+      const data = (await res.json()) as MutationResponse;
+      if (!res.ok) {
+        setError(joinErr(data.error, data.hint, res.statusText));
+        return;
+      }
+      if (data.state) mergeState(data.state);
+      setSuccess(successMessage);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Request failed');
+    } finally {
+      setBusyProxy(null);
+    }
+  };
+
+  const applyLatency = async (proxy: string) => {
+    if (!requirePassword()) return;
+    const form = inputs[proxy];
+    const latency = Number(form?.latency);
+    const jitter = Number(form?.jitter || '0');
+    await runMutation(
+      proxy,
+      '/api/toxiproxy/latency',
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-toxiproxy-password': password,
         },
         body: JSON.stringify({ proxy, latency, jitter }),
-      });
-      const data = (await res.json()) as MutationResponse;
-      if (!res.ok) {
-        setError(joinErr(data.error, data.hint, res.statusText));
-        return;
-      }
-      if (data.state) mergeState(data.state);
-      setSuccess(
-        `Applied ${latency} ms${jitter ? ` (±${jitter} ms jitter)` : ''} to ${proxy}.`,
-      );
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Request failed');
-    } finally {
-      setBusyProxy(null);
-    }
+      },
+      `Applied ${latency} ms${jitter ? ` (±${jitter} ms jitter)` : ''} to ${proxy}.`,
+    );
   };
 
   const clearLatency = async (proxy: string) => {
-    if (!password) {
-      setError('Enter the admin password before changing a delay.');
-      return;
-    }
-    setBusyProxy(proxy);
-    setError(null);
-    setSuccess(null);
-    try {
-      const res = await fetch(
-        `/api/toxiproxy/latency?proxy=${encodeURIComponent(proxy)}`,
-        {
-          method: 'DELETE',
-          headers: { 'x-toxiproxy-password': password },
+    if (!requirePassword()) return;
+    await runMutation(
+      proxy,
+      `/api/toxiproxy/latency?proxy=${encodeURIComponent(proxy)}`,
+      {
+        method: 'DELETE',
+        headers: { 'x-toxiproxy-password': password },
+      },
+      `Cleared delay on ${proxy}.`,
+    );
+  };
+
+  const applyBandwidth = async (proxy: string) => {
+    if (!requirePassword()) return;
+    const rate = Number(inputs[proxy]?.bandwidth);
+    await runMutation(
+      proxy,
+      '/api/toxiproxy/bandwidth',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-toxiproxy-password': password,
         },
-      );
-      const data = (await res.json()) as MutationResponse;
-      if (!res.ok) {
-        setError(joinErr(data.error, data.hint, res.statusText));
-        return;
-      }
-      if (data.state) mergeState(data.state);
-      setSuccess(`Cleared delay on ${proxy}.`);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Request failed');
-    } finally {
-      setBusyProxy(null);
-    }
+        body: JSON.stringify({ proxy, rate }),
+      },
+      `Limited ${proxy} to ${rate} KB/s.`,
+    );
+  };
+
+  const clearBandwidth = async (proxy: string) => {
+    if (!requirePassword()) return;
+    await runMutation(
+      proxy,
+      `/api/toxiproxy/bandwidth?proxy=${encodeURIComponent(proxy)}`,
+      {
+        method: 'DELETE',
+        headers: { 'x-toxiproxy-password': password },
+      },
+      `Removed bandwidth limit on ${proxy}.`,
+    );
+  };
+
+  const setEnabled = async (proxy: string, enabled: boolean) => {
+    if (!requirePassword()) return;
+    await runMutation(
+      proxy,
+      '/api/toxiproxy/enabled',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-toxiproxy-password': password,
+        },
+        body: JSON.stringify({ proxy, enabled }),
+      },
+      `${proxy} is now ${enabled ? 'up' : 'down'}.`,
+    );
   };
 
   return (
     <div className="flex flex-col p-10 bg-base-100">
       <div className="w-full bg-base-200 rounded-xl shadow-xl p-8 border border-base-300">
         <h1 className="text-2xl font-bold text-base-content mb-2">
-          Toxiproxy latency
+          Toxiproxy controls
         </h1>
         <p className="text-sm text-base-content/70 mb-6 max-w-2xl">
-          View and adjust the downstream latency on each configured proxy.
-          Changes require the admin password.
+          View and adjust latency, bandwidth, and availability on each
+          configured proxy. Changes require the admin password.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] items-end mb-6 max-w-2xl">
@@ -233,94 +285,156 @@ export default function ToxiproxyDelayPage() {
 
         <div className="flex flex-col gap-4">
           {proxies?.map((p) => {
-            const form = inputs[p.proxy] ?? { latency: '', jitter: '0' };
+            const form = inputs[p.proxy] ?? { latency: '', jitter: '0', bandwidth: '' };
             const isBusy = busyProxy === p.proxy;
             return (
               <div
                 key={p.proxy}
                 className="bg-base-100 rounded-xl p-6 border border-base-300"
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                   <h2 className="text-xl font-semibold text-base-content">
                     {p.proxy}
                   </h2>
-                  <span className="text-sm text-base-content/70">
-                    toxic: {p.toxicName} · {p.enabled ? 'enabled' : 'disabled'}
-                  </span>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <span className="text-sm text-base-content/70">
+                      {p.enabled ? 'Up' : 'Down'}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-success"
+                      checked={p.enabled}
+                      disabled={isBusy}
+                      onChange={(e) => void setEnabled(p.proxy, e.target.checked)}
+                    />
+                  </label>
                 </div>
-                <p className="text-sm text-base-content/70 mb-2">
+                <p className="text-sm text-base-content/70 mb-4">
                   {p.listen} → {p.upstream}
                 </p>
-                <p className="text-lg font-semibold mb-4">
-                  Current delay:{' '}
-                  {p.latencyMs == null ? (
-                    <span className="text-base-content/70 font-normal">none</span>
-                  ) : (
-                    <>{p.latencyMs} ms</>
-                  )}
-                  {p.latencyMs != null && p.jitterMs != null && p.jitterMs > 0 ? (
-                    <span className="text-base font-normal text-base-content/80">
-                      {' '}
-                      (jitter {p.jitterMs} ms)
-                    </span>
-                  ) : null}
-                </p>
 
-                <div className="grid gap-4 sm:grid-cols-2 max-w-xl mb-4">
-                  <label className="form-control w-full">
-                    <span className="label-text text-base-content/80">Latency (ms)</span>
-                    <input
-                      type="number"
-                      min={0}
-                      className="input input-bordered w-full bg-base-100"
-                      value={form.latency}
-                      onChange={(e) =>
-                        setInputs((prev) => ({
-                          ...prev,
-                          [p.proxy]: { ...form, latency: e.target.value },
-                        }))
-                      }
-                      placeholder="e.g. 10000"
-                    />
-                  </label>
-                  <label className="form-control w-full">
-                    <span className="label-text text-base-content/80">Jitter (ms)</span>
-                    <input
-                      type="number"
-                      min={0}
-                      className="input input-bordered w-full bg-base-100"
-                      value={form.jitter}
-                      onChange={(e) =>
-                        setInputs((prev) => ({
-                          ...prev,
-                          [p.proxy]: { ...form, jitter: e.target.value },
-                        }))
-                      }
-                      placeholder="0"
-                    />
-                  </label>
+                <div className="grid gap-2 mb-4 text-base-content">
+                  <p className="text-base">
+                    <span className="text-base-content/60">Delay: </span>
+                    {p.latencyMs == null ? (
+                      <span className="text-base-content/70">none</span>
+                    ) : (
+                      <span className="font-semibold">
+                        {p.latencyMs} ms
+                        {p.jitterMs != null && p.jitterMs > 0
+                          ? ` (jitter ${p.jitterMs} ms)`
+                          : ''}
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-base">
+                    <span className="text-base-content/60">Bandwidth: </span>
+                    {p.bandwidthKbps == null ? (
+                      <span className="text-base-content/70">unlimited</span>
+                    ) : (
+                      <span className="font-semibold">{p.bandwidthKbps} KB/s</span>
+                    )}
+                  </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    disabled={isBusy}
-                    onClick={() => void applyLatency(p.proxy)}
-                  >
-                    {isBusy ? (
-                      <span className="loading loading-spinner loading-sm" />
-                    ) : null}
-                    Apply delay
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline"
-                    disabled={isBusy}
-                    onClick={() => void clearLatency(p.proxy)}
-                  >
-                    Clear delay
-                  </button>
+                <div className="border-t border-base-300 pt-4 mb-4">
+                  <h3 className="text-sm font-semibold text-base-content/80 mb-2">
+                    Latency
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-2 max-w-xl mb-3">
+                    <label className="form-control w-full">
+                      <span className="label-text text-base-content/80">Latency (ms)</span>
+                      <input
+                        type="number"
+                        min={0}
+                        className="input input-bordered w-full bg-base-100"
+                        value={form.latency}
+                        onChange={(e) =>
+                          setInputs((prev) => ({
+                            ...prev,
+                            [p.proxy]: { ...form, latency: e.target.value },
+                          }))
+                        }
+                        placeholder="e.g. 10000"
+                      />
+                    </label>
+                    <label className="form-control w-full">
+                      <span className="label-text text-base-content/80">Jitter (ms)</span>
+                      <input
+                        type="number"
+                        min={0}
+                        className="input input-bordered w-full bg-base-100"
+                        value={form.jitter}
+                        onChange={(e) =>
+                          setInputs((prev) => ({
+                            ...prev,
+                            [p.proxy]: { ...form, jitter: e.target.value },
+                          }))
+                        }
+                        placeholder="0"
+                      />
+                    </label>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      disabled={isBusy}
+                      onClick={() => void applyLatency(p.proxy)}
+                    >
+                      Apply delay
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-sm"
+                      disabled={isBusy}
+                      onClick={() => void clearLatency(p.proxy)}
+                    >
+                      Clear delay
+                    </button>
+                  </div>
+                </div>
+
+                <div className="border-t border-base-300 pt-4">
+                  <h3 className="text-sm font-semibold text-base-content/80 mb-2">
+                    Bandwidth
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-2 max-w-xl mb-3">
+                    <label className="form-control w-full">
+                      <span className="label-text text-base-content/80">Rate (KB/s)</span>
+                      <input
+                        type="number"
+                        min={0}
+                        className="input input-bordered w-full bg-base-100"
+                        value={form.bandwidth}
+                        onChange={(e) =>
+                          setInputs((prev) => ({
+                            ...prev,
+                            [p.proxy]: { ...form, bandwidth: e.target.value },
+                          }))
+                        }
+                        placeholder="e.g. 256"
+                      />
+                    </label>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      disabled={isBusy}
+                      onClick={() => void applyBandwidth(p.proxy)}
+                    >
+                      Apply limit
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-sm"
+                      disabled={isBusy}
+                      onClick={() => void clearBandwidth(p.proxy)}
+                    >
+                      Clear limit
+                    </button>
+                  </div>
                 </div>
               </div>
             );

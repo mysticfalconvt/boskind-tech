@@ -1,5 +1,6 @@
 const DEFAULT_API = 'http://localhost:8474';
 const DEFAULT_TOXIC_NAME = 'latency';
+export const BANDWIDTH_TOXIC_NAME = 'bandwidth';
 
 const UPSTREAM_UA = 'boskind-tech-toxiproxy-client/1';
 
@@ -40,6 +41,7 @@ export type ProxyState = {
   upstream: string;
   latencyMs: number | null;
   jitterMs: number | null;
+  bandwidthKbps: number | null;
 };
 
 export async function toxiproxyRequest(
@@ -72,10 +74,22 @@ export function findLatencyToxic(
   return toxics.find((t) => t.type === 'latency');
 }
 
+export function findBandwidthToxic(
+  toxics: ToxicJson[],
+): ToxicJson | undefined {
+  const byName = toxics.find(
+    (t) => t.name === BANDWIDTH_TOXIC_NAME && t.type === 'bandwidth',
+  );
+  if (byName) return byName;
+  return toxics.find((t) => t.type === 'bandwidth');
+}
+
 function toProxyState(data: ProxyWithToxicsJson, toxicName: string): ProxyState {
   const toxic = findLatencyToxic(data.toxics ?? [], toxicName);
+  const bandwidth = findBandwidthToxic(data.toxics ?? []);
   const latency = toxic?.attributes?.latency;
   const jitter = toxic?.attributes?.jitter;
+  const rate = bandwidth?.attributes?.rate;
   return {
     proxy: data.name,
     toxicName,
@@ -84,6 +98,7 @@ function toProxyState(data: ProxyWithToxicsJson, toxicName: string): ProxyState 
     upstream: data.upstream,
     latencyMs: typeof latency === 'number' ? latency : null,
     jitterMs: typeof jitter === 'number' ? jitter : null,
+    bandwidthKbps: typeof rate === 'number' ? rate : null,
   };
 }
 
