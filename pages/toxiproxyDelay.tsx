@@ -36,7 +36,6 @@ function joinErr(err?: string, hint?: string, fallback = 'Request failed'): stri
 
 export default function ToxiproxyDelayPage() {
   const [proxies, setProxies] = useState<ProxyState[] | null>(null);
-  const [apiHost, setApiHost] = useState<string | null>(null);
   const [inputs, setInputs] = useState<Record<string, ProxyInputs>>({});
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -91,7 +90,6 @@ export default function ToxiproxyDelayPage() {
         return;
       }
       setProxies(data.proxies);
-      setApiHost(data.apiHost ?? null);
       setInputs((prev) => {
         const next: Record<string, ProxyInputs> = { ...prev };
         for (const p of data.proxies) {
@@ -186,10 +184,8 @@ export default function ToxiproxyDelayPage() {
           Toxiproxy latency
         </h1>
         <p className="text-sm text-base-content/70 mb-6 max-w-2xl">
-          Reads and sets the downstream latency toxic for every proxy registered
-          with Toxiproxy (<code className="text-xs">TOXIPROXY_API</code>).
-          Mutations require the admin password configured in{' '}
-          <code className="text-xs">TOXIPROXY_PASSWORD</code>.
+          View and adjust the downstream latency on each configured proxy.
+          Changes require the admin password.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] items-end mb-6 max-w-2xl">
@@ -200,7 +196,7 @@ export default function ToxiproxyDelayPage() {
               className="input input-bordered w-full bg-base-100"
               value={password}
               onChange={(e) => onPasswordChange(e.target.value)}
-              placeholder="TOXIPROXY_PASSWORD from server .env"
+              placeholder="Admin password"
               autoComplete="off"
             />
           </label>
@@ -216,13 +212,6 @@ export default function ToxiproxyDelayPage() {
             Refresh
           </button>
         </div>
-
-        {apiHost && (
-          <p className="text-sm text-base-content/70 mb-4">
-            <span className="text-base-content/50">API host: </span>
-            {apiHost}
-          </p>
-        )}
 
         {error && (
           <div className="p-4 mb-4 text-sm text-error bg-error/10 rounded-lg whitespace-pre-wrap">
