@@ -1,78 +1,54 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
-  findLatencyToxic,
   getToxiproxyServerConfig,
+  listAllProxyStates,
+  readProxyState,
   toxiproxyRequest,
-  type ProxyWithToxicsJson,
+  verifyToxiproxyPassword,
 } from '@/lib/toxiproxyServer';
 
-type GetResponse = {
-  proxy: string;
-  toxicName: string;
-  enabled: boolean;
-  listen: string;
-  upstream: string;
-  latencyMs: number | null;
-  jitterMs: number | null;
-  apiHost: string | null;
-};
+function getPassword(req: NextApiRequest): string | undefined {
+  const header = req.headers['x-toxiproxy-password'];
+  if (Array.isArray(header)) return header[0];
+  return header;
+}
 
-async function readProxyState(): Promise<GetResponse> {
-  const { proxy, toxicName, apiBase } = getToxiproxyServerConfig();
-  const res = await toxiproxyRequest(`/proxies/${encodeURIComponent(proxy)}`);
-  const text = await res.text();
-  if (!res.ok) {
-    throw new Error(text || res.statusText || `HTTP ${res.status}`);
-  }
-  let data: ProxyWithToxicsJson;
+function apiHostFromBase(apiBase: string): string | null {
   try {
-    data = JSON.parse(text) as ProxyWithToxicsJson;
+    return new URL(apiBase).host;
   } catch {
-    throw new Error('Invalid JSON from Toxiproxy');
+    return null;
   }
-  const toxic = findLatencyToxic(data.toxics ?? [], toxicName);
-  const latency = toxic?.attributes?.latency;
-  const jitter = toxic?.attributes?.jitter;
-  let apiHost: string | null = null;
-  try {
-    apiHost = new URL(apiBase).host;
-  } catch {
-    apiHost = null;
-  }
-  return {
-    proxy: data.name,
-    toxicName,
-    enabled: data.enabled,
-    listen: data.listen,
-    upstream: data.upstream,
-    latencyMs: typeof latency === 'number' ? latency : null,
-    jitterMs: typeof jitter === 'number' ? jitter : null,
-    apiHost,
-  };
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { proxy, toxicName } = getToxiproxyServerConfig();
+  const { apiBase, toxicName } = getToxiproxyServerConfig();
+  const apiHost = apiHostFromBase(apiBase);
 
   try {
     if (req.method === 'GET') {
-      const state = await readProxyState();
-      return res.status(200).json(state);
+      const proxies = await listAllProxyStates();
+      return res.status(200).json({ proxies, toxicName, apiHost });
     }
 
     if (req.method === 'POST') {
-      const latency = Number(
-        (req.body as { latency?: unknown })?.latency ??
-          req.query.latency,
-      );
-      const jitter = Number(
-        (req.body as { jitter?: unknown })?.jitter ??
-          req.query.jitter ??
-          0,
-      );
+      const auth = verifyToxiproxyPassword(getPassword(req));
+      if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
+
+      const body = (req.body ?? {}) as {
+        proxy?: unknown;
+        latency?: unknown;
+        jitter?: unknown;
+      };
+      const proxy = typeof body.proxy === 'string' ? body.proxy : '';
+      const latency = Number(body.latency);
+      const jitter = Number(body.jitter ?? 0);
+      if (!proxy) {
+        return res.status(400).json({ error: 'Missing proxy name' });
+      }
       if (!Number.isFinite(latency) || latency < 0) {
         return res.status(400).json({ error: 'Invalid latency (ms)' });
       }
@@ -81,7 +57,8 @@ export default async function handler(
       }
 
       const encProxy = encodeURIComponent(proxy);
-      await toxiproxyRequest(`/proxies/${encProxy}/toxics/${encodeURIComponent(toxicName)}`, {
+      const encToxic = encodeURIComponent(toxicName);
+      await toxiproxyRequest(`/proxies/${encProxy}/toxics/${encToxic}`, {
         method: 'DELETE',
       }).catch(() => undefined);
 
@@ -106,14 +83,20 @@ export default async function handler(
           toxic = { raw };
         }
       }
-      const state = await readProxyState();
-      return res.status(200).json({
-        toxic,
-        state,
-      });
+      const state = await readProxyState(proxy);
+      return res.status(200).json({ toxic, state });
     }
 
     if (req.method === 'DELETE') {
+      const auth = verifyToxiproxyPassword(getPassword(req));
+      if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
+
+      const rawProxy = req.query.proxy;
+      const proxy = Array.isArray(rawProxy) ? rawProxy[0] : rawProxy;
+      if (!proxy) {
+        return res.status(400).json({ error: 'Missing proxy name' });
+      }
+
       const encProxy = encodeURIComponent(proxy);
       const delRes = await toxiproxyRequest(
         `/proxies/${encProxy}/toxics/${encodeURIComponent(toxicName)}`,
@@ -123,7 +106,7 @@ export default async function handler(
         const t = await delRes.text();
         throw new Error(t || delRes.statusText || `HTTP ${delRes.status}`);
       }
-      const state = await readProxyState();
+      const state = await readProxyState(proxy);
       return res.status(200).json({ cleared: true, state });
     }
 
@@ -134,7 +117,7 @@ export default async function handler(
     return res.status(502).json({
       error: message,
       hint:
-        'Check TOXIPROXY_API and TOXIPROXY_PROXY in .env.local. Toxiproxy must be reachable from this Next.js server.',
+        'Check TOXIPROXY_API in .env. Toxiproxy must be reachable from this Next.js server.',
     });
   }
 }
