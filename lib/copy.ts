@@ -7,8 +7,13 @@ import {
 } from 'react-icons/bs';
 import { CgWebsite } from 'react-icons/cg';
 import { FaMicroblog, FaSchool } from 'react-icons/fa';
-import { MdEmojiObjects, MdOutlineEngineering } from 'react-icons/md';
-import { MdSolarPower } from 'react-icons/md';
+import {
+  MdEmojiObjects,
+  MdOutlineEngineering,
+  MdSolarPower,
+  MdOutlineFlightTakeoff,
+  MdWorkspaces,
+} from 'react-icons/md';
 
 export const copy = {
   components: {
@@ -94,13 +99,25 @@ export const headerLinks: linkItemsList = [
     ],
   },
   {
-    label: 'Ironing Beads',
+    label: 'Projects',
     href: '/ironingBeads',
-    icon: BsGrid3X3Gap,
-  },
-  {
-    label: 'Solar Calc',
-    href: '/solar',
-    icon: MdSolarPower,
+    icon: MdWorkspaces,
+    subItems: [
+      {
+        label: 'Ironing Beads',
+        href: '/ironingBeads',
+        icon: BsGrid3X3Gap,
+      },
+      {
+        label: 'Solar Calc',
+        href: '/solar',
+        icon: MdSolarPower,
+      },
+      {
+        label: 'Travel Budget',
+        href: '/travelBudget',
+        icon: MdOutlineFlightTakeoff,
+      },
+    ],
   },
 ];
