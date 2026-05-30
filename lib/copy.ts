@@ -13,6 +13,7 @@ import {
   MdSolarPower,
   MdOutlineFlightTakeoff,
   MdWorkspaces,
+  MdGavel,
 } from 'react-icons/md';
 
 export const copy = {
@@ -117,6 +118,11 @@ export const headerLinks: linkItemsList = [
         label: 'Travel Budget',
         href: '/travelBudget',
         icon: MdOutlineFlightTakeoff,
+      },
+      {
+        label: 'NCSU Policy',
+        href: '/policy',
+        icon: MdGavel,
       },
     ],
   },
