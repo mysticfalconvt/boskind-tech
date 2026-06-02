@@ -128,6 +128,29 @@ export const policySyncJobs = pgTable('policy_sync_jobs', {
   finishedAt: timestamp('finished_at'),
 });
 
+export type QueryCitation = {
+  policyCode: string | null;
+  title: string;
+  sourceUrl: string;
+  sections?: string[];
+};
+
+// Log of questions asked and the answers returned, so admins can review usage.
+export const policyQueries = pgTable('policy_queries', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  question: text('question').notNull(),
+  answer: text('answer'),
+  citations: json('citations').$type<QueryCitation[]>().default([]),
+  matchCount: integer('match_count').notNull().default(0),
+  // Who asked: 'admin' or 'viewer' for now. A placeholder for richer identity
+  // later if a real user system is added.
+  askerRole: varchar('asker_role', { length: 16 }).notNull().default('viewer'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export type PolicyQuery = typeof policyQueries.$inferSelect;
+export type NewPolicyQuery = typeof policyQueries.$inferInsert;
+
 export type PolicyTopic = typeof policyTopics.$inferSelect;
 export type NewPolicyTopic = typeof policyTopics.$inferInsert;
 export type PolicyDocument = typeof policyDocuments.$inferSelect;

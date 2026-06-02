@@ -67,6 +67,16 @@ type Citation = {
   sections?: string[];
 };
 
+type QueryRow = {
+  id: string;
+  question: string;
+  answer: string | null;
+  citations: Citation[] | null;
+  matchCount: number;
+  askerRole: string;
+  createdAt: string;
+};
+
 function formatSeconds(secs: number): string {
   const s = Math.max(0, Math.round(secs));
   if (s < 60) return `${s}s`;
@@ -103,6 +113,10 @@ export default function PolicyPage() {
   const [asking, setAsking] = useState(false);
   const [answer, setAnswer] = useState<string | null>(null);
   const [citations, setCitations] = useState<Citation[]>([]);
+
+  // Admin-only question history.
+  const [history, setHistory] = useState<QueryRow[] | null>(null);
+  const [historyLoading, setHistoryLoading] = useState(false);
 
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -224,6 +238,7 @@ export default function PolicyPage() {
     setAnswer(null);
     setCitations([]);
     setStats(null);
+    setHistory(null);
     if (typeof window !== 'undefined') {
       window.sessionStorage.removeItem(PASSWORD_STORAGE_KEY);
     }
@@ -313,6 +328,33 @@ export default function PolicyPage() {
       setAsking(false);
     }
   };
+
+  // Admin-only: load the question/answer history.
+  const loadHistory = async () => {
+    setHistoryLoading(true);
+    setError(null);
+    try {
+      const res = await authedFetch('/api/policy/queries');
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || 'Failed to load history');
+        return;
+      }
+      setHistory(data.queries ?? []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load history');
+    } finally {
+      setHistoryLoading(false);
+    }
+  };
+
+  // Auto-load the history once an admin is signed in.
+  useEffect(() => {
+    if (authed && isAdmin && history === null && !historyLoading) {
+      void loadHistory();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed, isAdmin]);
 
   if (!authed) {
     return (
@@ -492,6 +534,83 @@ export default function PolicyPage() {
           </div>
         )}
       </div>
+
+      {/* Question history — admin only */}
+      {isAdmin && (
+        <div className="w-full bg-base-200 rounded-xl shadow-xl p-6 md:p-8 border border-base-300">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <h2 className="text-xl font-semibold text-base-content">
+              Question history
+            </h2>
+            <button
+              type="button"
+              className="btn btn-sm btn-ghost"
+              disabled={historyLoading}
+              onClick={() => void loadHistory()}
+            >
+              {historyLoading && (
+                <span className="loading loading-spinner loading-xs" />
+              )}
+              {history ? 'Refresh' : 'Load history'}
+            </button>
+          </div>
+
+          {history && history.length === 0 && (
+            <div className="text-sm text-base-content/60">
+              No questions have been asked yet.
+            </div>
+          )}
+
+          {history && history.length > 0 && (
+            <div className="flex flex-col gap-2">
+              {history.map((q) => (
+                <details
+                  key={q.id}
+                  className="bg-base-100 rounded-lg border border-base-300 p-3"
+                >
+                  <summary className="cursor-pointer text-sm">
+                    <span
+                      className={`badge badge-xs mr-2 ${
+                        q.askerRole === 'admin'
+                          ? 'badge-primary'
+                          : 'badge-ghost'
+                      }`}
+                    >
+                      {q.askerRole === 'admin' ? 'Admin' : 'Viewer'}
+                    </span>
+                    <span className="text-base-content">{q.question}</span>
+                    <span className="ml-2 text-xs text-base-content/50">
+                      {new Date(q.createdAt).toLocaleString()}
+                    </span>
+                  </summary>
+                  <div className="mt-3">
+                    <div className="prose prose-sm max-w-none text-base-content">
+                      <ReactMarkdown>{q.answer ?? ''}</ReactMarkdown>
+                    </div>
+                    {q.citations && q.citations.length > 0 && (
+                      <ul className="mt-3 flex flex-col gap-1">
+                        {q.citations.map((c) => (
+                          <li key={c.sourceUrl}>
+                            <a
+                              href={c.sourceUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="link link-hover text-base-content/70 text-xs"
+                            >
+                              {c.policyCode ? `${c.policyCode} — ` : ''}
+                              {c.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </details>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Sync panel */}
       <div className="w-full bg-base-200 rounded-xl shadow-xl p-6 md:p-8 border border-base-300">

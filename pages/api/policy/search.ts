@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
+import { policyQueries } from '@/lib/db/schema';
 import { getPolicyPassword, verifyPolicyAccess } from '@/lib/policyServer';
 import { embed, chat, toVectorLiteral, ChatMessage } from '@/lib/policy/lmStudio';
 
@@ -188,6 +189,19 @@ export default async function handler(
       return re.test(answer);
     });
     const finalCitations = cited.length > 0 ? cited : citations;
+
+    // Log the Q&A for admin review (best-effort; never block the response).
+    try {
+      await db.insert(policyQueries).values({
+        question,
+        answer,
+        citations: finalCitations,
+        matchCount: chunkRows.length,
+        askerRole: auth.role,
+      });
+    } catch (logErr) {
+      console.error('Failed to log policy query:', logErr);
+    }
 
     return res.status(200).json({
       answer,
