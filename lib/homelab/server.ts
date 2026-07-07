@@ -148,6 +148,39 @@ export async function fetchCoolify(): Promise<{
       }
     }),
   );
+
+  // Apps/services/databases only carry an `environment_id`, so fetch each
+  // project's detail (which lists its environments) to build a map of
+  // environment id -> project. Resources can then be grouped by project.
+  const projects = Array.isArray(out.projects) ? out.projects : [];
+  if (projects.length > 0) {
+    const projectByEnv: Record<number, { name: string; uuid: string }> = {};
+    await Promise.all(
+      projects.map(async (p: any) => {
+        if (!p?.uuid) return;
+        try {
+          const resp = await fetch(
+            `http://${host}/api/v1/projects/${p.uuid}`,
+            { headers: { Authorization: `Bearer ${token}` } },
+          );
+          if (!resp.ok) {
+            errs.push(`Coolify project ${p.uuid}: HTTP ${resp.status}`);
+            return;
+          }
+          const detail = await resp.json();
+          for (const env of detail.environments ?? []) {
+            if (env?.id != null) {
+              projectByEnv[env.id] = { name: p.name, uuid: p.uuid };
+            }
+          }
+        } catch (e) {
+          errs.push(`Coolify project ${p.uuid}: ${(e as Error).message}`);
+        }
+      }),
+    );
+    out.projectByEnv = projectByEnv;
+  }
+
   return { data: out, error: errs.length ? errs.join('; ') : undefined };
 }
 
@@ -208,6 +241,15 @@ function flatten(
   const rows: NewHomelabResource[] = [];
   const uIp = unraidIp();
   const cIp = coolifyIp();
+
+  // Resolve a Coolify resource's project name from its environment_id; falls
+  // back to a flat 'coolify' when the mapping isn't available.
+  const projectByEnv: Record<number, { name: string; uuid: string }> =
+    coolify?.projectByEnv ?? {};
+  const coolifyStack = (envId: unknown): string => {
+    const p = typeof envId === 'number' ? projectByEnv[envId] : undefined;
+    return p?.name || 'coolify';
+  };
 
   // Unraid Docker containers — one row per publicly-exposed port, plus a
   // row-with-no-port for containers that don't publish anything (still useful
@@ -303,7 +345,7 @@ function flatten(
       hostIp: cIp,
       url: fqdn || null,
       state: a.status ?? null,
-      stack: 'coolify',
+      stack: coolifyStack(a.environment_id),
       image: null,
       tags: null,
       raw: a,
@@ -343,7 +385,7 @@ function flatten(
       protocol: null,
       url: s.fqdn ?? null,
       state: s.status ?? null,
-      stack: 'coolify',
+      stack: coolifyStack(s.environment_id),
       image: s.service_type ?? null,
       tags: null,
       raw: s,
@@ -365,7 +407,7 @@ function flatten(
       protocol: pp ? 'TCP' : null,
       url: pp ? `postgres://${cIp}:${pp}` : null,
       state: d.status ?? null,
-      stack: 'coolify',
+      stack: coolifyStack(d.environment_id),
       image: d.database_type ?? null,
       tags: null,
       raw: d,
