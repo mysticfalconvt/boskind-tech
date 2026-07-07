@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useHomelabAuth } from '@/lib/homelab/client';
+import { useSort, SortableTh, type Accessor } from '@/lib/homelab/useSort';
 
 type Row = {
   id: string;
@@ -19,6 +20,18 @@ type Row = {
 };
 
 const KINDS = ['container', 'vm', 'application', 'service', 'database'] as const;
+
+const SORTERS: Record<string, Accessor<Row>> = {
+  name: (r) => r.name,
+  kind: (r) => r.kind,
+  host: (r) => r.hostIp,
+  port: (r) => r.port,
+  proto: (r) => r.protocol,
+  state: (r) => r.state,
+  stack: (r) => r.stack,
+  image: (r) => r.image,
+  url: (r) => r.url,
+};
 
 export default function ServicesPage() {
   const { ready, authedFetch } = useHomelabAuth();
@@ -58,6 +71,8 @@ export default function ServicesPage() {
     for (const r of rows) if (r.hostIp) s.add(r.hostIp);
     return Array.from(s).sort();
   }, [rows]);
+
+  const { sorted, sort, toggle } = useSort(rows, SORTERS);
 
   if (!ready) return null;
 
@@ -119,19 +134,19 @@ export default function ServicesPage() {
           <table className="table table-sm">
             <thead>
               <tr>
-                <th>name</th>
-                <th>kind</th>
-                <th>host</th>
-                <th>port</th>
-                <th>proto</th>
-                <th>state</th>
-                <th>stack</th>
-                <th>image</th>
-                <th>url</th>
+                <SortableTh label="name" sortKey="name" sort={sort} toggle={toggle} />
+                <SortableTh label="kind" sortKey="kind" sort={sort} toggle={toggle} />
+                <SortableTh label="host" sortKey="host" sort={sort} toggle={toggle} />
+                <SortableTh label="port" sortKey="port" sort={sort} toggle={toggle} />
+                <SortableTh label="proto" sortKey="proto" sort={sort} toggle={toggle} />
+                <SortableTh label="state" sortKey="state" sort={sort} toggle={toggle} />
+                <SortableTh label="stack" sortKey="stack" sort={sort} toggle={toggle} />
+                <SortableTh label="image" sortKey="image" sort={sort} toggle={toggle} />
+                <SortableTh label="url" sortKey="url" sort={sort} toggle={toggle} />
               </tr>
             </thead>
             <tbody>
-              {rows.map((r) => (
+              {sorted.map((r) => (
                 <tr key={r.id}>
                   <td className="whitespace-nowrap">{r.name}</td>
                   <td>{r.kind}</td>

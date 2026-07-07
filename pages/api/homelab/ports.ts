@@ -9,6 +9,7 @@ type PortRow = {
   port: number;
   protocol: string;
   names: string[];
+  stacks: string[];
 };
 
 // GET /api/homelab/ports
@@ -50,6 +51,7 @@ export default async function handler(
       port: homelabResources.port,
       protocol: homelabResources.protocol,
       name: homelabResources.name,
+      stack: homelabResources.stack,
     })
     .from(homelabResources)
     .where(and(...conditions))
@@ -64,12 +66,16 @@ export default async function handler(
     const existing = grouped.get(key);
     if (existing) {
       existing.names.push(r.name);
+      if (r.stack && !existing.stacks.includes(r.stack)) {
+        existing.stacks.push(r.stack);
+      }
     } else {
       grouped.set(key, {
         host: r.host,
         port: r.port,
         protocol: r.protocol ?? 'TCP',
         names: [r.name],
+        stacks: r.stack ? [r.stack] : [],
       });
     }
   }

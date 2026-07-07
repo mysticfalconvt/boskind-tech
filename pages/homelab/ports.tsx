@@ -2,12 +2,21 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useHomelabAuth } from '@/lib/homelab/client';
+import { useSort, SortableTh, type Accessor } from '@/lib/homelab/useSort';
 
 type PortRow = {
   host: string;
   port: number;
   protocol: string;
   names: string[];
+  stacks: string[];
+};
+
+const SORTERS: Record<string, Accessor<PortRow>> = {
+  port: (p) => p.port,
+  proto: (p) => p.protocol,
+  stack: (p) => p.stacks.join(', '),
+  services: (p) => p.names.join(', '),
 };
 
 type PortsResponse = {
@@ -140,6 +149,10 @@ export default function PortsPage() {
 }
 
 function HostPortTable({ host, ports }: { host: string; ports: PortRow[] }) {
+  const { sorted, sort, toggle } = useSort(ports, SORTERS, {
+    key: 'port',
+    dir: 'asc',
+  });
   return (
     <div>
       <h2 className="text-lg mb-2">
@@ -149,16 +162,18 @@ function HostPortTable({ host, ports }: { host: string; ports: PortRow[] }) {
         <table className="table table-sm">
           <thead>
             <tr>
-              <th>port</th>
-              <th>proto</th>
-              <th>services</th>
+              <SortableTh label="port" sortKey="port" sort={sort} toggle={toggle} />
+              <SortableTh label="proto" sortKey="proto" sort={sort} toggle={toggle} />
+              <SortableTh label="stack" sortKey="stack" sort={sort} toggle={toggle} />
+              <SortableTh label="services" sortKey="services" sort={sort} toggle={toggle} />
             </tr>
           </thead>
           <tbody>
-            {ports.map((p) => (
+            {sorted.map((p) => (
               <tr key={`${p.port}-${p.protocol}`}>
                 <td className="font-mono">{p.port}</td>
                 <td>{p.protocol}</td>
+                <td>{p.stacks.join(', ')}</td>
                 <td>{p.names.join(', ')}</td>
               </tr>
             ))}

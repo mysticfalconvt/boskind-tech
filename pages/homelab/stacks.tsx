@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useHomelabAuth } from '@/lib/homelab/client';
+import { useSort, SortableTh, type Accessor } from '@/lib/homelab/useSort';
 
 type Row = {
   id: string;
@@ -15,6 +16,13 @@ type Row = {
   state: string | null;
   stack: string | null;
   image: string | null;
+};
+
+const SORTERS: Record<string, Accessor<Row>> = {
+  name: (r) => r.name,
+  addr: (r) => (r.hostIp ? `${r.hostIp}:${String(r.port ?? 0).padStart(6, '0')}` : ''),
+  state: (r) => r.state,
+  image: (r) => r.image,
 };
 
 export default function StacksPage() {
@@ -82,45 +90,57 @@ export default function StacksPage() {
               <span className="text-sm opacity-60">({items.length})</span>
             </summary>
             <div className="collapse-content">
-              <ul className="space-y-1 text-sm">
-                {items.map((r) => (
-                  <li key={r.id}>
-                    <strong>{r.name}</strong>
-                    {r.hostIp ? (
-                      <>
-                        {' '}
-                        <code className="opacity-80">
-                          {r.hostIp}
-                          {r.port ? `:${r.port}` : ''}
-                        </code>
-                      </>
-                    ) : null}
-                    {r.state ? (
-                      <span className="opacity-60"> [{r.state}]</span>
-                    ) : null}
-                    {r.image ? (
-                      <span className="opacity-60"> — {r.image}</span>
-                    ) : null}
-                    {r.url ? (
-                      <>
-                        {' — '}
-                        <a
-                          href={r.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link link-primary"
-                        >
-                          open
-                        </a>
-                      </>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
+              <StackTable items={items} />
             </div>
           </details>
         ))}
       </div>
     </>
+  );
+}
+
+function StackTable({ items }: { items: Row[] }) {
+  const { sorted, sort, toggle } = useSort(items, SORTERS, {
+    key: 'name',
+    dir: 'asc',
+  });
+  return (
+    <div className="overflow-x-auto">
+      <table className="table table-xs">
+        <thead>
+          <tr>
+            <SortableTh label="name" sortKey="name" sort={sort} toggle={toggle} />
+            <SortableTh label="host:port" sortKey="addr" sort={sort} toggle={toggle} />
+            <SortableTh label="state" sortKey="state" sort={sort} toggle={toggle} />
+            <SortableTh label="image" sortKey="image" sort={sort} toggle={toggle} />
+            <th>url</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((r) => (
+            <tr key={r.id}>
+              <td className="font-semibold whitespace-nowrap">{r.name}</td>
+              <td className="font-mono whitespace-nowrap">
+                {r.hostIp ? `${r.hostIp}${r.port ? `:${r.port}` : ''}` : ''}
+              </td>
+              <td>{r.state ?? ''}</td>
+              <td className="max-w-xs truncate">{r.image ?? ''}</td>
+              <td>
+                {r.url ? (
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link link-primary"
+                  >
+                    open
+                  </a>
+                ) : null}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

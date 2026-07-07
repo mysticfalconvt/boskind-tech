@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useHomelabAuth } from '@/lib/homelab/client';
+import { useSort, SortableTh, type Accessor } from '@/lib/homelab/useSort';
 
 type SnapshotRow = {
   id: string;
@@ -19,6 +20,16 @@ function formatDate(iso: string): string {
   const d = new Date(iso);
   return d.toLocaleString();
 }
+
+const SORTERS: Record<string, Accessor<SnapshotRow>> = {
+  taken: (s) => new Date(s.takenAt).getTime(),
+  status: (s) => s.status,
+  containers: (s) => s.containerCount,
+  vms: (s) => s.vmCount,
+  apps: (s) => s.coolifyAppCount,
+  dbs: (s) => s.coolifyDbCount,
+  errors: (s) => s.errors,
+};
 
 export default function HomelabDashboard() {
   const { ready, authedFetch, logout } = useHomelabAuth();
@@ -71,6 +82,11 @@ export default function HomelabDashboard() {
       setSnapshotting(false);
     }
   }
+
+  const { sorted, sort, toggle } = useSort(snapshots, SORTERS, {
+    key: 'taken',
+    dir: 'desc',
+  });
 
   if (!ready) return null;
   const latest = snapshots[0];
@@ -127,17 +143,17 @@ export default function HomelabDashboard() {
               <table className="table table-sm">
                 <thead>
                   <tr>
-                    <th>taken</th>
-                    <th>status</th>
-                    <th>containers</th>
-                    <th>vms</th>
-                    <th>coolify apps</th>
-                    <th>coolify dbs</th>
-                    <th>errors</th>
+                    <SortableTh label="taken" sortKey="taken" sort={sort} toggle={toggle} />
+                    <SortableTh label="status" sortKey="status" sort={sort} toggle={toggle} />
+                    <SortableTh label="containers" sortKey="containers" sort={sort} toggle={toggle} />
+                    <SortableTh label="vms" sortKey="vms" sort={sort} toggle={toggle} />
+                    <SortableTh label="coolify apps" sortKey="apps" sort={sort} toggle={toggle} />
+                    <SortableTh label="coolify dbs" sortKey="dbs" sort={sort} toggle={toggle} />
+                    <SortableTh label="errors" sortKey="errors" sort={sort} toggle={toggle} />
                   </tr>
                 </thead>
                 <tbody>
-                  {snapshots.map((s) => (
+                  {sorted.map((s) => (
                     <tr key={s.id}>
                       <td>{formatDate(s.takenAt)}</td>
                       <td>
