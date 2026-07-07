@@ -3,11 +3,13 @@ import { headerLinks } from "@/lib/copy";
 import { useLocalStorage } from "@mantine/hooks";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
+import { MdDns } from "react-icons/md";
 import { navStore } from "@/stateHooks/sidebarNav";
 import { useIroningBeadsStore } from "@/stateHooks/ironingBeadsStore";
+import { useHomelabAuthed } from "@/lib/homelab/client";
 import { AccountDropdown } from "./auth/AccountDropdown";
 import { AuthModal } from "./auth/AuthModal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import * as React from "react";
 
@@ -92,6 +94,25 @@ export const HeaderNav: React.FC = () => {
   const { user, isAuthenticated, authLoading, logout, checkAuth } = useIroningBeadsStore();
   const router = useRouter();
 
+  // Add the /homelab link to the Projects dropdown only after the stored
+  // homelab key validates against the server. The login page itself remains
+  // unlinked — you have to know the URL.
+  const homelabAuthed = useHomelabAuthed();
+  const navLinks = useMemo(() => {
+    if (!homelabAuthed) return headerLinks;
+    return headerLinks.map((link) =>
+      link.label === "Projects"
+        ? {
+            ...link,
+            subItems: [
+              ...(link.subItems ?? []),
+              { label: "Homelab", href: "/homelab", icon: MdDns },
+            ],
+          }
+        : link,
+    );
+  }, [homelabAuthed]);
+
   // Initialize authentication on mount
   React.useEffect(() => {
     checkAuth();
@@ -133,7 +154,7 @@ export const HeaderNav: React.FC = () => {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal items-center justify-center px-1">
-          <HeaderLinksRenderer links={headerLinks} />
+          <HeaderLinksRenderer links={navLinks} />
           <AccountDropdown
             user={user ? {
               id: user.id,

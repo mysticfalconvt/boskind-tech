@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { headerLinks } from "@/lib/copy";
 import Link from "next/link";
+import { MdDns } from "react-icons/md";
 import { navStore } from "@/stateHooks/sidebarNav";
 import { useIroningBeadsStore } from "@/stateHooks/ironingBeadsStore";
+import { useHomelabAuthed } from "@/lib/homelab/client";
 import { AuthModal } from "./auth/AuthModal";
 import { useRouter } from "next/router";
 
@@ -13,6 +15,24 @@ export default function Sidebar() {
     "login" | "register" | null
   >(null);
   const router = useRouter();
+
+  // Mirrors HeaderNav — /homelab appears under Projects only when the stored
+  // key still validates on the server.
+  const homelabAuthed = useHomelabAuthed();
+  const navLinks = useMemo(() => {
+    if (!homelabAuthed) return headerLinks;
+    return headerLinks.map((link) =>
+      link.label === "Projects"
+        ? {
+            ...link,
+            subItems: [
+              ...(link.subItems ?? []),
+              { label: "Homelab", href: "/homelab", icon: MdDns },
+            ],
+          }
+        : link,
+    );
+  }, [homelabAuthed]);
 
   const sidebarClassNames = `drawer-side h-screen md:hidden fixed inset-0 w-full ${
     sidebarMenu ? "z-50" : ""
@@ -64,7 +84,7 @@ export default function Sidebar() {
           <ul className="menu p-4 w-80 h-full bg-base-100 text-base-content md:hidden overflow-y-auto">
             {
               <ul className="p-4 w-full bg-base-100 flex-1">
-                {headerLinks.map((link) => {
+                {navLinks.map((link) => {
                   if (link.subItems) {
                     return (
                       <li key={`sidenav${link.label}${link.href}`}>
