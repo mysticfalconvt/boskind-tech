@@ -164,6 +164,42 @@ function coolifyIp(): string {
   return host.split(':')[0];
 }
 
+// Coolify stores published ports as a comma-separated list of "host:container"
+// pairs (optionally "host:container/proto"), e.g. "7878:7777, 8443:443/udp".
+type PortMapping = { host: number; container: number | null; proto: string };
+function parsePortMappings(raw: unknown): PortMapping[] {
+  if (typeof raw !== 'string') return [];
+  return raw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((pair) => {
+      const [hostPart, rest] = pair.split(':');
+      let containerPart = rest ?? hostPart; // "3000" alone => host===container
+      let proto = 'tcp';
+      if (containerPart.includes('/')) {
+        [containerPart, proto] = containerPart.split('/');
+      }
+      const host = parseInt(hostPart, 10);
+      const container = parseInt(containerPart, 10);
+      return {
+        host,
+        container: Number.isNaN(container) ? null : container,
+        proto: proto || 'tcp',
+      };
+    })
+    .filter((m) => !Number.isNaN(m.host));
+}
+
+// "7777, 7878" => [7777, 7878]
+function parseExposes(raw: unknown): number[] {
+  if (typeof raw !== 'string') return [];
+  return raw
+    .split(',')
+    .map((s) => parseInt(s.trim(), 10))
+    .filter((n) => !Number.isNaN(n));
+}
+
 function flatten(
   snapshotId: string,
   unraid: any,
@@ -251,27 +287,46 @@ function flatten(
     });
   }
 
-  // Coolify applications — public FQDNs on the Coolify host.
+  // Coolify applications — reachable via their published host port(s) on the
+  // Coolify host, plus the reverse-proxy FQDN. Emit one row per port mapping;
+  // only fall back to the FQDN's 80/443 when an app publishes no host port.
   const apps: any[] = coolify?.applications ?? [];
   for (const a of apps) {
     const fqdn: string = a.fqdn ?? '';
-    const isHttps = fqdn.startsWith('https://');
-    rows.push({
+    const mappings = parsePortMappings(a.ports_mappings);
+    const exposes = parseExposes(a.ports_exposes);
+    const base = {
       snapshotId,
-      source: 'coolify-app',
-      kind: 'application',
+      source: 'coolify-app' as const,
+      kind: 'application' as const,
       name: a.name ?? a.uuid ?? '?',
       hostIp: cIp,
-      port: isHttps ? 443 : 80,
-      internalPort: null,
-      protocol: 'TCP',
       url: fqdn || null,
       state: a.status ?? null,
       stack: 'coolify',
       image: null,
       tags: null,
       raw: a,
-    });
+    };
+    if (mappings.length > 0) {
+      for (const m of mappings) {
+        rows.push({
+          ...base,
+          port: m.host,
+          internalPort: m.container ?? exposes[0] ?? null,
+          protocol: m.proto.toUpperCase(),
+        });
+      }
+    } else {
+      // No host port published — served only through the reverse proxy.
+      const isHttps = fqdn.startsWith('https://');
+      rows.push({
+        ...base,
+        port: isHttps ? 443 : 80,
+        internalPort: exposes[0] ?? null,
+        protocol: 'TCP',
+      });
+    }
   }
 
   // Coolify one-shot services (Glances, beszel, etc.).
