@@ -19,7 +19,7 @@ type Row = {
   image: string | null;
 };
 
-const KINDS = ['container', 'vm', 'application', 'service', 'database'] as const;
+const KINDS = ['container', 'vm', 'application', 'service', 'database', 'route'] as const;
 
 const SORTERS: Record<string, Accessor<Row>> = {
   name: (r) => r.name,
@@ -82,11 +82,12 @@ export default function ServicesPage() {
         <title>homelab services · boskind.tech</title>
         <meta name="robots" content="noindex,nofollow" />
       </Head>
-      <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-4 font-mono">
+      <div className="max-w-[1800px] mx-auto p-4 sm:p-6 space-y-4 font-mono">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <h1 className="text-2xl">services</h1>
           <div className="flex gap-2">
             <Link href="/homelab" className="btn btn-sm">← dashboard</Link>
+            <Link href="/homelab/routes" className="btn btn-sm">routes</Link>
             <Link href="/homelab/ports" className="btn btn-sm">ports</Link>
             <Link href="/homelab/stacks" className="btn btn-sm">stacks</Link>
           </div>

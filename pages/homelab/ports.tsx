@@ -78,6 +78,7 @@ export default function PortsPage() {
           <div className="flex gap-2">
             <Link href="/homelab" className="btn btn-sm">← dashboard</Link>
             <Link href="/homelab/services" className="btn btn-sm">services</Link>
+            <Link href="/homelab/routes" className="btn btn-sm">routes</Link>
             <Link href="/homelab/stacks" className="btn btn-sm">stacks</Link>
           </div>
         </div>

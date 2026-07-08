@@ -1,3 +1,4 @@
+import http from 'node:http';
 import type { NextApiRequest } from 'next';
 import { db } from '@/lib/db';
 import {
@@ -185,6 +186,130 @@ export async function fetchCoolify(): Promise<{
 }
 
 // ---------------------------------------------------------------------------
+// Caddy Admin API — reverse-proxy routes + live upstream health.
+// ---------------------------------------------------------------------------
+
+// Caddy's admin API rejects any request carrying an `Origin` header whose host
+// isn't in its (default, loopback-only) allow-list. undici's global `fetch`
+// always attaches an Origin, so it 403s; the raw node http client sends none
+// (like curl), so we use it here — no server-side `admin { origins }` change
+// needed.
+function caddyAdminGet(
+  host: string,
+  path: string,
+  timeoutMs = 8000,
+): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const [hostname, portStr] = host.split(':');
+    const req = http.request(
+      {
+        hostname,
+        port: portStr ? Number(portStr) : 80,
+        path,
+        method: 'GET',
+        timeout: timeoutMs,
+      },
+      (res) => {
+        let body = '';
+        res.setEncoding('utf8');
+        res.on('data', (c) => (body += c));
+        res.on('end', () => {
+          const status = res.statusCode ?? 0;
+          if (status >= 400) {
+            reject(new Error(`HTTP ${status} for ${path}`));
+            return;
+          }
+          try {
+            resolve(body ? JSON.parse(body) : null);
+          } catch {
+            reject(new Error(`invalid JSON from ${path}`));
+          }
+        });
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error(`timeout for ${path}`)));
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+export async function fetchCaddy(): Promise<{
+  data: { config: any; upstreams: any[] } | null;
+  error?: string;
+}> {
+  const host = process.env.HOMELAB_CADDY_HOST;
+  if (!host) {
+    return { data: null, error: 'HOMELAB_CADDY_HOST not configured' };
+  }
+  try {
+    const config = await caddyAdminGet(host, '/config/');
+    let upstreams: any[] = [];
+    try {
+      const u = await caddyAdminGet(host, '/reverse_proxy/upstreams');
+      upstreams = Array.isArray(u) ? u : [];
+    } catch {
+      // upstream health is a nice-to-have; routes still map without it.
+    }
+    return { data: { config, upstreams } };
+  } catch (e) {
+    return { data: null, error: `Caddy fetch failed: ${(e as Error).message}` };
+  }
+}
+
+// Recursively collect every reverse_proxy upstream dial reachable from a
+// route's handler list (descending through subroutes).
+function collectDials(handlers: any[] | undefined): string[] {
+  const out: string[] = [];
+  for (const h of handlers ?? []) {
+    if (h?.handler === 'reverse_proxy') {
+      for (const u of h.upstreams ?? []) if (u?.dial) out.push(u.dial);
+    } else if (h?.handler === 'subroute') {
+      for (const r of h.routes ?? []) out.push(...collectDials(r.handle));
+    }
+  }
+  return out;
+}
+
+export type CaddyRoute = {
+  host: string;
+  upstream: string | null; // real (non-auth) backend dial, e.g. "10.0.0.50:5820"
+  authProtected: boolean; // sits behind an Authentik forward-auth chain
+  route: any;
+};
+
+// Extract one entry per public hostname from the Caddy config. srv0 (:443) and
+// srv1 (:80) carry identical routes, so we dedupe by hostname (https first).
+export function caddyRoutes(caddy: {
+  config?: any;
+} | null | undefined): CaddyRoute[] {
+  const servers = caddy?.config?.apps?.http?.servers ?? {};
+  const httpsRank = (s: any) =>
+    (s?.listen ?? []).some((l: string) => l.includes(':443')) ? 1 : 0;
+  const entries = Object.entries<any>(servers).sort(
+    (a, b) => httpsRank(b[1]) - httpsRank(a[1]),
+  );
+  const seen = new Set<string>();
+  const out: CaddyRoute[] = [];
+  for (const [, srv] of entries) {
+    for (const route of srv.routes ?? []) {
+      const hosts: string[] = [];
+      for (const m of route.match ?? []) if (m.host) hosts.push(...m.host);
+      if (hosts.length === 0) continue; // skip catch-alls with no host
+      const dials = collectDials(route.handle);
+      const real = dials.filter((d) => !/authentik/i.test(d));
+      const upstream = real[0] ?? dials[0] ?? null;
+      const authProtected = dials.some((d) => /authentik/i.test(d)) && real.length > 0;
+      for (const h of hosts) {
+        if (seen.has(h)) continue;
+        seen.add(h);
+        out.push({ host: h, upstream, authProtected, route });
+      }
+    }
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
 // Flatten a snapshot's raw data into homelab_resources rows.
 // ---------------------------------------------------------------------------
 
@@ -237,6 +362,7 @@ function flatten(
   snapshotId: string,
   unraid: any,
   coolify: any,
+  caddy: { config?: any; upstreams?: any[] } | null,
 ): NewHomelabResource[] {
   const rows: NewHomelabResource[] = [];
   const uIp = unraidIp();
@@ -343,11 +469,12 @@ function flatten(
       kind: 'application' as const,
       name: a.name ?? a.uuid ?? '?',
       hostIp: cIp,
-      url: fqdn || null,
+      url: null,
       state: a.status ?? null,
       stack: coolifyStack(a.environment_id),
       image: null,
-      tags: null,
+      // Keep Coolify's public FQDN for reference even though we link locally.
+      tags: fqdn ? { fqdn } : null,
       raw: a,
     };
     if (mappings.length > 0) {
@@ -357,16 +484,19 @@ function flatten(
           port: m.host,
           internalPort: m.container ?? exposes[0] ?? null,
           protocol: m.proto.toUpperCase(),
+          // Reachable directly on the Coolify host at the published port.
+          url: `http://${cIp}:${m.host}`,
         });
       }
     } else {
-      // No host port published — served only through the reverse proxy.
+      // No host port published — only reachable through the reverse-proxy FQDN.
       const isHttps = fqdn.startsWith('https://');
       rows.push({
         ...base,
         port: isHttps ? 443 : 80,
         internalPort: exposes[0] ?? null,
         protocol: 'TCP',
+        url: fqdn || null,
       });
     }
   }
@@ -414,6 +544,52 @@ function flatten(
     });
   }
 
+  // Caddy reverse-proxy routes — one row per public hostname, pointing at the
+  // real (non-auth) upstream backend, annotated with live traffic + auth flag.
+  const upstreamStats = new Map<string, { requests: number; fails: number }>();
+  for (const u of caddy?.upstreams ?? []) {
+    if (u?.address) {
+      upstreamStats.set(u.address, {
+        requests: u.num_requests ?? 0,
+        fails: u.fails ?? 0,
+      });
+    }
+  }
+  for (const r of caddyRoutes(caddy)) {
+    const dial = r.upstream;
+    let backendIp: string | null = null;
+    let backendPort: number | null = null;
+    if (dial) {
+      const i = dial.lastIndexOf(':');
+      backendIp = i >= 0 ? dial.slice(0, i) : dial;
+      const p = i >= 0 ? parseInt(dial.slice(i + 1), 10) : NaN;
+      backendPort = Number.isNaN(p) ? null : p;
+    }
+    const stat = dial ? upstreamStats.get(dial) : undefined;
+    rows.push({
+      snapshotId,
+      source: 'caddy',
+      kind: 'route',
+      name: r.host,
+      hostIp: backendIp,
+      port: backendPort,
+      internalPort: null,
+      protocol: 'HTTPS',
+      url: `https://${r.host}`,
+      // In the pool => Caddy is actively serving it. Auth-gated flagged too.
+      state: dial ? (stat ? 'up' : 'configured') : null,
+      stack: 'caddy',
+      image: null,
+      tags: {
+        upstream: dial,
+        authProtected: r.authProtected,
+        requests: stat?.requests ?? null,
+        fails: stat?.fails ?? null,
+      },
+      raw: r.route,
+    });
+  }
+
   return rows;
 }
 
@@ -429,18 +605,26 @@ export async function takeSnapshot(): Promise<{
     coolifyApps: number;
     coolifyServices: number;
     coolifyDbs: number;
+    caddyRoutes: number;
     resources: number;
   };
   error?: string;
 }> {
-  const [unraid, coolify] = await Promise.all([fetchUnraid(), fetchCoolify()]);
-  const errs = [unraid.error, coolify.error].filter(Boolean).join('; ');
+  const [unraid, coolify, caddy] = await Promise.all([
+    fetchUnraid(),
+    fetchCoolify(),
+    fetchCaddy(),
+  ]);
+  const errs = [unraid.error, coolify.error, caddy.error]
+    .filter(Boolean)
+    .join('; ');
 
   const containerCount = unraid.data?.docker?.containers?.length ?? 0;
   const vmCount = unraid.data?.vms?.domains?.length ?? 0;
   const coolifyAppCount = coolify.data?.applications?.length ?? 0;
   const coolifyServiceCount = coolify.data?.services?.length ?? 0;
   const coolifyDbCount = coolify.data?.databases?.length ?? 0;
+  const caddyRouteCount = caddyRoutes(caddy.data).length;
 
   const [snap] = await db
     .insert(homelabSnapshots)
@@ -451,13 +635,15 @@ export async function takeSnapshot(): Promise<{
       coolifyAppCount,
       coolifyServiceCount,
       coolifyDbCount,
+      caddyRouteCount,
       errors: errs || null,
       rawUnraid: unraid.data,
       rawCoolify: coolify.data,
+      rawCaddy: caddy.data,
     })
     .returning({ id: homelabSnapshots.id });
 
-  const rows = flatten(snap.id, unraid.data, coolify.data);
+  const rows = flatten(snap.id, unraid.data, coolify.data, caddy.data);
   if (rows.length > 0) {
     await db.insert(homelabResources).values(rows);
   }
@@ -470,6 +656,7 @@ export async function takeSnapshot(): Promise<{
       coolifyApps: coolifyAppCount,
       coolifyServices: coolifyServiceCount,
       coolifyDbs: coolifyDbCount,
+      caddyRoutes: caddyRouteCount,
       resources: rows.length,
     },
     error: errs || undefined,

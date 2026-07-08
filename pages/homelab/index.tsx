@@ -13,6 +13,7 @@ type SnapshotRow = {
   coolifyAppCount: number;
   coolifyServiceCount: number;
   coolifyDbCount: number;
+  caddyRouteCount: number;
   errors: string | null;
 };
 
@@ -28,6 +29,7 @@ const SORTERS: Record<string, Accessor<SnapshotRow>> = {
   vms: (s) => s.vmCount,
   apps: (s) => s.coolifyAppCount,
   dbs: (s) => s.coolifyDbCount,
+  routes: (s) => s.caddyRouteCount,
   errors: (s) => s.errors,
 };
 
@@ -72,6 +74,7 @@ export default function HomelabDashboard() {
       setFlash(
         `snapshot ok — ${c.containers} containers, ${c.vms} vms, ` +
           `${c.coolifyApps} coolify apps, ${c.coolifyDbs} coolify dbs, ` +
+          `${c.caddyRoutes} caddy routes, ` +
           `${c.resources} resources written` +
           (data.error ? ` (partial: ${data.error})` : ''),
       );
@@ -102,6 +105,7 @@ export default function HomelabDashboard() {
           <h1 className="text-2xl">homelab</h1>
           <div className="flex gap-2">
             <Link href="/homelab/services" className="btn btn-sm">services</Link>
+            <Link href="/homelab/routes" className="btn btn-sm">routes</Link>
             <Link href="/homelab/ports" className="btn btn-sm">ports</Link>
             <Link href="/homelab/stacks" className="btn btn-sm">stacks</Link>
             <button
@@ -119,12 +123,13 @@ export default function HomelabDashboard() {
         {error ? <div className="alert alert-error text-sm">{error}</div> : null}
 
         {latest ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             <Stat label="containers" value={latest.containerCount} />
             <Stat label="vms" value={latest.vmCount} />
             <Stat label="coolify apps" value={latest.coolifyAppCount} />
             <Stat label="coolify services" value={latest.coolifyServiceCount} />
             <Stat label="coolify dbs" value={latest.coolifyDbCount} />
+            <Stat label="caddy routes" value={latest.caddyRouteCount} />
           </div>
         ) : loading ? (
           <div className="text-sm opacity-60">loading…</div>
@@ -149,6 +154,7 @@ export default function HomelabDashboard() {
                     <SortableTh label="vms" sortKey="vms" sort={sort} toggle={toggle} />
                     <SortableTh label="coolify apps" sortKey="apps" sort={sort} toggle={toggle} />
                     <SortableTh label="coolify dbs" sortKey="dbs" sort={sort} toggle={toggle} />
+                    <SortableTh label="caddy routes" sortKey="routes" sort={sort} toggle={toggle} />
                     <SortableTh label="errors" sortKey="errors" sort={sort} toggle={toggle} />
                   </tr>
                 </thead>
@@ -171,6 +177,7 @@ export default function HomelabDashboard() {
                       <td>{s.vmCount}</td>
                       <td>{s.coolifyAppCount}</td>
                       <td>{s.coolifyDbCount}</td>
+                      <td>{s.caddyRouteCount}</td>
                       <td className="text-xs opacity-70 max-w-md truncate">
                         {s.errors ?? ''}
                       </td>

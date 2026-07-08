@@ -20,9 +20,11 @@ export const homelabSnapshots = pgTable('homelab_snapshots', {
   coolifyAppCount: integer('coolify_app_count').notNull().default(0),
   coolifyDbCount: integer('coolify_db_count').notNull().default(0),
   coolifyServiceCount: integer('coolify_service_count').notNull().default(0),
+  caddyRouteCount: integer('caddy_route_count').notNull().default(0),
   errors: text('errors'),
   rawUnraid: json('raw_unraid'),
   rawCoolify: json('raw_coolify'),
+  rawCaddy: json('raw_caddy'),
 });
 
 // Flattened denormalized view. Rewritten from scratch each snapshot so the

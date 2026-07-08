@@ -65,6 +65,7 @@ export default async function handler(
       state: homelabResources.state,
       stack: homelabResources.stack,
       image: homelabResources.image,
+      tags: homelabResources.tags,
     })
     .from(homelabResources)
     .where(and(...conditions))

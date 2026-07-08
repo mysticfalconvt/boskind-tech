@@ -27,6 +27,7 @@ export default async function handler(
       coolifyAppCount: homelabSnapshots.coolifyAppCount,
       coolifyServiceCount: homelabSnapshots.coolifyServiceCount,
       coolifyDbCount: homelabSnapshots.coolifyDbCount,
+      caddyRouteCount: homelabSnapshots.caddyRouteCount,
       errors: homelabSnapshots.errors,
     })
     .from(homelabSnapshots)
