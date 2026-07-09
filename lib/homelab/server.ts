@@ -66,7 +66,7 @@ const UNRAID_QUERY = `
 }
 `;
 
-export async function fetchUnraid(): Promise<{
+async function unraidGraphQL(query: string): Promise<{
   data: any;
   error?: string;
 }> {
@@ -83,7 +83,7 @@ export async function fetchUnraid(): Promise<{
         'Content-Type': 'application/json',
         'x-api-key': key,
       },
-      body: JSON.stringify({ query: UNRAID_QUERY }),
+      body: JSON.stringify({ query }),
     });
     if (!resp.ok) {
       return { data: null, error: `Unraid ${resp.status} ${resp.statusText}` };
@@ -98,6 +98,114 @@ export async function fetchUnraid(): Promise<{
     return { data: body.data };
   } catch (e) {
     return { data: null, error: `Unraid fetch failed: ${(e as Error).message}` };
+  }
+}
+
+export function fetchUnraid() {
+  return unraidGraphQL(UNRAID_QUERY);
+}
+
+// Lighter query for the live system panel — no docker/vms payload, just the
+// bits whose values actually move between page refreshes (array capacity, disk
+// temps/usage) plus static hardware info.
+const UNRAID_SYSTEM_QUERY = `
+{
+  info {
+    cpu { brand cores threads }
+    memory { layout { size type clockSpeed } }
+    os { distro hostname uptime }
+  }
+  array {
+    state
+    capacity { kilobytes { free total used } }
+    parities { name size status }
+    disks { name size status fsType fsFree fsSize temp }
+    caches { name size fsType fsFree fsSize }
+  }
+}
+`;
+
+export function fetchUnraidSystem() {
+  return unraidGraphQL(UNRAID_SYSTEM_QUERY);
+}
+
+// ---------------------------------------------------------------------------
+// Uptime Kuma — Prometheus /metrics endpoint (HTTP Basic auth, API key as pw).
+// ---------------------------------------------------------------------------
+
+export type UptimeMonitor = {
+  name: string;
+  type: string | null;
+  url: string | null;
+  status: number; // 0 down, 1 up, 2 pending, 3 maintenance, -1 unknown
+  responseTime: number | null; // ms
+};
+
+export async function fetchUptimeKuma(): Promise<{
+  data: UptimeMonitor[] | null;
+  error?: string;
+}> {
+  const host = process.env.HOMELAB_UPTIMEKUMA_HOST;
+  const token = process.env.HOMELAB_UPTIMEKUMA_TOKEN;
+  if (!host || !token) {
+    return {
+      data: null,
+      error: 'HOMELAB_UPTIMEKUMA_HOST/TOKEN not configured',
+    };
+  }
+  try {
+    // Kuma's /metrics uses Basic auth with an empty username + the API key.
+    const auth = Buffer.from(`:${token}`).toString('base64');
+    const resp = await fetch(`http://${host}/metrics`, {
+      headers: { Authorization: `Basic ${auth}` },
+    });
+    if (!resp.ok) {
+      return { data: null, error: `Uptime Kuma /metrics HTTP ${resp.status}` };
+    }
+    const text = await resp.text();
+    const byName = new Map<string, UptimeMonitor>();
+    const parseLabels = (s: string): Record<string, string> => {
+      const o: Record<string, string> = {};
+      for (const m of Array.from(s.matchAll(/(\w+)="([^"]*)"/g))) o[m[1]] = m[2];
+      return o;
+    };
+    for (const line of text.split('\n')) {
+      if (!line || line.startsWith('#')) continue;
+      const m = line.match(
+        /^(monitor_status|monitor_response_time)\{([^}]*)\}\s+(.+)$/,
+      );
+      if (!m) continue;
+      const [, metric, labelStr, valStr] = m;
+      const labels = parseLabels(labelStr);
+      const name = labels.monitor_name;
+      if (!name) continue;
+      let mon = byName.get(name);
+      if (!mon) {
+        mon = {
+          name,
+          type: labels.monitor_type || null,
+          url:
+            labels.monitor_url && labels.monitor_url !== 'null'
+              ? labels.monitor_url
+              : null,
+          status: -1,
+          responseTime: null,
+        };
+        byName.set(name, mon);
+      }
+      const val = Number(valStr);
+      if (metric === 'monitor_status') {
+        mon.status = Number.isNaN(val) ? -1 : val;
+      } else if (metric === 'monitor_response_time') {
+        mon.responseTime = Number.isNaN(val) ? null : val;
+      }
+    }
+    return { data: Array.from(byName.values()) };
+  } catch (e) {
+    return {
+      data: null,
+      error: `Uptime Kuma fetch failed: ${(e as Error).message}`,
+    };
   }
 }
 
@@ -307,6 +415,141 @@ export function caddyRoutes(caddy: {
     }
   }
   return out;
+}
+
+// ---------------------------------------------------------------------------
+// Glances — live per-host CPU/mem/load/temps + per-container resource usage.
+// Supports both API v3 (older, e.g. Unraid) and v4 (newer, e.g. Coolify);
+// version is auto-detected per host. Configure hosts as a comma-separated list.
+// ---------------------------------------------------------------------------
+
+export type GlancesContainer = {
+  host: string;
+  name: string;
+  cpu: number | null; // percent
+  mem: number | null; // bytes
+  status: string | null;
+};
+export type GlancesHostData = {
+  host: string;
+  name: string; // display label: configured label > reported hostname > host
+  hostname: string | null;
+  cpuPercent: number | null;
+  mem: { percent: number | null; used: number | null; total: number | null };
+  load: { min1: number | null; cores: number | null };
+  temps: { label: string; value: number }[];
+  uptime: string | null;
+  containers: GlancesContainer[];
+  error?: string;
+};
+
+async function glancesJson(base: string, plugin: string): Promise<any> {
+  const r = await fetch(`${base}/${plugin}`);
+  if (!r.ok) throw new Error(`${plugin} HTTP ${r.status}`);
+  return r.json();
+}
+
+async function fetchGlancesHost(
+  host: string,
+  label: string | null,
+): Promise<GlancesHostData> {
+  // Detect API version: v4 first, fall back to v3.
+  let base = `http://${host}/api/4`;
+  try {
+    await glancesJson(base, 'cpu');
+  } catch {
+    base = `http://${host}/api/3`;
+  }
+  const [cpu, mem, load, sensors, system, uptime, cont] = await Promise.all([
+    glancesJson(base, 'cpu').catch(() => null),
+    glancesJson(base, 'mem').catch(() => null),
+    glancesJson(base, 'load').catch(() => null),
+    glancesJson(base, 'sensors').catch(() => []),
+    glancesJson(base, 'system').catch(() => null),
+    glancesJson(base, 'uptime').catch(() => null),
+    glancesJson(base, 'containers').catch(() => null),
+  ]);
+  // Containerized Glances often reports a container-id hostname (e.g.
+  // "b86c83eafc35"); treat that as unknown. Display priority: configured label
+  // > reported hostname > the host:port itself.
+  const rawHostname = system?.hostname ?? null;
+  const hostname = rawHostname && /^[0-9a-f]{12}$/i.test(rawHostname) ? null : rawHostname;
+  const name = label || hostname || host;
+
+  // v3 wraps as { containers: [...] }; v4 returns a bare array.
+  const list: any[] = Array.isArray(cont) ? cont : (cont?.containers ?? []);
+  const isRunning = (s: unknown) => /^(running|up)/i.test(String(s ?? ''));
+  const containers: GlancesContainer[] = list
+    .map((c) => ({
+      host: name,
+      name: c.name ?? '?',
+      cpu: typeof c.cpu_percent === 'number' ? c.cpu_percent : null,
+      mem: typeof c.memory_usage === 'number' ? c.memory_usage : null,
+      status: c.Status ?? c.status ?? null,
+    }))
+    .filter((c) => isRunning(c.status));
+  const temps = Array.isArray(sensors)
+    ? sensors
+        .filter((s: any) => s?.unit === 'C' && typeof s.value === 'number')
+        .map((s: any) => ({ label: String(s.label), value: s.value }))
+    : [];
+  return {
+    host,
+    name,
+    hostname,
+    cpuPercent: typeof cpu?.total === 'number' ? cpu.total : null,
+    mem: {
+      percent: mem?.percent ?? null,
+      used: mem?.used ?? null,
+      total: mem?.total ?? null,
+    },
+    load: { min1: load?.min1 ?? null, cores: load?.cpucore ?? null },
+    temps,
+    uptime: typeof uptime === 'string' ? uptime : null,
+    containers,
+  };
+}
+
+export async function fetchGlances(): Promise<{
+  data: GlancesHostData[] | null;
+  error?: string;
+}> {
+  const raw = process.env.HOMELAB_GLANCES_HOSTS;
+  if (!raw) {
+    return { data: null, error: 'HOMELAB_GLANCES_HOSTS not configured' };
+  }
+  // Each entry is "host:port" or "Label=host:port".
+  const entries = raw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((e) => {
+      const eq = e.indexOf('=');
+      return eq > 0
+        ? { label: e.slice(0, eq).trim(), host: e.slice(eq + 1).trim() }
+        : { label: null as string | null, host: e };
+    });
+  const data = await Promise.all(
+    entries.map(async ({ host: h, label }): Promise<GlancesHostData> => {
+      try {
+        return await fetchGlancesHost(h, label);
+      } catch (e) {
+        return {
+          host: h,
+          name: label || h,
+          hostname: null,
+          cpuPercent: null,
+          mem: { percent: null, used: null, total: null },
+          load: { min1: null, cores: null },
+          temps: [],
+          uptime: null,
+          containers: [],
+          error: (e as Error).message,
+        };
+      }
+    }),
+  );
+  return { data };
 }
 
 // ---------------------------------------------------------------------------

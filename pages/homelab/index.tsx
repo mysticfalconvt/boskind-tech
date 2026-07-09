@@ -104,6 +104,7 @@ export default function HomelabDashboard() {
         <div className="flex items-center justify-between flex-wrap gap-3">
           <h1 className="text-2xl">homelab</h1>
           <div className="flex gap-2">
+            <Link href="/homelab/overview" className="btn btn-sm">overview</Link>
             <Link href="/homelab/services" className="btn btn-sm">services</Link>
             <Link href="/homelab/routes" className="btn btn-sm">routes</Link>
             <Link href="/homelab/ports" className="btn btn-sm">ports</Link>
