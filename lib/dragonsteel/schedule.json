@@ -1,0 +1,1877 @@
+{
+  "event": {
+    "name": "Dragonsteel Nexus",
+    "slug": "Dragonsteel_Nexus",
+    "eventId": 21268,
+    "sourceUrl": "https://conventions.leapevent.tech/ed/schedule/Dragonsteel_Nexus",
+    "fetchedAt": "2026-10-22T00:17:35.725Z"
+  },
+  "dates": [
+    {
+      "date": "2026-12-03",
+      "label": "Thursday, December 3"
+    },
+    {
+      "date": "2026-12-04",
+      "label": "Friday, December 4"
+    },
+    {
+      "date": "2026-12-05",
+      "label": "Saturday, December 5"
+    }
+  ],
+  "locations": [
+    {
+      "id": "75274",
+      "name": "Lumar (Room 250)"
+    },
+    {
+      "id": "74531",
+      "name": "Roshar (Main Stage)"
+    },
+    {
+      "id": "74902",
+      "name": "Scadrial (Grand Ballroom)"
+    },
+    {
+      "id": "75313",
+      "name": "Sel - Craft Room (Room 255)"
+    },
+    {
+      "id": "75501",
+      "name": "The Hearth (Room 251 ABC)"
+    },
+    {
+      "id": "75502",
+      "name": "The Library (Room 251)"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Art",
+      "color": "#13a42e"
+    },
+    {
+      "name": "Brandon Sanderson",
+      "color": "#2756b8"
+    },
+    {
+      "name": "Cosmere",
+      "color": "#4e90dd"
+    },
+    {
+      "name": "Cozy Fantasy",
+      "color": "#8ebb9c"
+    },
+    {
+      "name": "Craft",
+      "color": null
+    },
+    {
+      "name": "Crafting",
+      "color": "#e69be1"
+    },
+    {
+      "name": "Fantasy",
+      "color": "#a5d2df"
+    },
+    {
+      "name": "Featured Guest",
+      "color": "#8246ad"
+    },
+    {
+      "name": "Gaming",
+      "color": "#268184"
+    },
+    {
+      "name": "LitRPG",
+      "color": "#f6852f"
+    },
+    {
+      "name": "Lore",
+      "color": "#e7b420"
+    },
+    {
+      "name": "Sci-Fi",
+      "color": "#a92020"
+    },
+    {
+      "name": "Silverlight University",
+      "color": "#b087d0"
+    },
+    {
+      "name": "Writing",
+      "color": "#6fbb39"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 950859,
+      "title": "State of Games in the Cosmere",
+      "date": "2026-12-03",
+      "start": "2026-12-03T10:00:00",
+      "end": "2026-12-03T11:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Gaming"
+      ],
+      "panelists": [
+        "Lydia Suen",
+        "Johnny O'Neal",
+        "Ross Leisure",
+        "Matt DeMino",
+        "Hayden Dillard",
+        "Brooke Whitney",
+        "Meric Moir"
+      ],
+      "description": "Join the team at Brotherwise Games for an inside look at the current state of Cosmere gaming. Expect exciting developments, ongoing projects, and maybe. . . a glimpse at what lies ahead?\n\nYour next adventure is at your fingertips!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/67/16/20/42a011a2-287b-4bc9-8383-0b99e48bff6f.png"
+    },
+    {
+      "id": 949427,
+      "title": "Rhythms of the Cosmere",
+      "date": "2026-12-03",
+      "start": "2026-12-03T10:00:00",
+      "end": "2026-12-03T11:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Krishna Patel",
+        "Paul Reynard",
+        "Michael Bahnmiller"
+      ],
+      "description": "Sometimes the only difference between humor and tragedy is the score. Music fundamentally changes how we experience a story. It makes victory feel triumphant, and makes quiet moments bring us to tears. But what goes into creating that emotional connection?",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/28/56/64/f7b9af6d-225c-4f21-91eb-5cd989efbd57.png"
+    },
+    {
+      "id": 950701,
+      "title": "Cosplay Showcase",
+      "date": "2026-12-03",
+      "start": "2026-12-03T10:00:00",
+      "end": "2026-12-03T11:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Art",
+        "Craft"
+      ],
+      "panelists": [
+        "Hareloom Cosplay",
+        "Jackson Brimrose",
+        "Miss Magitek"
+      ],
+      "description": "You look amazing, and now it’s time to let everyone see it! Step into the spotlight at the Cosplay Showcase and show off all the creativity, craftsmanship, and hard work you’ve poured into your cosplay. Whether you’re a seasoned pro or showing off your very first costume, all skill levels are welcome. This is your time to shine!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/95/33/99/4561a186-b29a-404f-bb06-5002181926df.png"
+    },
+    {
+      "id": 954040,
+      "title": "The K.A.F.O. Q&A",
+      "date": "2026-12-03",
+      "start": "2026-12-03T10:00:00",
+      "end": "2026-12-03T10:50:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Karen Ahlstrom"
+      ],
+      "description": "Do you have a burning question in your heart about the works of Brandon Sanderson? Well, come and ask Karen Ahlstrom, Dragonsteel Editorial Continuity Director. She may or may not have an answer for you.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/7/10/88/7bf519e8-55ae-433a-882b-65a81994b4b1.png"
+    },
+    {
+      "id": 956485,
+      "title": "Kickstarter for Authors Workshop",
+      "date": "2026-12-03",
+      "start": "2026-12-03T10:00:00",
+      "end": "2026-12-03T11:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Z.S. Diamanti",
+        "Rachel Rener",
+        "Dana Claire",
+        "Bryce O'Connor",
+        "Oriana Leckert"
+      ],
+      "description": "Have a book you want to bring to life? Kickstarter might be the key to making it happen!\n\nBut what does it actually take to run a successful campaign? Join authors who've done it themselves as they share what they've learned about crowdfunding and bringing their books directly to readers.\n\nWe'll get into the practical side of launching a campaign, including how to find the right audience and what to consider before asking people to back your project. You'll hear what worked for our panelists, what caught them off guard, and what they'd do differently if they were starting over.\n\nWhether you're planning your own Kickstarter or just curious about the possibilities of crowdfunding, come learn from authors who've been through the process and made it work!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/35/16/29/7fa5fb94-4b64-4c81-83e2-3f15c8194d01.png"
+    },
+    {
+      "id": 953158,
+      "title": "Partners in Prose: The Art of Co-Authoring",
+      "date": "2026-12-03",
+      "start": "2026-12-03T11:00:00",
+      "end": "2026-12-03T12:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Janci Patterson",
+        "Dan Wells",
+        "Peter Orullian"
+      ],
+      "description": "From blending creative visions, to navigating disagreements and creating a seamless voice on the page, our panelists will share the challenges and rewards of building a story together. \n\nDiscover what happens when great ideas collide and why sometimes the best stories are stronger with more than one person behind them.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/65/17/8/4a8be20c-7c04-4689-84db-6955df20f809.png"
+    },
+    {
+      "id": 951191,
+      "title": "The Psychology & Ethics of the Villain: Taravangian",
+      "date": "2026-12-03",
+      "start": "2026-12-03T11:30:00",
+      "end": "2026-12-03T12:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Lore",
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Aris Rotella",
+        "Dylan Vander Jack"
+      ],
+      "description": "Is he a monster willing to sacrifice anything for his goals, or a man making impossible choices in the name of saving humanity? Join our panelists as they examine his actions, motivations, and the moral lines he crosses along the way.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/63/95/79/29bbe776-1423-44f0-9d44-1ecb80669e37.png"
+    },
+    {
+      "id": 949425,
+      "title": "Let's Get Cozy (Fantasy)",
+      "date": "2026-12-03",
+      "start": "2026-12-03T11:30:00",
+      "end": "2026-12-03T12:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Cozy Fantasy",
+        "Featured Guest",
+        "Writing"
+      ],
+      "panelists": [
+        "Sarah Beth Durst",
+        "Travis Baldree",
+        "The Lost Books of Jess"
+      ],
+      "description": "Are you crazy for cozy fantasy? Well, you are in the right place. Enjoy this deep dive of what makes this corner of fantasy so comforting, heart warming and dare I say... Cozy!!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/88/40/85/86716446-653c-4b3f-a465-0247719b5a60.png"
+    },
+    {
+      "id": 954070,
+      "title": "We Are Here: Queerness & Allyship in the Cosmere & Fantasy",
+      "date": "2026-12-03",
+      "start": "2026-12-03T11:30:00",
+      "end": "2026-12-03T12:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Priscilla Spencer",
+        "Lyndsey Luther",
+        "Mary Moussa Rogers",
+        "Jade Young"
+      ],
+      "description": "There's something powerful about finding a piece of yourself in the pages of a book, especially when it's a part of yourself you rarely see represented. \n\nWhen we get immersed in a story, we leave our own world behind for a time and enter a place where anything is possible. We get to know worlds and characters that can help us know ourselves a little bit better.\n\nJoin us as we explore the impact of LGBTQ+ representation in the Cosmere and fantasy. Together, we'll discuss what meaningful support looks like and how we are all a part of helping to build a fantasy community where everyone feels at home. Because these stories are for all of us.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/67/4/61/7f8bac0a-cc7f-4c90-b721-58ab1a2c448a.png"
+    },
+    {
+      "id": 950704,
+      "title": "Emotional Damage: Causing Devastation in your Audience",
+      "date": "2026-12-03",
+      "start": "2026-12-03T12:00:00",
+      "end": "2026-12-03T13:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Pierce Brown",
+        "Joe Abercrombie",
+        "Brent Weeks",
+        "T. D. Orel"
+      ],
+      "description": "We've all been there. Our favorite character gets brutally killed, we close the book, and we stare at the wall for the next hour, wondering why an author would do this to us. Some writers have a special talent for breaking our hearts, and somehow, we keep coming back for more. \n\nWe're putting those authors who have made a career out of emotionally devastating their readers on trial. They'll discuss the art of crafting moments that hurt in all the right ways. What makes a fictional heartbreak feel so real? And why do we love stories that leave us in pieces?\n\nBe warned: Our panelists probably won't apologize.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/70/20/50/02cd8727-1acb-4bde-b3c4-e90aedd24f0a.png"
+    },
+    {
+      "id": 954029,
+      "title": "Editorial Process 101",
+      "date": "2026-12-03",
+      "start": "2026-12-03T12:30:00",
+      "end": "2026-12-03T13:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Silverlight University",
+        "Writing"
+      ],
+      "panelists": [
+        "Peter Ahlstrom",
+        "Karen Ahlstrom",
+        "Suzanne Uchytil",
+        "Kristy Gilbert",
+        "Betsey Ahlstrom"
+      ],
+      "description": "What is a query letter? Should I find an agent before I finish my book? How do I get into publishing? Come ask the experts! These power houses of publishing can help you get started.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/49/67/3/8035a309-b07d-4b0a-b0af-873c6ac0a394.png"
+    },
+    {
+      "id": 953082,
+      "title": "Foreshadowing: The Power of Fate, Free Will, & Futures Foretold",
+      "date": "2026-12-03",
+      "start": "2026-12-03T13:00:00",
+      "end": "2026-12-03T14:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Andy Peloquin",
+        "Marc J. Gregson",
+        "J.A. Andrews",
+        "Charlie Holmberg"
+      ],
+      "description": "Have you ever read a book, only to realize the author gave away the entire plot right at the beginning without you noticing? \n\nJoin our panelists as they explore the art of planting clues and building to reveals that leave readers wondering how in the world they missed the signs. How do you make a twist feel both surprising and inevitable? What’s in a prophecy? And who gave that Chekhov guy a gun?\n\nThe answers have been right in front of you all along. You just weren't paying attention.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/5/5/25/43e33b9c-905f-4687-8c8e-5092134fe5a8.png"
+    },
+    {
+      "id": 949509,
+      "title": "All Systems Read: A Multi-Genre Approach to Authorship",
+      "date": "2026-12-03",
+      "start": "2026-12-03T13:00:00",
+      "end": "2026-12-03T14:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Featured Guest",
+        "Writing"
+      ],
+      "panelists": [
+        "Martha Wells",
+        "Fonda Lee",
+        "Bethany's Books"
+      ],
+      "description": "It's been said the jack of all trades is a master of none. These authors have continually proven that idea false.\n\nCome sit with Fonda Lee and Martha Wells as they discuss the freedom and challenges they've experienced through writing different genres. What skills develop when not limiting oneself to a singular creative style? What factors remain constant? \n\nThe willingness to explore the unknown opens doors to endless creative possibilities. What do you say we walk through it together?",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/64/4/57/be92bae4-c87c-4fd6-88ec-47eb859c80d9.png"
+    },
+    {
+      "id": 950510,
+      "title": "Cosmere Biology",
+      "date": "2026-12-03",
+      "start": "2026-12-03T13:00:00",
+      "end": "2026-12-03T14:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Lore",
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Caitlin Marsh",
+        "Adrian M. Gibson",
+        "Greta Kelly"
+      ],
+      "description": "What does it take to survive in the waters of the Cosmere? Does everything really have to evolve into crabs? What role does Investiture play in shaping life?  Where are all the sharks at? \n\nJoin us as we dive into the biology of the Cosmere with two SFF authors and a real marine biologist to explore how these fascinating creatures might function in a real ecosystem. For the sharks!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/71/96/42/b89ab53e-3884-42b5-a80d-1a51e13c5fb9.png"
+    },
+    {
+      "id": 949414,
+      "title": "Stealing Fire: Ancient Myths in Modern Fantasy",
+      "date": "2026-12-03",
+      "start": "2026-12-03T13:30:00",
+      "end": "2026-12-03T14:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Featured Guest",
+        "Silverlight University",
+        "Writing"
+      ],
+      "panelists": [
+        "Shannon Chakraborty",
+        "Davis Ashura",
+        "Andrew Rubin",
+        "Tesia Tsai",
+        "Janell Rhiannon"
+      ],
+      "description": "Explore how we reshape mythology, new and old, to our times today and what that says about our culture and the changing nature of myths themselves.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/74/35/99/02145bdb-7ef6-4278-b1f6-4eb0f1d25245.png"
+    },
+    {
+      "id": 957045,
+      "title": "The Devils You Don't Know",
+      "date": "2026-12-03",
+      "start": "2026-12-03T14:00:00",
+      "end": "2026-12-03T14:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Joe Abercrombie",
+        "Gillian Redfearn"
+      ],
+      "description": "Why is the hardest part of a new adventure leaving the old one behind?\n\nWe spend years exploring fictional worlds and falling in love with their characters. We credit the author for creating something so special, but when they introduce us to an entirely new universe, we hesitate. Can they capture that same magic without simply repeating themselves? And can we, as readers, learn to love a new world as much as the one we left behind?\n\nThey say it's better the devils you know than the devils you don't. But it's time for a little heresy. It's time to try something new.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/1/3/92/88ab669c-9eed-4004-b596-4313d26e88ef.png"
+    },
+    {
+      "id": 953030,
+      "title": "The Healing Power of Play: How RPG's Help with  Mental Health",
+      "date": "2026-12-03",
+      "start": "2026-12-03T14:30:00",
+      "end": "2026-12-03T15:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Gaming"
+      ],
+      "panelists": [
+        "Vu Gandin Le",
+        "Amanda Embry",
+        "Danielle Yang"
+      ],
+      "description": "The power of play is stronger than one might think. From regulating emotions, building self confidence, to connecting with others in a way that everyday life would rarely allow. Join our panelists as they share how the power of play has enriched their lives.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/71/7/37/30ec0a3a-504c-403f-a957-0f516cb2c267.png"
+    },
+    {
+      "id": 956484,
+      "title": "Hoid: The Man, the Myth, the Coatrack",
+      "date": "2026-12-03",
+      "start": "2026-12-03T14:30:00",
+      "end": "2026-12-03T15:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Cosmere Junkie",
+        "Jackson Dickert",
+        "Priscilla Spencer",
+        "Steven Pond"
+      ],
+      "description": "He's a storyteller, a worldhopper, and, on at least one occasion, a coat rack and a lantern. But who is Hoid, really?\n\nCome with us to unravel the mysteries surrounding the Cosmere's most elusive character. Where did he come from? Where did he go? Where did he come from? We may never know...",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/93/53/13/2ae43a3b-9aec-4499-9ed5-20307d250e17.png"
+    },
+    {
+      "id": 955814,
+      "title": "Polish, Pages & Possibilities: How To Create A Great Book",
+      "date": "2026-12-03",
+      "start": "2026-12-03T14:30:00",
+      "end": "2026-12-03T15:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Suzanne Uchytil",
+        "Ben Grange",
+        "Jake Parker",
+        "Zoe Shaffer"
+      ],
+      "description": "Come talk to the experts about unlocking your creativity, the power of editing, and the magic of good book design!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/42/94/58/e5bbc07d-cf59-4790-b224-87cb7dc57f3f.png"
+    },
+    {
+      "id": 952102,
+      "title": "Meaningless Without You: The Reader's Impact on a Writer",
+      "date": "2026-12-03",
+      "start": "2026-12-03T15:00:00",
+      "end": "2026-12-03T16:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Matt Dinniman",
+        "M. L. Wang",
+        "Brent Weeks",
+        "Ryan Cahill",
+        "Bookborn"
+      ],
+      "description": "An author can spend years pouring their heart into a story, never knowing if it will mean anything to anyone else. Then, one day, a reader comes along and changes everything. A heartfelt letter, a story of how a book helped someone through their darkest moments, or simply the knowledge that someone out there cares about the world they've created can mean more than readers will ever know. \n\nJoin these authors for a heartfelt conversation about the profound impact readers have on their lives, and how that love and support gives them the courage to keep writing.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/44/25/10/a4e4bd2b-9504-4178-9ec7-4bbc62c06919.png"
+    },
+    {
+      "id": 954030,
+      "title": "Painting the Soul of the Cosmere",
+      "date": "2026-12-03",
+      "start": "2026-12-03T15:00:00",
+      "end": "2026-12-03T16:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Art"
+      ],
+      "panelists": [
+        "Isaac Stewart",
+        "Bryan Mark Taylor"
+      ],
+      "description": "Throughout its history, Dragonsteel has been privileged to work with some of the most talented artists from around the world, breathing color and life into the stories that we’ve all come to love.\n\nJoin Bryan Mark Taylor and Isaac Stewart as they discuss what it means to them to be part of such incredible work. From the coiling mists of Scadrial to the violent storms of Roshar, these artists have mastered the ability to capture the very soul of the Cosmere.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/85/38/26/9b1d1c7b-f7b0-4c8e-9264-55a41c71775c.png"
+    },
+    {
+      "id": 948916,
+      "title": "Welcome Ceremony",
+      "date": "2026-12-03",
+      "start": "2026-12-03T15:30:00",
+      "end": "2026-12-03T16:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Brandon Sanderson"
+      ],
+      "panelists": [
+        "Brandon Sanderson",
+        "Emily Sanderson",
+        "Kara Stewart",
+        "Kellyn Neumann"
+      ],
+      "description": "Let's get this party started!!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/91/28/31/977929c5-8be3-4a5a-a34f-cbbee51d71f0.png"
+    },
+    {
+      "id": 954071,
+      "title": "The Astronomy of  the Cosmere",
+      "date": "2026-12-03",
+      "start": "2026-12-03T16:00:00",
+      "end": "2026-12-03T17:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Lore",
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Reynier Squillace",
+        "Rae Holcomb",
+        "Dillon Dong",
+        "Jacob N. Lunt"
+      ],
+      "description": "Could a planet like Scadrial actually support life? How would the 12 moons of Lumar actually effect the ecology of the planet?  Join our team of scientists as they venture beyond the books and into the stars, using real-world astronomy and planetary science to explore these questions and many more.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/94/90/63/91391b7a-8a5e-4d84-adef-844b2378b289.png"
+    },
+    {
+      "id": 956491,
+      "title": "The Magic of Everyday: Bringing Magic & Whimsy into Your Home",
+      "date": "2026-12-03",
+      "start": "2026-12-03T16:30:00",
+      "end": "2026-12-03T17:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Fantasy",
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Sarah Beth Durst",
+        "Emily Sanderson",
+        "Nerdforge"
+      ],
+      "description": "Magic doesn’t have to live only in fantasy novels. Let’s explore how we can add a little enchantment to everyday life. Join our panelists as they discuss the art of making the ordinary feel extraordinary and how a touch of imagination can make every day more magical.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/33/37/29/0adf2dac-4522-4084-b54d-9e74bc697717.png"
+    },
+    {
+      "id": 948944,
+      "title": "Surviving the Dungeon: The Reality of LitRPG",
+      "date": "2026-12-03",
+      "start": "2026-12-03T16:30:00",
+      "end": "2026-12-03T17:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Featured Guest",
+        "LitRPG"
+      ],
+      "panelists": [
+        "Matt Dinniman",
+        "Travis Deverell",
+        "Haylock Jobson",
+        "Jenna Lewis"
+      ],
+      "description": "Matt Dinniman and Travis Deverell (Shirtaloon) are two of the biggest voices in LitRPG, while Haylock Jobson brings an interesting contrast with his cozier take on the genre. Together, they offer three very different perspectives on competition, survival, cooperation, and the systems that shape their characters’ choices. Bringing a real-world perspective to the conversation is reality TV veteran and three-time Survivor competitor Jenna Lewis, who will moderate the discussion and help put those fictional dynamics to the test.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/62/53/92/03101edc-48c6-4e7c-b2d1-fb669b48b5c5.png"
+    },
+    {
+      "id": 949395,
+      "title": "Lights, Camera, Adaptation!",
+      "date": "2026-12-03",
+      "start": "2026-12-03T16:30:00",
+      "end": "2026-12-03T17:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Featured Guest",
+        "Writing"
+      ],
+      "panelists": [
+        "Martha Wells",
+        "Holly Black",
+        "Christopher Paolini",
+        "Megan Lloyd"
+      ],
+      "description": "Join these legends of literacy as they talk about the process of transforming our favorite books into film.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/54/27/92/8e7a287d-b5a8-4c80-a09b-bb53f90767a6.png"
+    },
+    {
+      "id": 950707,
+      "title": "Anime Is My Muse: How Anime Inspires Worldbuilding",
+      "date": "2026-12-03",
+      "start": "2026-12-03T16:30:00",
+      "end": "2026-12-03T17:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Fonda Lee",
+        "Lynn Buchanan",
+        "Will Wight",
+        "Kazu Kibuishi"
+      ],
+      "description": "Anime can spark creativity and influence the stories we write, the art we make, and the worlds we imagine. Join our panelists as they discuss the anime series, characters, and storytelling techniques that inspire them and how those influences can spark inspiration into your own worldbuilding.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/1/48/21/85c4918f-39f8-4b1b-aa2d-51065cdeed1b.png"
+    },
+    {
+      "id": 948920,
+      "title": "Fires of December Release Event",
+      "date": "2026-12-03",
+      "start": "2026-12-03T18:30:00",
+      "end": "2026-12-03T20:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Brandon Sanderson"
+      ],
+      "panelists": [
+        "Brandon Sanderson",
+        "Emily Sanderson"
+      ],
+      "description": "Come celebrate the release of The Fires of December and listen to Brandon and Emily’s special keynote address. We can’t say too much more—there’s always another secret!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/98/3/119eb858-255d-4f80-860b-be7e7eb63e5a.png"
+    },
+    {
+      "id": 955910,
+      "title": "Navigating Major Life Changes and Burnout Using the Cosmere",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T11:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Cosmere",
+        "Fantasy"
+      ],
+      "panelists": [
+        "Joshua Zloof",
+        "Sierra Branham",
+        "Joseph Yang",
+        "Ben Jeppsen"
+      ],
+      "description": "We all get exhausted. We all face uncertainty. That's part of what makes the Cosmere so relevant in our lives. Our heroes remind us that even the strongest struggle, and that moving forward doesn't always mean pushing harder. \n\nSometimes all it means is one more try... \n\nJoin our panelists as they explore how the Cosmere can help us better understand burnout and the challenges of major life transitions. Through various Cosmere stories and the idea of life as a hero's journey, we'll discuss how moments of uncertainty can become opportunities for growth. \n\nOne more try...",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/75/66/36/49814070-a6b4-4e8f-b77c-1834c6646bf4.png"
+    },
+    {
+      "id": 950599,
+      "title": "Etched in Metal: 20 Years of Mistborn",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T11:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Emily Sanderson",
+        "Isaac Stewart"
+      ],
+      "description": "Can you believe it's been 20 years!? Join Isaac Stewart and Emily Sanderson as they reminisce over the past 20 years of Mistborn. How one little book has changed the world around her.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/31/15/80/c68134a1-58d1-4d7a-b28c-68ea1b74cdce.png"
+    },
+    {
+      "id": 951193,
+      "title": "Mmmm: Secrets, Mysteries, and Lies—Stormlight Archive Theorizing",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T11:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Audonalsium",
+        "Jasonioan",
+        "Steven Pond",
+        "Jen Neal"
+      ],
+      "description": "Mmmmm... lies. Secrets are everywhere on Roshar, and we're determined to uncover them.\n\nThe ending of Wind and Truth left us with more questions than answers. Join our panelists as they connect clues and dive into theories for the rest of the Stormlight Archive that might make the Diagram look like a chicken scouts first coloring page. Heavy spoilers await!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/59/63/8eda92a5-de65-4640-bfb3-1b428f12af23.png"
+    },
+    {
+      "id": 956834,
+      "title": "Editors' Open Office Hours",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T12:00:00",
+      "locationId": "75313",
+      "location": "Sel - Craft Room (Room 255)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Betsey Ahlstrom",
+        "Karen Ahlstrom",
+        "Peter Ahlstrom",
+        "Ben Grange",
+        "Suzanne Uchytil",
+        "Lauren Grange",
+        "Kristy Gilbert"
+      ],
+      "description": "Ask publishing professionals your burning questions about the editorial process, the publishing industry, or writerly lingo you're too embarrassed to admit you don't know yet. The casual come-and-go office hours give you a chance to get answers in a more focused, personal setting. \n\n(Note: None of the editors will review manuscripts or manuscript samples. Ben Grange is happy to help writers improve their query letters.)",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/60/87/63/c8928c4c-10be-4bac-ab28-5b7da52f3178.png"
+    },
+    {
+      "id": 954039,
+      "title": "Will You Wear Wigs? Level Up Your Cosplay with Props, Prosthetics & Wigs",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T11:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Crafting"
+      ],
+      "panelists": [
+        "Jacob LaRocca",
+        "Heather Talley",
+        "Caitlin Marsh",
+        "Hareloom Cosplay"
+      ],
+      "description": "Stuck in a Cosplay rut? Wondering how to make your props look more authentic and less Temu? Our panel of experts can show you the way!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/46/44/29/59dcbccf-b192-4628-b5b8-5c417c82a98b.png"
+    },
+    {
+      "id": 956486,
+      "title": "The BackerKit Crowdfunding Workshop",
+      "date": "2026-12-04",
+      "start": "2026-12-04T10:00:00",
+      "end": "2026-12-04T11:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [],
+      "description": "Join BackerKit as they guide you through crowdfunding",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/52/74/8/25225315-cbd0-49ca-b285-6ee0cf0e288b.png"
+    },
+    {
+      "id": 953091,
+      "title": "Becoming and RPG Designer",
+      "date": "2026-12-04",
+      "start": "2026-12-04T11:30:00",
+      "end": "2026-12-04T12:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Gaming"
+      ],
+      "panelists": [
+        "Lydia Suen",
+        "Karington Hess",
+        "Michael Paylor",
+        "Anais Morgan"
+      ],
+      "description": "Join career RPG designers with varying degrees of experience and lots of insight to the industry to learn more about what it takes to become a professional TTRPG game designer! From homebrew to freelance, these industry professionals want to help you learn more about going pro in the game design sphere.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/96/95/53/1a8af9bf-b5f9-4424-90f4-4106070fd33e.png"
+    },
+    {
+      "id": 950860,
+      "title": "Galactic Empires: Writing Power, War, and Adventure at the Cosmic Scale",
+      "date": "2026-12-04",
+      "start": "2026-12-04T11:30:00",
+      "end": "2026-12-04T12:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Fantasy",
+        "Sci-Fi"
+      ],
+      "panelists": [
+        "Pierce Brown",
+        "Daniel Greene",
+        "Christopher Ruocchio"
+      ],
+      "description": "Unforgettable characters, sweeping worlds, interstellar conflict, and, of course, plenty of starships. Discover why space opera continues to capture our imaginations and take us on adventures to the farthest reaches of the universe.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/7/85/54/5a986b41-105a-4aab-8720-cdc5c0ce40ae.png"
+    },
+    {
+      "id": 949423,
+      "title": "The Adventure of Character Creation",
+      "date": "2026-12-04",
+      "start": "2026-12-04T11:30:00",
+      "end": "2026-12-04T12:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Brandon Mull",
+        "Ramon Terrell",
+        "Holly Black",
+        "Michael R. Miller",
+        "Michelle J. Diaz"
+      ],
+      "description": "Sometimes even the author doesn't know who their character will become. Just like the reader, they discover hidden motivations and unexpected flaws. An author's journey of discovering their characters can mirror the reader's experience of getting to know them. \n\nJoin our panelists as they recount the adventure that is character creation.  Did someone say journey before destination?",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/3/13/0ac7efa6-93b6-4577-879e-929d25576878.png"
+    },
+    {
+      "id": 956479,
+      "title": "Superstars of Self Publishing",
+      "date": "2026-12-04",
+      "start": "2026-12-04T11:30:00",
+      "end": "2026-12-04T12:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Rachel Rener",
+        "Z.S. Diamanti",
+        "T. D. Orel",
+        "Will Wight",
+        "Michael Chatfield"
+      ],
+      "description": "Self-publishing a book is no easy journey. From writing and editing to marketing, distribution, and building an audience, there are countless challenges along the way. \n\nJoin these Superstars of Self-Publishing as they share the lessons they’ve learned, the obstacles they’ve overcome, and the insights that helped them find success on their own terms.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/78/4/50/6564cb4e-9f71-42ee-a4f5-628739a1872e.png"
+    },
+    {
+      "id": 953033,
+      "title": "Cosmedicine",
+      "date": "2026-12-04",
+      "start": "2026-12-04T13:00:00",
+      "end": "2026-12-04T14:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Phil Griffith",
+        "Aaron Johnson",
+        "Dan West",
+        "Branden Hunsaker"
+      ],
+      "description": "Paging Dr. Radiant! Explore Cosmere Medicine, specifically battlefield and trauma medicine on Roshar, and how it compares with modern battlefield/military medicine. Enjoy the exploration of things we all love, specifically acute medicine and fantasy literature!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/60/59/27/32b0e61c-5f8e-4f87-b03c-9e3badce87e8.png"
+    },
+    {
+      "id": 949496,
+      "title": "Cosmere Trivia",
+      "date": "2026-12-04",
+      "start": "2026-12-04T13:00:00",
+      "end": "2026-12-04T13:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Jared Butterfield",
+        "Ben Loveridge"
+      ],
+      "description": "Think you know the Cosmere? We'll see about that. Expect obscure lore and questions that will challenge even the most dedicated fans.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/68/83/83/0c552900-6c41-4a6e-a9de-bfe15220940b.png"
+    },
+    {
+      "id": 951196,
+      "title": "Inside Dragonsteel Art: Fires of December, ChasmFriends, & the Skyward Leatherbound",
+      "date": "2026-12-04",
+      "start": "2026-12-04T13:00:00",
+      "end": "2026-12-04T14:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Art",
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Tran Nguyen",
+        "Jake Parker",
+        "Anna Earley",
+        "Isaac Stewart"
+      ],
+      "description": "From picture books to leatherbounds, these high quality books are crafted with love and devotion. In this panel find out the ins and outs of what it takes to create these works of art.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/81/94/26/d97cfea6-93a3-4acb-be57-caf4a2e52b02.png"
+    },
+    {
+      "id": 956822,
+      "title": "The Logistics of Joy: Making Mundane Moments Magical",
+      "date": "2026-12-04",
+      "start": "2026-12-04T13:00:00",
+      "end": "2026-12-04T13:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Lila Quests"
+      ],
+      "description": "We’re all drawn to the stories of great adventure; where a seemingly ordinary person taps into their true greatness and makes their life not only meaningful, but magical. But what makes that transformation possible?\n\nIn this class you will learn how to harness the 10 stages of the Hero’s Journey to create moments of magic and exploration in your own life. You’re the main character in your story and it’s time to feel like it.\n\nNo experience needed, all supplies provided.\n\nCome as a solo adventurer or with your companions.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/16/30/15/b857d6bd-27c4-4617-8f3b-b2beb236b2fe.png"
+    },
+    {
+      "id": 956496,
+      "title": "The Future of Publishing: Trad, Indie, Hybrid, & Creator Led",
+      "date": "2026-12-04",
+      "start": "2026-12-04T13:00:00",
+      "end": "2026-12-04T14:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Dakota Krout",
+        "Brian McClellan",
+        "LJ Andrews",
+        "MJ Kuhn",
+        "Luke Chmilenko"
+      ],
+      "description": "There is more then one way to publish a book. However, figuring out which direction to go can be tricky. Join our panel of experts as they share their journeys and thoughts about publishing and what direction the industry is heading.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/79/84/28/8ad024fd-c68d-42cc-955a-4ae02b8e4d2e.png"
+    },
+    {
+      "id": 955958,
+      "title": "Hearthside with Ryan Cahill & Philip C. Quaintrell",
+      "date": "2026-12-04",
+      "start": "2026-12-04T14:00:00",
+      "end": "2026-12-04T14:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Adrian M. Gibson",
+        "Greta Kelly",
+        "Ryan Cahill",
+        "Philip C. Quaintrell",
+        "Evan Leikam"
+      ],
+      "description": "Join fantasy authors Ryan Cahill and Philip C. Quaintrell hearthside for a chance to get to know the writers behind the words, hosted by Adrian M. Gibson & Greta Kelly of SFF Addicts Podcast. The hearth is warm and there's always room for one more. We're all old friends here.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/1/53/69/3357f610-c04f-4cc9-9aee-073b95f4c6fe.png"
+    },
+    {
+      "id": 953089,
+      "title": "Claiming the Stars: Celebrating the Cytoverse",
+      "date": "2026-12-04",
+      "start": "2026-12-04T14:30:00",
+      "end": "2026-12-04T15:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Fantasy",
+        "Sci-Fi"
+      ],
+      "panelists": [
+        "Janci Patterson",
+        "Kristy Gilbert",
+        "Jen Neal",
+        "Edgedancing Through Life"
+      ],
+      "description": "Come celebrate the memorable characters of Detritus, epic space battles, and the emotional ride of saving a civilization. “Be different, Set your sights on something higher. Something more grand. Claim the Stars!”",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/32/18/87/07f2f246-8524-46a7-8ae8-0f40214f1db7.png"
+    },
+    {
+      "id": 952397,
+      "title": "The Art of War: Creating Engaging Fight Scenes",
+      "date": "2026-12-04",
+      "start": "2026-12-04T14:30:00",
+      "end": "2026-12-04T15:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy",
+        "Writing"
+      ],
+      "panelists": [
+        "Christopher Paolini",
+        "Andy Peloquin",
+        "Brian McClellan",
+        "Will Wight"
+      ],
+      "description": "It's one thing to write a fight scene, but making readers feel like they're in the middle of the action? That's an art of its own. How do you choreograph a battle without losing your audience in a blur of motion? What makes a fight feel dangerous when readers know it's all happening on the page? \n\nJoin these heavy-hitting authors as they break down the craft of writing unforgettable, adrenaline-blasting, can't-stay-in-your-seat-because-you're-so-excited combat. This panel is sure to leave a mark...but you should have seen the other guy!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/74/79/45/5ccb81bf-8465-488b-8f1d-a956f44d1be4.png"
+    },
+    {
+      "id": 956498,
+      "title": "Brotherwise's Game Master Workshop",
+      "date": "2026-12-04",
+      "start": "2026-12-04T14:30:00",
+      "end": "2026-12-04T15:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Gaming"
+      ],
+      "panelists": [],
+      "description": "Want to become a better game master? Want to level up your campaign? Then this is the workshop for you!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/96/76/73/dd46ce98-0f37-4493-a5de-ec29c4b9bd25.png"
+    },
+    {
+      "id": 949426,
+      "title": "The Secret Ingredient: Humor in Storytelling",
+      "date": "2026-12-04",
+      "start": "2026-12-04T15:00:00",
+      "end": "2026-12-04T16:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Kenny Gould",
+        "Aaron N. Hall",
+        "J. Zachary Pike",
+        "Dakota Krout",
+        "T. D. Orel"
+      ],
+      "description": "What's the secret to a great story? \n\nA great punchline!\n\nHumor is the spice that brings characters to life. But if done incorrectly it can jeopardize any chance at catharsis.\n\nJoin our panelists as they explore the art of humor in storytelling. Laughter may be the best medicine, but in the hands of a great storyteller, it's also a pretty powerful weapon.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/52/82/12/044907ce-cf0a-4378-a1a1-bc5a5606a06b.png"
+    },
+    {
+      "id": 954067,
+      "title": "Shards & the Danger of Immortality",
+      "date": "2026-12-04",
+      "start": "2026-12-04T16:00:00",
+      "end": "2026-12-04T17:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Audonalsium",
+        "Brooke Shotwell",
+        "Tyler Shotwell",
+        "Seth Tye",
+        "Jasonioan"
+      ],
+      "description": "Who wants to live forever? In fiction, immortality often comes at a cost. The Cosmere is no different.\n\nJoin us as we explore the various consequences of immortality. As hundreds of years become thousands, how does power become a prison? What happens when the person you once were fades away? After all, forever is an awfully long time...",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/67/5/66/4ec2b1f3-c09e-4946-9081-4a27c37bd72f.png"
+    },
+    {
+      "id": 950702,
+      "title": "Monsters in Crowns: How Power Changes People, and People Change Power",
+      "date": "2026-12-04",
+      "start": "2026-12-04T16:00:00",
+      "end": "2026-12-04T17:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Joe Abercrombie",
+        "Holly Black",
+        "Travis Deverell",
+        "Pierce Brown",
+        "Brent Weeks",
+        "Hayden Gray"
+      ],
+      "description": "Power can reveal the best in us, or turn us into the very monsters we fear. From reluctant rulers and corrupt kings to revolutionaries, tyrants, and heroes, this panel will examine how power shapes character, challenges morality, and transforms the world around us. Because sometimes the crown changes the person—but sometimes, the person changes what the crown means.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/32/98/12/94fde346-6598-47a4-8ad4-a228dd65831b.png"
+    },
+    {
+      "id": 955592,
+      "title": "Legends of Fantasy: Stories that Shape Generations",
+      "date": "2026-12-04",
+      "start": "2026-12-04T16:00:00",
+      "end": "2026-12-04T17:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Nerd of the Rings",
+        "Jordy Rousse",
+        "Becca Lee Gardner",
+        "Jared Quan",
+        "Brandon Mull"
+      ],
+      "description": "From Beowulf to The Lord of the Rings, these  fantasy works that have not only defined the genre, but that have shaped entire generations. Join our Fantasy Gurus as they share their favorite stories, and how the tales of the past have helped shaped the fantasy genre.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/95/29/67/d2aa53b8-06f0-43ea-bd60-f3550dd218d8.png"
+    },
+    {
+      "id": 953081,
+      "title": "Behind the Scenes with Dragonsteel Creative Department: Part 2 - From the Cognitive Realm to the Physical Realm.",
+      "date": "2026-12-04",
+      "start": "2026-12-04T16:00:00",
+      "end": "2026-12-04T17:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Art"
+      ],
+      "panelists": [
+        "Ben McSweeney",
+        "Hayley Lazo",
+        "Anna Earley",
+        "Priscilla Spencer"
+      ],
+      "description": "Join the Dragonsteel Creative Department as they journey through the process of bringing concept art from the Cognitive Realm into the Physical Realm. Discover how an idea transforms from an initial concept into the finished merchandise, books, and other creations that fans know and love.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/63/55/80/837e4b9b-f1ab-4b9d-bf4a-5cfccca1fd2f.png"
+    },
+    {
+      "id": 949422,
+      "title": "Hearthside with Shannon Chakraborty",
+      "date": "2026-12-04",
+      "start": "2026-12-04T16:30:00",
+      "end": "2026-12-04T17:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Shannon Chakraborty",
+        "Lauren Grange"
+      ],
+      "description": "Come enjoy a convo with Shannon Chakraborty and Lauren Grange",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/41/58/62/0ec0f43c-4ad2-44a5-b556-5a08074e0013.png"
+    },
+    {
+      "id": 955955,
+      "title": "Publishing 101: How To Get Started In Publishing",
+      "date": "2026-12-04",
+      "start": "2026-12-04T17:30:00",
+      "end": "2026-12-04T18:30:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Writing"
+      ],
+      "panelists": [
+        "Ben Grange",
+        "Lauren Grange",
+        "Adrienne Procaccini",
+        "Gina Denny"
+      ],
+      "description": "What is an inquiry letter? Do I need an agent before I finish my book? Come and ask the experts! These power houses of publishing can help you get started.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/19/78/46/d030fdb7-17d7-4237-bef9-8b96cf62c98e.png"
+    },
+    {
+      "id": 949402,
+      "title": "Harnessing Your Neurodivergence Like a Superpower",
+      "date": "2026-12-04",
+      "start": "2026-12-04T17:30:00",
+      "end": "2026-12-04T18:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Featured Guest",
+        "Writing"
+      ],
+      "panelists": [
+        "Martha Wells",
+        "Janci Patterson",
+        "Rachel Rener",
+        "Edgedancing Through Life"
+      ],
+      "description": "An empowering conversation about managing neurodivergence in the face of creative pursuits, and even learning to use it as a superpower.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/44/54/56/f6324e4e-f93b-492f-b18e-bc79905b913c.png"
+    },
+    {
+      "id": 955875,
+      "title": "The Beautiful Madness of Building Community & Fandom",
+      "date": "2026-12-04",
+      "start": "2026-12-04T17:30:00",
+      "end": "2026-12-04T18:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy",
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Joe Abercrombie",
+        "Pierce Brown",
+        "Matt Dinniman",
+        "Christopher Ruocchio"
+      ],
+      "description": "Stories aren't meant to sit still.\n\nThe best stories don't end when you close the book. They become shared experiences, inside jokes, lifelong friendships, and communities of people brought together by a mutual love of strange and wonderful fictional worlds.\n\nJoin bestselling authors Pierce Brown, Joe Abercrombie, Matt Dinniman, and Christopher Ruocchio for a conversation about the magic that happens when readers find their people. From fan gatherings and immersive events to exclusive collectibles and unexpected collaborations, these authors have each found unique ways to bring their fictional universes into the real world and create meaningful connections with their readers.\n\nThe panel will explore what makes fandoms thrive, how authentic interactions between authors and readers can build lasting communities, and why creating opportunities for fans to connect with each other can be just as important as connecting with the authors themselves.\n\nBecause at the heart of every great fandom is something wonderfully simple: people who love the same weird books, finding each other.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/36/31/99/c31654f6-66c6-441d-b43c-a7527fe0445f.png"
+    },
+    {
+      "id": 954268,
+      "title": "Press Start: The Next Stage of LitRPG",
+      "date": "2026-12-04",
+      "start": "2026-12-04T17:30:00",
+      "end": "2026-12-04T18:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "LitRPG"
+      ],
+      "panelists": [
+        "Kenny Gould",
+        "Brian J. Nordon",
+        "Haylock Jobson",
+        "Andrew Givler",
+        "Steve Beaulieu"
+      ],
+      "description": "Level up! LitRPG has exploded in popularity recently, and is showing no signs of slowing down. But where did it all begin? And where could it possibly be headed next? \n\nJoin these authors as they explore how the genre has evolved into the global phenomenon it is today. With new voices entering the scene and the boundaries of storytelling constantly expanding, what does the next level of LitRPG look like?",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/16/42/25/5deaa247-b81b-4915-9d69-d45a03c37782.png"
+    },
+    {
+      "id": 954068,
+      "title": "The Science of Allomancy",
+      "date": "2026-12-04",
+      "start": "2026-12-04T17:30:00",
+      "end": "2026-12-04T18:30:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Evan Leikam",
+        "Lee Falin"
+      ],
+      "description": "Join our panelists as they seek to show how Allomancy could work in reality using physics and biology.  \n\nWhat happens when you put Allomancy through the scientific method? Could a Coinshot really launch themselves through the air? How would burning metals affect the human body? And just how much of Scadrial's magic could hold up under the laws of physics? \n\nThey won't just explain the magic—they'll put it to the test!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/9/65/92/21fadde0-24e5-4d4e-b0b6-f916be8e1f65.png"
+    },
+    {
+      "id": 954069,
+      "title": "Blood, Guts, & Gore: From Grocery Store to Kill Room. (18+)",
+      "date": "2026-12-04",
+      "start": "2026-12-04T19:00:00",
+      "end": "2026-12-04T20:30:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Crafting"
+      ],
+      "panelists": [
+        "Amanda Embry"
+      ],
+      "description": "WARNING: This panel isn't for children or those who get squeamish at the sight of blood. \n\nThis is a fun panel where you will learn how to make special effects using everyday household items.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/76/32/57/0ef52722-a1ff-46f6-93c6-e5377eb82536.png"
+    },
+    {
+      "id": 950862,
+      "title": "FanCast Feud",
+      "date": "2026-12-04",
+      "start": "2026-12-04T19:00:00",
+      "end": "2026-12-04T20:30:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Aaron N. Hall",
+        "Jackson Brimrose",
+        "Daniel Greene",
+        "Megan Lloyd",
+        "Nerd of the Rings",
+        "Tanner Devcich",
+        "Miss Magitek",
+        "Jakob Dellamas",
+        "Gina Kim",
+        "Jackson Dickert",
+        "Andrew Givler"
+      ],
+      "description": "The fans have spoken! We've asked the fans who they'd cast as their favorite characters in a potential film adaptation, and now it's up to our panelists to guess the most popular answers. In our FanCast Feud, will our panelists prove they know the fandom, or will their casting choices miss the mark? Survey says...!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/81/94/67/fc045055-e83d-4148-8c62-92f0f2a94cf3.png"
+    },
+    {
+      "id": 953019,
+      "title": "Cosplay Karaoke",
+      "date": "2026-12-04",
+      "start": "2026-12-04T19:00:00",
+      "end": "2026-12-04T22:00:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Cosmere"
+      ],
+      "panelists": [
+        "Douglas Gray",
+        "Edgedancing Through Life"
+      ],
+      "description": "Cosplay is not required but encouraged.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/66/86/65/b879303c-a54d-4438-9715-299d5db2d3f0.png"
+    },
+    {
+      "id": 956499,
+      "title": "Live Art Charity Event",
+      "date": "2026-12-04",
+      "start": "2026-12-04T19:00:00",
+      "end": "2026-12-04T22:00:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Art"
+      ],
+      "panelists": [
+        "Howard Lyon"
+      ],
+      "description": "Come watch the masters at work as they paint something for charity.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/69/72/7/82f8f756-3a95-4c9b-b2cd-51430cc47212.png"
+    },
+    {
+      "id": 951201,
+      "title": "Metals, Mysteries, and Aluminum Hats: Mistborn Era 3 Theorizing",
+      "date": "2026-12-05",
+      "start": "2026-12-05T10:00:00",
+      "end": "2026-12-05T11:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Brooke Shotwell",
+        "Smitty Smith",
+        "Tyler Shotwell",
+        "Cosmere Junkie"
+      ],
+      "description": "The next era of Mistborn is almost here! \n\nReturn to Scadrial with our panelists as they dive into the mysteries, unanswered questions, and wild possibilities surrounding Mistborn Era 3, Ghostbloods. When there’s always another secret, no theory is too far-fetched. So grab your aluminum hats and get ready to speculate!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/80/50/25/c26750c6-0199-443b-be7a-8cedec7b02f1.png"
+    },
+    {
+      "id": 950861,
+      "title": "The Cosmere Timeline",
+      "date": "2026-12-05",
+      "start": "2026-12-05T10:00:00",
+      "end": "2026-12-05T11:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Audonalsium",
+        "Jasonioan",
+        "Seth Tye"
+      ],
+      "description": "History is complicated enough when you're only dealing with a single planet. Try keeping track of an entire universe! With stories spanning thousands of years and unfolding across multiple worlds, figuring out what happened and when can feel like a puzzle with half the pieces missing. Or like a god-like entity that's been split into 16 differe–...oh wait.\n\nJoin our panelists as they compile the Cosmere's timeline in its entirety and explore how events on one world shape the stories unfolding on another. Just how much of the Cosmere's history do we really understand, and what might we be missing?",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/53/95/1/004b97d6-0c57-45e1-b571-282ecdf0d01a.png"
+    },
+    {
+      "id": 952406,
+      "title": "Mystic Makers Challenge",
+      "date": "2026-12-05",
+      "start": "2026-12-05T10:00:00",
+      "end": "2026-12-05T11:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Craft"
+      ],
+      "panelists": [
+        "Nerdforge",
+        "Matt Alexander"
+      ],
+      "description": "Many moons ago, two legendary teams entered the arena with one seemingly impossible task: BUILD URITHIRU! Armed with nothing but their creativity and a limited supply of building materials, they battled for the ultimate prize: bragging rights.\n\nBut that was only the beginning.\n\nNOW THEY'RE BACK! The gauntlet has been thrown, and a new challenge awaits! With their reputations on the line, our returning champions must once again put their imaginations to the test. What will they be asked to create this time? And who will rise to the occasion?\n\nTwo teams. One challenge. Only one can emerge victorious.\n\nLET THE BUILDING BEGIN!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/74/35/84/e58f7f52-cf3d-4f6f-9073-90639a27c3a2.png"
+    },
+    {
+      "id": 956500,
+      "title": "Hear Me Out: Cosmere Confessions",
+      "date": "2026-12-05",
+      "start": "2026-12-05T10:00:00",
+      "end": "2026-12-05T11:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Megan Lloyd",
+        "Priscilla Spencer",
+        "Cosmere Mo"
+      ],
+      "description": "Okay, hear me out...\n\nIf you've ever had a thought about a Cosmere character that would make your friends question your sanity, this is the panel for you! Join our panelists as they reveal their most outrageous Cosmere crushes and attempt to defend the indefensible. \n\nCome ready to laugh, cheer for the ones you secretly agree with, and boo the ones that should have stayed a secret. No judgment here. \n\nOkay, well, maybe there's a little judgement.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/83/49/94/010c460a-c90d-4261-9f48-f3ae5995920e.png"
+    },
+    {
+      "id": 951202,
+      "title": "Worldbuilding Through Illustration",
+      "date": "2026-12-05",
+      "start": "2026-12-05T11:30:00",
+      "end": "2026-12-05T12:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Art",
+        "Fantasy"
+      ],
+      "panelists": [
+        "Tran Nguyen",
+        "Jake Parker",
+        "Ben McSweeney",
+        "Adrian M. Gibson",
+        "Kazu Kibuishi"
+      ],
+      "description": "They may begin with words, but its the illustration that makes our fantasy worlds come alive.\n\nCome with our legendary artists and they'll show you a world of pure imagination!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/87/14/56/81486acd-90fc-4e52-a413-652eb33a5506.png"
+    },
+    {
+      "id": 950509,
+      "title": "Villains, Gods, and Other Complicated Beings",
+      "date": "2026-12-05",
+      "start": "2026-12-05T11:30:00",
+      "end": "2026-12-05T12:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Emily Sanderson",
+        "Shannon Chakraborty",
+        "Joe Abercrombie",
+        "Bookborn"
+      ],
+      "description": "Every villain is the hero of their own story. Or at least, that's what they'd have you believe. But what happens when the line between good and evil isn't so easily drawn? \n\nOur panelists will explore characters that challenge our understanding of right and wrong. What really makes someone a villain? How does power change their perspective? \n\nFrom well-intentioned antagonists to beings whose motives are beyond human understanding, we'll explore the moral grey areas that make these characters so compelling. Maybe the only real difference between a hero and a villain is who tells the story.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/44/51/37/3ba94019-5dd4-4702-8bcb-1d31fdf8fc3e.png"
+    },
+    {
+      "id": 956487,
+      "title": "Story Time: The Wandersail",
+      "date": "2026-12-05",
+      "start": "2026-12-05T11:30:00",
+      "end": "2026-12-05T12:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Cosmere"
+      ],
+      "panelists": [
+        "Steve Argyle"
+      ],
+      "description": "Join the artist, Steve Argyle, as he reads the beloved story The Wandersail.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/52/94/5/6c4b6091-c99d-4e60-a05e-044866eecc66.png"
+    },
+    {
+      "id": 956501,
+      "title": "In the Library with Janci Patterson",
+      "date": "2026-12-05",
+      "start": "2026-12-05T11:30:00",
+      "end": "2026-12-05T12:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Janci Patterson",
+        "Brooke Shotwell",
+        "Tyler Shotwell"
+      ],
+      "description": "Join us in the Library for a relaxed, intimate discussion with author Janci Patterson and the hosts of Cosmere Conversations! \n\nWith good company and plenty to talk about, it's the perfect opportunity to enjoy a little literary conversation in a cozy corner of Nexus.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/28/76/28/ee3223fd-dcdb-476a-9497-99d72d0cd366.png"
+    },
+    {
+      "id": 951198,
+      "title": "Swords, Swords, Swords!!!",
+      "date": "2026-12-05",
+      "start": "2026-12-05T12:00:00",
+      "end": "2026-12-05T13:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Christopher Paolini",
+        "Ryan Cahill"
+      ],
+      "description": "SATURDAY!! SATURDAY!!! SATURDAY!!! Come and see these heavy hitters of fantasy in the rematch of the century; as they battle it out to discover what sword in fantasy is truly the strongest, most powerful, and most importantly the bestest of all time!!!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/70/33/7/7002ac7b-2323-4cbb-9adf-d5adc780008c.png"
+    },
+    {
+      "id": 956493,
+      "title": "Story Time: The Dog & the Dragon",
+      "date": "2026-12-05",
+      "start": "2026-12-05T12:30:00",
+      "end": "2026-12-05T13:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Cosmere"
+      ],
+      "panelists": [
+        "Howard Lyon"
+      ],
+      "description": "Come and gather around for a fun reading of the beloved tail, The Dog & the Dragon. Read  by illustrator Howard Lyon.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/61/69/41/a3bd79e1-2492-41e8-b9b4-023a7ceb2578.png"
+    },
+    {
+      "id": 952399,
+      "title": "Unsolved Mysteries of the Cosmere",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:00:00",
+      "end": "2026-12-05T14:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Lore"
+      ],
+      "panelists": [
+        "Jasonioan",
+        "Gub Patterson",
+        "Steven Pond"
+      ],
+      "description": "The evidence is out there. The theories are piling up. And the truth? Well... we're still looking for it.\n\nJoin our panelists as they bravely dive headfirst into the wildest theories the Cosmere has to offer. Don't forget to bring your red string and your aluminum hats. \n\nIt all makes sense. We swear.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/11/42/98/e4efeead-f158-4a24-a06a-4cabf5dc53e4.png"
+    },
+    {
+      "id": 953007,
+      "title": "Dungeon Crawler Trivia: The System has Questions!!",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:00:00",
+      "end": "2026-12-05T13:30:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Ben Loveridge",
+        "Jared Butterfield"
+      ],
+      "description": "ATTENTION CRAWLERS!! \n\nYou have survived panels, cosplayers, and questionable food choices, but can you survive TRIVIA?!?!? \n\nAnswer correctly and continue your descent. Answer incorrectly and...... whomp! Whomp!\n\nSo sharpen your wits, consult your inventory and prepare yourself for the ultimate test of Dungeon Crawler Carl knowledge!!!!\n\nThe System wishes you good luck! \n\nThe System does not actually care if you win.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/87/66/34/51837959-4c68-4603-b431-55cb77805b5d.png"
+    },
+    {
+      "id": 956502,
+      "title": "From Concept to Convention: Secrets of the Cosplay Process",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:00:00",
+      "end": "2026-12-05T14:15:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Crafting"
+      ],
+      "panelists": [
+        "Heather Talley",
+        "Kaylee Makes Crafts",
+        "Caitlin Marsh",
+        "Hareloom Cosplay"
+      ],
+      "description": "Whether you’re stepping into cosplay for the first time or you’re a seasoned veteran, there’s always something new to discover! Join us as we explore the journey of bringing a cosplay to life, from that first spark of inspiration and initial design to the final details and the triumphant strut across the convention floor. Get ready to turn your creative vision into a costume worth showing off!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/88/91/27/d1cc4002-4141-4624-9d13-3b76f16dbb28.png"
+    },
+    {
+      "id": 949325,
+      "title": "Neeeeeew Achievement!: A Conversation with Matt Dinniman and Jeff Hays",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:30:00",
+      "end": "2026-12-05T14:45:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Matt Dinniman",
+        "Jeff Hays",
+        "Smitty Smith"
+      ],
+      "description": "Join Matt Dinniman and Jeff Hays for a conversation about the madness behind Dungeon Crawler Carl!\n\nFrom creating the characters and chaos of the series to bringing Carl, Princess Donut, and the System to life, get a behind-the-scenes look at the storytelling, voices, and creative decisions behind the global phenomenon.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/78/12/32/833bfcd3-43d9-4ef7-93d1-83506876bc66.png"
+    },
+    {
+      "id": 949413,
+      "title": "The Families We Choose",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:30:00",
+      "end": "2026-12-05T14:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Featured Guest",
+        "Writing"
+      ],
+      "panelists": [
+        "Martha Wells",
+        "Sarah Beth Durst",
+        "Travis Baldree",
+        "S.L. Rowland",
+        "Chrystal McDowell"
+      ],
+      "description": "Family isn’t always defined by blood. It’s the people who find us, understand who we are, and stand beside us through every adventure.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/7/98/3/8f041e93-1eae-49eb-9324-570c68333ddf.png"
+    },
+    {
+      "id": 956492,
+      "title": "Story Time: ChasmFriends",
+      "date": "2026-12-05",
+      "start": "2026-12-05T13:30:00",
+      "end": "2026-12-05T14:15:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Art"
+      ],
+      "panelists": [
+        "Anna Earley"
+      ],
+      "description": "Come and gather around for a fun reading of the beloved tail, ChasmFriends. Read  by illustrator Anna Earley.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/33/43/1/2bedda14-a656-4323-bdd8-5f8ada762dc5.png"
+    },
+    {
+      "id": 956111,
+      "title": "The Ultimate Cosmere Showdown!",
+      "date": "2026-12-05",
+      "start": "2026-12-05T14:30:00",
+      "end": "2026-12-05T15:45:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Brandon Sanderson",
+        "Lore"
+      ],
+      "panelists": [
+        "Marty Vaughn",
+        "Jaden Feddock",
+        "Bookborn",
+        "2 to Ramble",
+        "Jackson Brimrose",
+        "Gina Kim"
+      ],
+      "description": "Ancient gods, semi-animate objects, and everything in between. It's the Ultimate Cosmere Showdown of Ultimate Destiny! \n\nBrandon's greatest characters are going head-to-head, and only one will survive. Who will it be? Whose powers reign supreme? Can the Stick possibly defeat the Lord Ruler? Join our panelists as they debate the matchups we've all wondered about and settle the scores once and for all. There can be only one!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/33/6/18/ca6d0993-6404-45a1-b2d5-484bcda3bcd5.png"
+    },
+    {
+      "id": 956488,
+      "title": "Physics of the Cosmere",
+      "date": "2026-12-05",
+      "start": "2026-12-05T14:30:00",
+      "end": "2026-12-05T15:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Rae Holcomb",
+        "Dillon Dong",
+        "Emma Blenkinsop",
+        "Reynier Squillace"
+      ],
+      "description": "Have you ever wondered if the physics of the Cosmere could actually work? Could its planets, moons, magic systems, and incredible phenomena exist under the laws of our universe? Join our panel of scientists as they tackle the ultimate “But could it really work?” questions, using their out-of-this-world expertise to explore the science behind the Cosmere.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/24/32/36/d63167c2-9d4c-453a-9ee7-965ee0d946bd.png"
+    },
+    {
+      "id": 953031,
+      "title": "Cosmere MBA: Leadership & Management Lessons from the Cosmere",
+      "date": "2026-12-05",
+      "start": "2026-12-05T14:30:00",
+      "end": "2026-12-05T15:45:00",
+      "locationId": "75502",
+      "location": "The Library (Room 251)",
+      "categories": [
+        "Silverlight University"
+      ],
+      "panelists": [
+        "Tyson Meyer",
+        "Steven Pond",
+        "Joshua Zloof",
+        "Jared Quan",
+        "Kaylee Makes Crafts"
+      ],
+      "description": "Join our panelists as they explore the successes, failures, and questionable management strategies of the Cosmere's most influential figures. Whether you're leading a team, building a business, or just trying to survive your next bridge run, come see what the Cosmere MBA has in store for you!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/50/35/16/ab21b936-bd8b-403d-8bed-d563bb80b5fc.png"
+    },
+    {
+      "id": 953018,
+      "title": "The Many Faces of Fantasy Heroines",
+      "date": "2026-12-05",
+      "start": "2026-12-05T15:30:00",
+      "end": "2026-12-05T16:45:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Sarah Beth Durst",
+        "Lynn Buchanan",
+        "Holly Black",
+        "Shannon Chakraborty",
+        "Esther Candari",
+        "Esther Candari"
+      ],
+      "description": "Strong characters don’t all look the same, and strength doesn’t always mean wielding a sword. This panel explores what makes female characters compelling across a wide range of roles, from warriors and leaders to mothers, caregivers, scholars, survivors, and everything in between. \n\nThrough examples from fiction, we’ll look at different ways to demonstrate courage, resilience, conviction, compassion, ambition, and influence, and what makes those portrayals feel so authentic and memorable.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/97/88/65/650cbf92-7d40-427b-a85b-b8b27b3b008c.png"
+    },
+    {
+      "id": 954033,
+      "title": "Guiding Your Loved Ones Through the Cosmere",
+      "date": "2026-12-05",
+      "start": "2026-12-05T16:00:00",
+      "end": "2026-12-05T17:15:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Megan Lloyd",
+        "Emily Lloyd",
+        "Hayden Gray",
+        "Steven Walker"
+      ],
+      "description": "We all have that special someone in our lives who we just KNOW would love the Cosmere, if only we could convince them to pick up a book! But where should they begin? Mistborn? Tress? Do we dare suggest the Stormlight Archive? One wrong move and they might never trust our book recommendations again! \n\nWe've all tried it, and some of us have failed. But that's okay—you're strong for being here, willing to learn.\n\nIt's time to prepare for the daunting task of introducing your loved ones to Brandon Sanderson's universe. Because choosing someone's first Cosmere book isn't just a recommendation. It's a responsibility. Their DESTINY is in your hands!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/13/36/38/ef27ee48-203d-49f1-ae50-331efdf5cd9c.png"
+    },
+    {
+      "id": 956494,
+      "title": "The Magic of Music: Diving Deeper into The Songs of the Dead",
+      "date": "2026-12-05",
+      "start": "2026-12-05T16:00:00",
+      "end": "2026-12-05T17:30:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Fantasy",
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Peter Orullian",
+        "Matt Dinniman"
+      ],
+      "description": "Prepare to rock out with Matt Dinniman and Peter Orullian as they explore the music that has soundtracked their lives and inspired the Songs of the Dead.\n\nCome for a deeper look into the book and leave with a whole new appreciation for music, history, and life itself.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/56/63/8e19e5fd-018a-4498-a0aa-dacd726844eb.png"
+    },
+    {
+      "id": 948943,
+      "title": "Brandon's Spoiler Q&A",
+      "date": "2026-12-05",
+      "start": "2026-12-05T17:00:00",
+      "end": "2026-12-05T18:30:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Brandon Sanderson"
+      ],
+      "panelists": [
+        "Brandon Sanderson"
+      ],
+      "description": "Brandon is going to answer your deepest questions about the Cosmere in his annual Spoiler Q&A, where no secret is safe and no question is too deep.\n\nWill you finally get the answers you've been waiting for, or just another RAFO card for your SanderShelf? Either is a win in our book!\n\nIn case the title wasn't clear: this is NOT the time to worry about spoilers!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/69/69/76/d8f0b3c2-053c-404b-9c7c-f27a8bfb6fdc.png"
+    },
+    {
+      "id": 955956,
+      "title": "Cosmere RPG Live Play",
+      "date": "2026-12-05",
+      "start": "2026-12-05T17:30:00",
+      "end": "2026-12-05T19:30:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [
+        "Gaming"
+      ],
+      "panelists": [
+        "Meric Moir",
+        "Brooke Whitney",
+        "Johnny O'Neal",
+        "Ross Leisure",
+        "Lydia Suen"
+      ],
+      "description": "Watch the Brotherwise Games Cosmere RPG design team as they participate in a One Shot actual play, game mastered by Meric Moir!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/13/26/91/fda75f62-c5bc-4d67-8fd9-5b2267ab23b9.png"
+    },
+    {
+      "id": 953024,
+      "title": "Fanderlanch Part 2",
+      "date": "2026-12-05",
+      "start": "2026-12-05T18:30:00",
+      "end": "2026-12-05T19:00:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [],
+      "panelists": [],
+      "description": "",
+      "imageUrl": null
+    },
+    {
+      "id": 953025,
+      "title": "Read It and Weep: A Game of Voice Actor Improv",
+      "date": "2026-12-05",
+      "start": "2026-12-05T19:00:00",
+      "end": "2026-12-05T20:15:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Fantasy"
+      ],
+      "panelists": [
+        "Jeff Hays",
+        "Ramon Terrell",
+        "Jennifer Jill Araya"
+      ],
+      "description": "What happens when talented audiobook narrators are given absolutely ridiculous directions? \n\nJoin our narrators as they put their skills to the test. Expect unexpected characters and unserious voices in serious moments. One thing is certain: this is NOT how the author imagined their books would be read.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/47/56/90/2d37785a-dd61-4766-9ae7-de2f80388c20.png"
+    },
+    {
+      "id": 955957,
+      "title": "Pajama Party Movie Night",
+      "date": "2026-12-05",
+      "start": "2026-12-05T20:00:00",
+      "end": "2026-12-05T22:00:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [],
+      "panelists": [],
+      "description": "Put on your pjs and bring your blanket because we are going to watch a movie!!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/62/59/73/b78243f1-d48f-45fd-9d48-d04b7364a187.png"
+    },
+    {
+      "id": 955954,
+      "title": "Cosplay Karaoke 2: Electric Boogaloo",
+      "date": "2026-12-05",
+      "start": "2026-12-05T20:30:00",
+      "end": "2026-12-05T22:00:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [
+        "Cosmere"
+      ],
+      "panelists": [
+        "Douglas Gray",
+        "Edgedancing Through Life"
+      ],
+      "description": "Sing your hearts out Worldhoppers!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/73/60/26/84005af8-29de-46e9-bca7-4944f76afa6a.png"
+    }
+  ]
+}

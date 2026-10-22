@@ -14,6 +14,7 @@ import {
   MdOutlineFlightTakeoff,
   MdWorkspaces,
   MdGavel,
+  MdEventNote,
 } from 'react-icons/md';
 
 export const copy = {
@@ -123,6 +124,11 @@ export const headerLinks: linkItemsList = [
         label: 'NCSU Policy',
         href: '/policy',
         icon: MdGavel,
+      },
+      {
+        label: 'Dragonsteel Schedule',
+        href: '/dragonsteel',
+        icon: MdEventNote,
       },
     ],
   },
