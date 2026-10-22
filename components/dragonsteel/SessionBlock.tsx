@@ -4,10 +4,9 @@ import { formatRange, Session, sessionColor } from '@/lib/dragonsteel/schedule';
 
 type Props = {
   session: Session;
-  top: number;
-  height: number;
-  left?: string;
-  width?: string;
+  /** Absolute position/size within the grid or timeline track */
+  box: Pick<React.CSSProperties, 'top' | 'left' | 'width' | 'height'>;
+  showPanelists?: boolean;
   starred: boolean;
   dimmed?: boolean;
   conflict?: boolean;
@@ -18,10 +17,8 @@ type Props = {
 
 export default function SessionBlock({
   session,
-  top,
-  height,
-  left = '0%',
-  width = '100%',
+  box,
+  showPanelists,
   starred,
   dimmed,
   conflict,
@@ -30,7 +27,6 @@ export default function SessionBlock({
   onOpen,
 }: Props) {
   const color = sessionColor(session);
-  const roomy = height >= 90;
 
   return (
     <div
@@ -47,10 +43,7 @@ export default function SessionBlock({
         dimmed ? 'opacity-25' : ''
       } ${conflict ? 'ring-2 ring-error' : starred ? 'ring-2 ring-warning' : ''}`}
       style={{
-        top,
-        height: height - 2,
-        left: `calc(${left} + 2px)`,
-        width: `calc(${width} - 4px)`,
+        ...box,
         borderLeftColor: color,
         background: `color-mix(in oklab, ${color} ${starred ? 32 : 16}%, var(--color-base-100))`,
       }}
@@ -64,7 +57,9 @@ export default function SessionBlock({
           onToggleStar(session.id);
         }}
         className={`absolute right-1 top-1 rounded p-0.5 hover:bg-base-300 ${
-          starred ? 'text-warning' : 'text-base-content/40 opacity-0 group-hover:opacity-100 group-focus:opacity-100'
+          starred
+            ? 'text-warning'
+            : 'text-base-content/40 opacity-0 group-hover:opacity-100 group-focus:opacity-100 pointer-coarse:opacity-100'
         }`}
       >
         {starred ? <BsStarFill /> : <BsStar />}
@@ -74,7 +69,7 @@ export default function SessionBlock({
         {formatRange(session)}
         {showLocation ? ` · ${session.location}` : ''}
       </div>
-      {roomy && session.panelists.length > 0 && (
+      {showPanelists && session.panelists.length > 0 && (
         <div className="mt-1 text-[0.65rem] italic text-base-content/60 line-clamp-2">
           {session.panelists.join(', ')}
         </div>

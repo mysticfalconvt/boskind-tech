@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { formatMinutes } from '@/lib/dragonsteel/schedule';
 
 export const PX_PER_MIN = 1.4;
@@ -10,6 +10,8 @@ type Props = {
   endMin: number;
   columns: Column[];
   minColumnWidth?: number;
+  /** Scroll so this time is near the top whenever it changes */
+  scrollToMin?: number | null;
 };
 
 /**
@@ -17,16 +19,36 @@ type Props = {
  * top, hour/half-hour gridlines. Columns position their own children
  * absolutely using `(minutes - startMin) * PX_PER_MIN`.
  */
-export default function TimeGrid({ startMin, endMin, columns, minColumnWidth = 170 }: Props) {
+export default function TimeGrid({
+  startMin,
+  endMin,
+  columns,
+  minColumnWidth = 170,
+  scrollToMin,
+}: Props) {
+  const scroller = useRef<HTMLDivElement>(null);
   const height = (endMin - startMin) * PX_PER_MIN;
+
+  useEffect(() => {
+    if (scrollToMin == null || !scroller.current) return;
+    scroller.current.scrollTo({
+      top: Math.max(0, (scrollToMin - startMin - 30) * PX_PER_MIN),
+      behavior: 'smooth',
+    });
+  }, [scrollToMin, startMin]);
   const hours: number[] = [];
   for (let m = startMin; m <= endMin; m += 60) hours.push(m);
 
   return (
-    <div className="max-h-[calc(100vh-14rem)] overflow-auto rounded-box border border-base-300 bg-base-100">
+    <div
+      ref={scroller}
+      className="max-h-[85dvh] md:max-h-[calc(100vh-14rem)] overflow-auto rounded-box border border-base-300 bg-base-100"
+    >
       <div
         className="grid"
         style={{
+          // Explicit min width so sticky cells stay pinned while scrolling sideways
+          minWidth: `calc(4rem + ${columns.length * minColumnWidth}px)`,
           gridTemplateColumns: `4rem repeat(${columns.length}, minmax(${minColumnWidth}px, 1fr))`,
         }}
       >

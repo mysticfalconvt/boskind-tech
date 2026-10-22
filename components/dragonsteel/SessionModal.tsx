@@ -14,6 +14,8 @@ type Props = {
   onToggleStar: (id: number) => void;
   onClose: () => void;
   onOpen: (s: Session) => void;
+  /** Filter the schedule to everything this presenter is in */
+  onSelectPerson: (name: string) => void;
 };
 
 export default function SessionModal({
@@ -23,6 +25,7 @@ export default function SessionModal({
   onToggleStar,
   onClose,
   onOpen,
+  onSelectPerson,
 }: Props) {
   useEffect(() => {
     if (!session) return;
@@ -35,7 +38,7 @@ export default function SessionModal({
   const day = schedule.dates.find((d) => d.date === session.date)?.label;
 
   return (
-    <div className="modal modal-open" role="dialog" aria-modal="true">
+    <div className="modal modal-open modal-bottom sm:modal-middle" role="dialog" aria-modal="true">
       <div className="modal-box max-w-2xl">
         <button
           type="button"
@@ -64,18 +67,30 @@ export default function SessionModal({
         {session.panelists.length > 0 && (
           <p className="mt-3 text-sm">
             <span className="font-semibold">With: </span>
-            {session.panelists.join(', ')}
+            {session.panelists.map((p, i) => (
+              <React.Fragment key={p}>
+                {i > 0 && ', '}
+                <button
+                  type="button"
+                  className="link link-hover"
+                  onClick={() => onSelectPerson(p)}
+                  title={`Show all sessions with ${p}`}
+                >
+                  {p}
+                </button>
+              </React.Fragment>
+            ))}
           </p>
         )}
 
         {conflicts.length > 0 && (
-          <div className="alert alert-warning mt-3 py-2 text-sm">
+          <div className="mt-3 rounded-box border border-warning bg-warning/15 px-3 py-2 text-sm">
             <div>
               <div className="font-semibold">Overlaps with your schedule:</div>
-              <ul className="list-disc pl-5">
+              <ul className="list-disc pl-5 text-left">
                 {conflicts.map((c) => (
                   <li key={c.id}>
-                    <button type="button" className="link" onClick={() => onOpen(c)}>
+                    <button type="button" className="link text-left" onClick={() => onOpen(c)}>
                       {c.title}
                     </button>{' '}
                     ({formatRange(c)})
@@ -89,16 +104,6 @@ export default function SessionModal({
         <div className="mt-3 whitespace-pre-line text-sm leading-relaxed">
           {session.description}
         </div>
-
-        {session.imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={session.imageUrl}
-            alt=""
-            className="mt-4 max-h-80 w-full rounded-lg object-contain"
-            loading="lazy"
-          />
-        )}
 
         <div className="modal-action">
           <button

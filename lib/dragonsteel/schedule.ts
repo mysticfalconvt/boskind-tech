@@ -116,12 +116,28 @@ export function layoutLanes(sessions: Session[]): PlacedSession[] {
   return placed;
 }
 
+/** Everyone on any panel, alphabetical, with the sessions they're in */
+export const people: { name: string; sessions: Session[] }[] = (() => {
+  const byName = new Map<string, Session[]>();
+  for (const s of schedule.sessions) {
+    for (const p of s.panelists) byName.set(p, [...(byName.get(p) ?? []), s]);
+  }
+  return Array.from(byName, ([name, sessions]) => ({ name, sessions })).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
+})();
+
+/** Categories and people each match any selected; search must also match. */
 export function matchesFilters(
   s: Session,
   search: string,
   categories: Set<string>,
+  people: Set<string> = new Set(),
 ): boolean {
   if (categories.size > 0 && !s.categories.some((c) => categories.has(c))) {
+    return false;
+  }
+  if (people.size > 0 && !s.panelists.some((p) => people.has(p))) {
     return false;
   }
   const q = search.trim().toLowerCase();
@@ -237,4 +253,22 @@ function venueStamp(value: string): string {
       .map((p) => [p.type, p.value]),
   );
   return `${parts.year}${parts.month}${parts.day}T${parts.hour}${parts.minute}${parts.second}`;
+}
+
+const sessionIds = new Set(schedule.sessions.map((s) => s.id));
+
+/** Compact, URL-safe list of session ids: base-36, dot separated */
+export function encodeShare(ids: Iterable<number>): string {
+  return Array.from(ids)
+    .sort((a, b) => a - b)
+    .map((id) => id.toString(36))
+    .join('.');
+}
+
+/** Ignores anything that isn't a session in the current data */
+export function decodeShare(param: string): number[] {
+  return param
+    .split('.')
+    .map((part) => parseInt(part, 36))
+    .filter((id) => sessionIds.has(id));
 }
