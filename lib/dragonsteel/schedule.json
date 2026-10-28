@@ -4,7 +4,7 @@
     "slug": "Dragonsteel_Nexus",
     "eventId": 21268,
     "sourceUrl": "https://conventions.leapevent.tech/ed/schedule/Dragonsteel_Nexus",
-    "fetchedAt": "2026-10-22T00:17:35.725Z"
+    "fetchedAt": "2026-10-27T23:59:50.229Z"
   },
   "dates": [
     {
@@ -649,11 +649,27 @@
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/1/48/21/85c4918f-39f8-4b1b-aa2d-51065cdeed1b.png"
     },
     {
+      "id": 958193,
+      "title": "Livestream—Fires of December Release Event",
+      "date": "2026-12-03",
+      "start": "2026-12-03T18:30:00",
+      "end": "2026-12-03T20:30:00",
+      "locationId": "75274",
+      "location": "Lumar (Room 250)",
+      "categories": [],
+      "panelists": [
+        "Brandon Sanderson",
+        "Emily Sanderson"
+      ],
+      "description": "Come celebrate the release of The Fires of December and listen to Brandon and Emily’s special keynote address, streamed to each programming room of the convention! We can’t say too much more—there’s always another secret!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/98/3/119eb858-255d-4f80-860b-be7e7eb63e5a.png"
+    },
+    {
       "id": 948920,
       "title": "Fires of December Release Event",
       "date": "2026-12-03",
       "start": "2026-12-03T18:30:00",
-      "end": "2026-12-03T20:15:00",
+      "end": "2026-12-03T20:30:00",
       "locationId": "74531",
       "location": "Roshar (Main Stage)",
       "categories": [
@@ -664,6 +680,22 @@
         "Emily Sanderson"
       ],
       "description": "Come celebrate the release of The Fires of December and listen to Brandon and Emily’s special keynote address. We can’t say too much more—there’s always another secret!",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/98/3/119eb858-255d-4f80-860b-be7e7eb63e5a.png"
+    },
+    {
+      "id": 958192,
+      "title": "Livestream—Fires of December Release Event",
+      "date": "2026-12-03",
+      "start": "2026-12-03T18:30:00",
+      "end": "2026-12-03T20:30:00",
+      "locationId": "74902",
+      "location": "Scadrial (Grand Ballroom)",
+      "categories": [],
+      "panelists": [
+        "Brandon Sanderson",
+        "Emily Sanderson"
+      ],
+      "description": "Come celebrate the release of The Fires of December and listen to Brandon and Emily’s special keynote address, streamed to each programming room of the convention! We can’t say too much more—there’s always another secret!",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/98/3/119eb858-255d-4f80-860b-be7e7eb63e5a.png"
     },
     {
@@ -785,7 +817,7 @@
     },
     {
       "id": 953091,
-      "title": "Becoming and RPG Designer",
+      "title": "Becoming an RPG Designer",
       "date": "2026-12-04",
       "start": "2026-12-04T11:30:00",
       "end": "2026-12-04T12:45:00",
@@ -800,7 +832,7 @@
         "Michael Paylor",
         "Anais Morgan"
       ],
-      "description": "Join career RPG designers with varying degrees of experience and lots of insight to the industry to learn more about what it takes to become a professional TTRPG game designer! From homebrew to freelance, these industry professionals want to help you learn more about going pro in the game design sphere.",
+      "description": "Join career RPG designers from renowned studios Brotherwise Games and Renegade Game Studios to learn more about what it takes to become a professional TTRPG game designer! From homebrew to freelance, these industry professionals want to help you learn more about going pro in the game design sphere.",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/96/95/53/1a8af9bf-b5f9-4424-90f4-4106070fd33e.png"
     },
     {
@@ -843,6 +875,26 @@
       ],
       "description": "Sometimes even the author doesn't know who their character will become. Just like the reader, they discover hidden motivations and unexpected flaws. An author's journey of discovering their characters can mirror the reader's experience of getting to know them. \n\nJoin our panelists as they recount the adventure that is character creation.  Did someone say journey before destination?",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/34/3/13/0ac7efa6-93b6-4577-879e-929d25576878.png"
+    },
+    {
+      "id": 953032,
+      "title": "Behind the Scenes with Dragonsteel Creative Department: Part 1- The Making of Brandon's Books",
+      "date": "2026-12-04",
+      "start": "2026-12-04T11:30:00",
+      "end": "2026-12-04T12:45:00",
+      "locationId": "75501",
+      "location": "The Hearth (Room 251 ABC)",
+      "categories": [
+        "Art"
+      ],
+      "panelists": [
+        "Shawn Boyles",
+        "Lauren Grange",
+        "Lynn Buchanan",
+        "Jen Neal"
+      ],
+      "description": "Act 1: The making of Brandon Sanderson's books from finding the right artist to visual continuity.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/24/98/12/ae9d3190-c07c-43cc-a6d7-85a066379741.png"
     },
     {
       "id": 956479,
@@ -963,6 +1015,28 @@
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/79/84/28/8ad024fd-c68d-42cc-955a-4ae02b8e4d2e.png"
     },
     {
+      "id": 948930,
+      "title": "Unite Them: Champions of Speculative Fiction",
+      "date": "2026-12-04",
+      "start": "2026-12-04T14:00:00",
+      "end": "2026-12-04T15:15:00",
+      "locationId": "74531",
+      "location": "Roshar (Main Stage)",
+      "categories": [
+        "Brandon Sanderson",
+        "Featured Guest"
+      ],
+      "panelists": [
+        "Brandon Sanderson",
+        "Matt Dinniman",
+        "Shannon Chakraborty",
+        "Martha Wells",
+        "Sarah Beth Durst"
+      ],
+      "description": "Join Brandon Sanderson, Martha Wells, Sarah Beth Durst, Shannon Chakraborty, and Matt Dinniman as they explore the genre that has shaped our dreams, sparked our creativity, and has brought so many of us together.",
+      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/23/32/66/fecfaa34-2958-4040-88ba-fd7ffc618680.png"
+    },
+    {
       "id": 955958,
       "title": "Hearthside with Ryan Cahill & Philip C. Quaintrell",
       "date": "2026-12-04",
@@ -1024,21 +1098,6 @@
       ],
       "description": "It's one thing to write a fight scene, but making readers feel like they're in the middle of the action? That's an art of its own. How do you choreograph a battle without losing your audience in a blur of motion? What makes a fight feel dangerous when readers know it's all happening on the page? \n\nJoin these heavy-hitting authors as they break down the craft of writing unforgettable, adrenaline-blasting, can't-stay-in-your-seat-because-you're-so-excited combat. This panel is sure to leave a mark...but you should have seen the other guy!",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/74/79/45/5ccb81bf-8465-488b-8f1d-a956f44d1be4.png"
-    },
-    {
-      "id": 956498,
-      "title": "Brotherwise's Game Master Workshop",
-      "date": "2026-12-04",
-      "start": "2026-12-04T14:30:00",
-      "end": "2026-12-04T15:45:00",
-      "locationId": "75502",
-      "location": "The Library (Room 251)",
-      "categories": [
-        "Gaming"
-      ],
-      "panelists": [],
-      "description": "Want to become a better game master? Want to level up your campaign? Then this is the workshop for you!",
-      "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/96/76/73/dd46ce98-0f37-4493-a5de-ec29c4b9bd25.png"
     },
     {
       "id": 949426,
@@ -1127,7 +1186,7 @@
     },
     {
       "id": 953081,
-      "title": "Behind the Scenes with Dragonsteel Creative Department: Part 2 - From the Cognitive Realm to the Physical Realm.",
+      "title": "Behind the Scenes with Dragonsteel Creative Department: Part 2—From the Cognitive Realm to the Physical Realm",
       "date": "2026-12-04",
       "start": "2026-12-04T16:00:00",
       "end": "2026-12-04T17:15:00",
@@ -1160,7 +1219,7 @@
         "Shannon Chakraborty",
         "Lauren Grange"
       ],
-      "description": "Come enjoy a convo with Shannon Chakraborty and Lauren Grange",
+      "description": "Come enjoy a cozy conversation with Shannon Chakraborty and Lauren Grange!",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/41/58/62/0ec0f43c-4ad2-44a5-b556-5a08074e0013.png"
     },
     {
@@ -1180,7 +1239,7 @@
         "Adrienne Procaccini",
         "Gina Denny"
       ],
-      "description": "What is an inquiry letter? Do I need an agent before I finish my book? Come and ask the experts! These power houses of publishing can help you get started.",
+      "description": "What is an query letter? Do I need an agent before I finish my book? Come and ask the experts! These power houses of publishing can help you get started.",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/19/78/46/d030fdb7-17d7-4237-bef9-8b96cf62c98e.png"
     },
     {
@@ -1510,7 +1569,8 @@
       ],
       "panelists": [
         "Christopher Paolini",
-        "Ryan Cahill"
+        "Ryan Cahill",
+        "Jakob DeLlamas"
       ],
       "description": "SATURDAY!! SATURDAY!!! SATURDAY!!! Come and see these heavy hitters of fantasy in the rematch of the century; as they battle it out to discover what sword in fantasy is truly the strongest, most powerful, and most importantly the bestest of all time!!!",
       "imageUrl": "https://conv-prod-app.s3.amazonaws.com/tmp/70/33/7/7002ac7b-2323-4cbb-9adf-d5adc780008c.png"
