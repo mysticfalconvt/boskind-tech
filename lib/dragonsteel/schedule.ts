@@ -1,3 +1,4 @@
+import extras from './extras.json';
 import raw from './schedule.json';
 
 export type Session = {
@@ -29,7 +30,17 @@ export type ScheduleData = {
   sessions: Session[];
 };
 
-export const schedule = raw as ScheduleData;
+const official = raw as ScheduleData;
+
+// Hand-added events (fan meetups etc.) live in extras.json so rerunning the
+// fetch script doesn't wipe them
+export const schedule: ScheduleData = {
+  ...official,
+  categories: [...official.categories, ...extras.categories],
+  sessions: [...official.sessions, ...(extras.sessions as Session[])].sort((a, b) =>
+    a.start.localeCompare(b.start),
+  ),
+};
 
 // Dragonsteel Nexus is at the Salt Palace in Salt Lake City
 export const VENUE_TZ = 'America/Denver';

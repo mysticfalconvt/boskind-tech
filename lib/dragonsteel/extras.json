@@ -1,0 +1,56 @@
+{
+  "_comment": "Hand-added events that aren't listed on the public Leap schedule. Merged in by schedule.ts; the fetch script never touches this file. Use negative ids so they can't collide with Leap ids.",
+  "categories": [
+    {
+      "name": "WorldSwappers",
+      "color": "#d946ef"
+    }
+  ],
+  "sessions": [
+    {
+      "id": -1,
+      "title": "WorldSwappers",
+      "date": "2026-12-03",
+      "start": "2026-12-03T18:00:00",
+      "end": "2026-12-03T21:00:00",
+      "locationId": "75313",
+      "location": "Sel - Craft Room (Room 255)",
+      "categories": [
+        "WorldSwappers"
+      ],
+      "panelists": [],
+      "description": "WorldSwappers: Meet fellow fans and swap for fun surprises! Bring something handmade or purchased, and trade it for other goodies from a group of fans just as excited as you. Bring 50, bring 200, bring however many of your items as you like and want to be able to swap.\n\nFor members of the WorldSwappers group.",
+      "imageUrl": null
+    },
+    {
+      "id": -2,
+      "title": "WorldSwappers",
+      "date": "2026-12-04",
+      "start": "2026-12-04T18:00:00",
+      "end": "2026-12-04T21:00:00",
+      "locationId": "75313",
+      "location": "Sel - Craft Room (Room 255)",
+      "categories": [
+        "WorldSwappers"
+      ],
+      "panelists": [],
+      "description": "WorldSwappers: Meet fellow fans and swap for fun surprises! Bring something handmade or purchased, and trade it for other goodies from a group of fans just as excited as you. Bring 50, bring 200, bring however many of your items as you like and want to be able to swap.\n\nFor members of the WorldSwappers group.",
+      "imageUrl": null
+    },
+    {
+      "id": -3,
+      "title": "WorldSwappers",
+      "date": "2026-12-05",
+      "start": "2026-12-05T18:00:00",
+      "end": "2026-12-05T21:00:00",
+      "locationId": "75313",
+      "location": "Sel - Craft Room (Room 255)",
+      "categories": [
+        "WorldSwappers"
+      ],
+      "panelists": [],
+      "description": "WorldSwappers: Meet fellow fans and swap for fun surprises! Bring something handmade or purchased, and trade it for other goodies from a group of fans just as excited as you. Bring 50, bring 200, bring however many of your items as you like and want to be able to swap.\n\nFor members of the WorldSwappers group.",
+      "imageUrl": null
+    }
+  ]
+}
